@@ -16,8 +16,10 @@ html{
 body{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     margin: 0;
     font-family: "Montserrat", sans-serif;
+    min-height: 100vh;
 }
 
 header{
@@ -31,100 +33,99 @@ header{
     padding: 1vh 0;
 }
 
-    .Logo_titre{
-        display: flex;
-        flex-direction: row;
-        gap:2vw;
-        align-items: center;
-    }
+.Logo_titre{
+    display: flex;
+    flex-direction: row;
+    gap:2vw;
+    align-items: center;
+}
 
-        .image_head{
-            padding-left: 1vh;
-            height: max(10vh, 5vw);
-            width: max(10vh, 5vw);
-        }
+.image_head{
+    padding-left: 1vh;
+    height: max(10vh, 5vw);
+    width: max(10vh, 5vw);
+}
 
-        .Main_title{
-            font-size: max(3vh, 1.5vw);
-            display: none;
-        }
+.Main_title{
+    font-size: max(3vh, 1.5vw);
+    display: none;
+}
 
-    .Link_menu_classique{
-        flex-direction: row;
-        justify-content: space-evenly;
-        width: 50%;
-        font-size: max(2vh, 1vw);
-        display: none;
-    }
+.Link_menu_classique{
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50%;
+    font-size: max(2vh, 1vw);
+    display: none;
+}
 
-        .Link_menu_classique>span{
-            border: solid black 1px;
-        }
+.Link_menu_classique>span{
+    border: solid black 1px;
+}
 
-    .Menu_burger{
-        position: relative;
-    }
+.Menu_burger{
+    position: relative;
+}
 
 
-        .Button_burger{
-            width: max(10vw, 10vh);
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: max(2vw, 2vh);
-        }
+.Button_burger{
+    width: max(10vw, 10vh);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: max(2vw, 2vh);
+}
 
-        .Button_burger span{
-            height: max(0.8vw, 0.8vh);
-            background-color: black;
-            border-radius: max(0.66vw, 0.66vh);
-        }
+.Button_burger span{
+    height: max(0.8vw, 0.8vh);
+    background-color: black;
+    border-radius: max(0.66vw, 0.66vh);
+}
 
-    .image_connexion{
-        padding-right: 1vh;
-        height: max(6vh, 3vw);
-        width: max(6vh, 3vw);
-    }
+.image_connexion{
+    padding-right: 1vh;
+    height: max(6vh, 3vw);
+    width: max(6vh, 3vw);
+}
 
-    .Compte{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.Compte{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .contenu_page{
-    min-height: 78vh;
     width: 100%;
 }
 
-    #burger{
-        display: none;
-    }
+#burger{
+    display: none;
+}
 
-    .Link_menu_burger{
-        margin: 0;
-        display: none;
-        flex-direction: column;
-        font-size: max(2vh, 1vw);
-        align-items: center;
-        background-color: var(--Couleur3);
-        max-height: 50vh;
-        justify-content: space-evenly;
-    }
+.Link_menu_burger{
+    margin: 0;
+    display: none;
+    flex-direction: column;
+    font-size: max(2vh, 1vw);
+    align-items: center;
+    background-color: var(--Couleur3);
+    max-height: 50vh;
+    justify-content: space-evenly;
+}
 
-    .Link_menu_burger a{
-        width: 100vw;
-        text-align: center;
-        font-size: 1.5em;
-    }
+.Link_menu_burger a{
+    width: 100vw;
+    text-align: center;
+    font-size: 1.5em;
+}
 
-    .Link_menu_burger a:hover{
-        background-color: var(--Couleur2);
-    }
+.Link_menu_burger a:hover{
+    background-color: var(--Couleur2);
+}
 
-    #burger:checked~.Link_menu_burger{
-        display: flex;
-    }
+#burger:checked~.Link_menu_burger{
+    display: flex;
+}
 
 footer{
     height: 10vh;
@@ -136,30 +137,30 @@ footer{
     background-color: var(--Couleur2);
 }
 
-    footer>*{
-        display: flex;
-        justify-content: center;
-    }
+footer>*{
+    display: flex;
+    justify-content: center;
+}
 
-    footer h1{
-        margin: 0;
-    }
+footer h1{
+    margin: 0;
+}
 
-    footer h2{
-        margin: 0;
-    }
+footer h2{
+    margin: 0;
+}
 
-    .Follow{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap:1vw;
-    }
+.Follow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:1vw;
+}
 
-        .Follow img{
-            height: min(5vh, 5vw);
-        }
+.Follow img{
+    height: min(5vh, 5vw);
+}
 
 
 
