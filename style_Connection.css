@@ -1,0 +1,76 @@
+/*Connexions*/
+main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    font-size : 3em;
+}
+
+.contenu_page {
+    display: flex;
+    flex-direction: column;
+}
+
+.Cadre{
+    background-color: var(--Couleur2);
+    border: 2px solid var(--Couleur1);
+    border-radius: 15px;
+    padding: 40px;
+    width: 40%;
+    min-width: min(80vw,60vh);
+    min-height: min(80vw,60vh);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.Bloc{
+    background-color: var(--Couleur3);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+    padding-top: 2vh;
+}
+
+form input{
+    width: 75%;
+    padding: 1vh;
+    border-radius: 25px;
+    border: 1px solid #999;
+    height: 3vh;
+    font-size: 1em;
+}
+
+form input:focus{
+    outline: none;
+    border-color: var(--Couleur1);
+}
+
+@media (min-width: 1025px) {
+
+    .Bloc{
+        font-size: 0.5em;
+    }
+
+    form{
+        gap: 4vh;
+        padding-top :4vh;
+    }
+
+    form input{
+        width: 50%;
+        font-size: 0.5em;
+    }
+
+    form a{
+        font-size: 0.5em
+    }
+}
