@@ -21,6 +21,7 @@ main{
     min-width: min(80vw,60vh);
     min-height: min(80vw,60vh);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin: 5vh 0;
 }
 
 .Bloc{
@@ -43,7 +44,7 @@ form{
 form input{
     width: 75%;
     padding: 1vh;
-    border-radius: 25px;
+    border-radius: 10px;
     border: 1px solid #999;
     height: 3vh;
     font-size: 1em;
@@ -53,6 +54,42 @@ form input:focus{
     outline: none;
     border-color: var(--Couleur1);
 }
+
+form a {
+    font-size: 0.9em;
+}
+
+
+button {
+	padding: 0.5em 1em 0.5em 1em;
+	border-radius: 10px;
+    border-color: var(--Couleur1);
+	background-color: var(--Couleur1);
+	color: rgb(255, 255, 255);
+    font-size: 1em;
+    border-width: thick;
+}
+
+button:hover {
+    color: var(--Couleur1);
+    background-color: var(--Couleur3);
+    border-color: var(--Couleur1);
+    border-width: thick;
+
+}
+
+select,
+select::picker(select) {
+	appearance: base-select;
+	padding: 0.5rem;
+	border: 2px solid var(--Couleur1);
+	border-radius: 10px;
+	background-color: white;
+	color: #999;
+}
+
+
+
 
 @media (min-width: 1025px) {
 
@@ -71,6 +108,18 @@ form input:focus{
     }
 
     form a{
-        font-size: 0.5em
+        font-size: 0.4em
     }
+
+    select,
+    select::picker(select) {
+	padding: 0.5rem;
+	border: 2px solid var(--Couleur1);
+	border-radius: 10px;
+    font-size: 0.5em;
+}
+    button{
+        font-size: 0.5em;
+    }
+
 }
