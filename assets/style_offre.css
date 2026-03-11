@@ -1,0 +1,19 @@
+.bloc_annonce{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 73vh;
+}
+
+.annonce{
+    width: 50%;        
+    height: 100px;
+    margin: 3px;    
+    padding: 5px;
+    background-color: #F6E7FD;
+    border: 2px solid #ab4cd7;
+    border-radius: 18px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
