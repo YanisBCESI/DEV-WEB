@@ -1,2 +1,6 @@
 storage/cv/
 test_db.php
+info.php
+vendor/
+*:Zone.Identifier
+config.php
