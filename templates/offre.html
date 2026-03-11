@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Stage4all - Offres</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style_offre.css">
+        <link rel="icon" type="image/png" href="assets/images/logo.png">  
+    </head>
+    <body>
+        <header>
+            <div class="Logo_titre">
+                <img class="image_head" src="assets/images/logo.png" alt="Logo de S4A">
+                <h1 class="Main_title">Stage 4 all</h1>
+            </div>
+            <nav class="Link_menu_classique">
+                <a class="nav_link" href="index.html"><h1>Accueil</h1></a><span></span>
+                <a class="nav_link" href="offre.html"><h1>Offres</h1></a><span></span>
+                <a class="nav_link" href="conseil.html"><h1>Conseils</h1></a><span></span>
+                <a class="nav_link" href="depot.html"><h1>Dépot de fichiers</h1></a><span></span>
+                <a class="nav_link" href="support.html"><h1>Support</h1></a>
+            </nav>
+            <div class="Menu_burger">
+                <label for="burger" class="Button_burger" aria-label="Ouvrir le menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </label>
+            </div>
+            <a class="Compte image_head" href="Calque.html" aria-label="Compte">
+                <img class="image_connexion" src="assets/images/compte.png" alt="Compte">
+            </a>
+        </header>
+        <div class="contenu_page">
+            <input type="checkbox" id="burger">
+            <nav class="Link_menu_burger">
+                <a class="nav_link">Accueil</a>
+                <a class="nav_link">Offres</a>
+                <a class="nav_link">Conseils</a>
+                <a class="nav_link">Dépot de fichiers</a>
+                <a class="nav_link">Support</a>
+            </nav>
+            <form action="pagination.php">
+                <input type="hidden" name="page" value="1">
+            </form>
+        <footer>
+            <h1>© Stage4all - 2026</h1>
+            <a href="mentions-legales.html"><h1>Mentions légales</h1></a>
+            <div class="Follow">
+                <h2>Suivez-nous sur&nbsp;</h2>
+                <a href="#" aria-label="X"><img src="assets/images/X.png" alt="X"></a>
+                <a href="#" aria-label="Instagram"><img src="assets/images/Insta.png" alt="Instagram"></a>
+                <a href="#" aria-label="YouTube"><img src="assets/images/Youtube.png" alt="YouTube"></a>
+            </div>
+        </footer>
+    </body>
+</html>
