@@ -13,7 +13,7 @@ class FileDepotController extends Controller{
     }
     public function depotPage(){
         $success = isset($_GET['success']) ? true : false;
-        echo $this->templateEngine->render("depot.twig.html", [
+        echo $this->templateEngine->render("deposer_offre.html", [
             'success' => $success
         ]);
     }
