@@ -146,6 +146,26 @@ header a{
     align-items: center;
 }
 
+footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2vw 2.5vw;
+    background-color: #E7BDFA;
+}
+
+footer h2{
+    font-size: 1.25vw;
+}
+
+.Follow_us{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 
 @media (orientation: portrait) {
     .nav_PC{
