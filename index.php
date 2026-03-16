@@ -25,6 +25,9 @@ switch($uri){
     case '/':
         $controller->welcomePage();
         break;
+    case 'offres':
+        $controller->offersPage();
+        break;
     case 'depot':
         $controller->depotPage();
         break;

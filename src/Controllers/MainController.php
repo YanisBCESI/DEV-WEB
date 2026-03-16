@@ -28,4 +28,7 @@ class MainController extends Controller{
         $this->Depot_model->depot();
         header('Location: index.php?uri=depot&success=1');
     }
+    public function offersPage(){
+        echo $this->templateEngine->render("offres.html.twig");
+    }
 }
