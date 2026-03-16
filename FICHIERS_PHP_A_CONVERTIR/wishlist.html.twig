@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma wishlist - Stage4all{% endblock %}
+
+{% block content %}
+<main>
+    <h1>Ma wishlist</h1>
+
+    {% if wishlist is empty %}
+        <p>Votre wishlist est vide.</p>
+    {% else %}
+        {% for offre in wishlist %}
+            <div class="offre">
+                <h2>{{ offre.titre }}</h2>
+
+                <p><strong>Entreprise :</strong> {{ offre.nom_entreprise }}</p>
+                <p><strong>Type de contrat :</strong> {{ offre.type_contrat }}</p>
+                <p><strong>Secteur :</strong> {{ offre.secteur }}</p>
+                <p><strong>Localisation :</strong> {{ offre.localisation }}</p>
+                <p><strong>Description :</strong><br>{{ offre.description|nl2br }}</p>
+                <p><strong>Rémunération :</strong> {{ offre.remuneration ?? 'Non précisée' }}</p>
+                <p><strong>Date de début :</strong> {{ offre.date_debut ?? 'Non précisée' }}</p>
+                <p><strong>Ajoutée le :</strong> {{ offre.date_ajout }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    {% endif %}
+</main>
+{% endblock %}
