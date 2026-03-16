@@ -66,25 +66,6 @@
     font-size: 4vw;
 }
 
-.b1{
-    font-family: Montserrat, sans-serif;
-    background-color: var(--Couleur2);
-    padding: 1vw 1.5vw;
-    border: solid transparent 3px;
-    border-radius: 2.5vw;
-    font-size: 2vw;
-    color: white;
-    transition: 0.25s;
-}
-
-.b1:hover{
-    background-color: var(--Couleur3);
-    border: solid black 3px;
-    border-radius: 2.5vw;
-    font-size: 2vw;
-    color: black;
-}
-
 .Actualite{
     width: 100%;
     height: 60vh;
@@ -116,8 +97,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    min-width: 18vw;
-    height: 18vw;
+    min-width: 16vw;
+    height: 16vw;
     padding: 2vw;
     border: solid var(--Couleur2) 0.2vw;
     background-color: var(--Couleur3);
@@ -131,4 +112,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.Titre_sub_class{
+    font-size: 1.8vw;
+}
+
+.Texte_sub_class{
+    font-size: 1.2vw;
 }
