@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Stage4all{% endblock %}
+
+{% block content %}
+<main>
+    <div class="Cadre">
+        <div>
+            <h2 class="Bloc">Connexion</h2>
+
+            <form method="POST" action="/connexion">
+
+                <input name="email"
+                       type="email"
+                       size="50"
+                       autocomplete="on"
+                       placeholder="e-mail/login"
+                       required>
+
+                <input name="password"
+                       type="password"
+                       placeholder="Mot de passe"
+                       required>
+
+                <br>
+
+                <button class="b2" type="submit" style="align-self:center;">
+                    Se connecter
+                </button>
+
+                <a href="/inscription/utilisateur">
+                    Vous n'avez pas de compte ?
+                </a>
+
+                <a href="/inscription/entreprise">
+                    Vous êtes une entreprise ?
+                </a>
+
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
