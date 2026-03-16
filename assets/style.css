@@ -58,7 +58,7 @@ body{
 }
 
 .b1:hover{
-    background-color: var(--Couleur3);
+    background-color: var(--Couleur4);
     border: solid black 3px;
     color: black;
 }
@@ -75,7 +75,7 @@ body{
 }
 
 .b2:hover{
-    background-color: var(--Couleur3);
+    background-color: var(--Couleur4);
     border: solid black 3px;
     color: black;
 }

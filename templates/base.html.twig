@@ -2,63 +2,48 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Stage4all{% endblock %}</title>
     <link rel="stylesheet" href="/assets/style.css">
-    <link rel="stylesheet" href="/assets/style_Connection.css">
-    <link rel="icon" type="image/png" href="/assets/images/logo.png">
+    <link rel="stylesheet" href="/assets/style_index.css">
+    <link rel="icon" type="image/png" href="/assets/images/icon.png">
+    <script src="/assets/script_index.js" defer></script>
     {% block styles %}{% endblock %}
 </head>
 <body>
     <header>
-        <div class="Logo_titre">
-            <img class="image_head" src="/assets/images/logo.png" alt="logo de S4A">
-            <h1 class="Main_title">Stage4all</h1>
+        <div class="Titre">
+            <img class="Logo" src="/assets/images/icon.png" alt="logo de S4A">
+            <h1 class="Nom_site">Stage 4 All</h1>
+        </div>
+        <div class="Bouton_menu_burger" id="burger">
+            <span class="Barre_menu_burger"></span>
+            <span class="Barre_menu_burger"></span>
+            <span class="Barre_menu_burger"></span>
         </div>
 
-        <nav class="Link_menu_classique">
-            <a class="nav_link" href="/"><h1>Accueil</h1></a><span></span>
-            <a class="nav_link" href="?uri=offres"><h1>Offre</h1></a><span></span>
-            <a class="nav_link" href="?uri=conseils"><h1>Conseil</h1></a><span></span>
-            <a class="nav_link" href="?uri=support"><h1>Support</h1></a>
+        <nav class="nav_PC">
+            <a href="/"><img class="Logo_nav" alt="Accueil" src="/assets/images/Accueil.png">Accueil</a>
+            <span></span>
+            <a href="?uri=offres"><img class="Logo_nav" alt="Offres" src="/assets/images/Offre.png">Offres</a>
+            <span></span>
+            <a href="#"><img class="Logo_nav" alt="Conseil" src="/assets/images/Conseil.png">Conseil</a>
+            <span></span>
+            <a href="#"><img class="Logo_nav" alt="Support" src="/assets/images/Support.png">Support</a>
         </nav>
-
-        <div class="Menu_burger">
-            <label for="burger" class="Button_burger" aria-label="Ouvrir le menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-        </div>
-
-        <a class="Compte image_head" href="/compte" aria-label="Compte">
-            <img class="image_connexion" src="/assets/images/compte.png" alt="compte" href="#">
-        </a>
+        <img class="Logo_connexion" src="/assets/images/compte.png" alt="compte">
     </header>
 
     <div class="contenu_page {% block body_class %}{% endblock %}">
-        <input type="checkbox" id="burger">
-
-        <nav class="Link_menu_burger" aria-label="Menu mobile">
-            <a class="nav_link" href="/"><p>Accueil</p></a>
-            <a class="nav_link" href="?uri=offres"><p>Offre</p></a>
-            <a class="nav_link" href="?uri=conseils"><p>Conseil</p></a>
-            <a class="nav_link" href="?uri=support"><p>Support</p></a>
-        </nav>
 
         {% block content %}{% endblock %}
     </div>
 
     <footer>
-        <h1>© Stage4all - 2026</h1>
-        <a href="/mentions-legales"><h1>Mentions légales</h1></a>
-
-        <div class="Follow">
-            <h2>Suivez-nous sur&nbsp;</h2>
-            <a href="#" aria-label="X"><img src="/assets/images/X.png" alt="X"></a>
-            <a href="#" aria-label="Instagram"><img src="/assets/images/Insta.png" alt="Instagram"></a>
-            <a href="#" aria-label="YouTube"><img src="/assets/images/Youtube.png" alt="YouTube"></a>
-        </div>
+        <h2>Stage 4 All</h2>
+        <a><h2>Mentions légales</h2></a>
+        <a><h2>Cookies</h2></a>
+        <a><h2>Besoin d'Aide ?</h2></a>
+        <div class="Follow_us"><h2>Suivez nous sur :&nbsp;</h2><a><img class="Logo_connexion" src="/assets/images/Insta.png" alt="Insta"></a><a><img class="Logo_connexion" src="/assets/images/X.png" alt="X"></a><a><img class="Logo_connexion" src="/assets/images/Youtube.png" alt="Youtube"></a></div>
     </footer>
 
     {% block scripts %}{% endblock %}
