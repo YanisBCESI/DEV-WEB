@@ -2,79 +2,76 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Stage</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="style_Connection.css">
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <title>Inscription entreprise</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="icon" type="image/png" href="/assets/images/icon.png" sizes="48x48">
 </head>
 <body>
     <header>
-        <div class="Logo_titre"><img class="image_head" src="assets/images/logo.png" alt="logo de S4A">
-        <h1 class="Main_title">Stage 4 all</h1></div>
-        <nav class="Link_menu_classique">
-            <a class="nav_link"><h1>Accueil</h1></a><span></span>
-            <a class="nav_link"><h1>Offre</h1></a><span></span>
-            <a class="nav_link"><h1>Conseil</h1></a><span></span>
-            <a class="nav_link"><h1>Support</h1></a>
-        </nav>
-        <div class="Menu_burger">
-            <label for="burger" class="Button_burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-
+        <div class="Titre">
+            <img class="Logo" src="/assets/images/icon.png" alt="Logo">
+            <h1 class="Nom_site">Stage 4 All</h1>
         </div>
-        <a class="Compte image_head"><img class="image_connexion" src="assets/images/compte.png" alt="compte"></a>
-    </header>
-    <div class="contenu_page">
-        <input type="checkbox" id="burger">
-        <nav class="Link_menu_burger">
-            <a class="nav_link"><p>Accueil</p></a>
-            <a class="nav_link"><p>Offre</p></a>
-            <a class="nav_link"><p>Conseil</p></a>
-            <a class="nav_link"><p>Support</p></a>
+
+        <div class="Bouton_menu_burger" id="burger">
+            <span class="Barre_menu_burger"></span>
+            <span class="Barre_menu_burger"></span>
+            <span class="Barre_menu_burger"></span>
+        </div>
+
+        <nav class="nav_PC">
+            <a href="/templates/index.html"><img class="Logo_nav" alt="Accueil" src="/assets/images/Accueil.png">Accueil</a>
+            <span></span>
+            <a href="/templates/offre.html"><img class="Logo_nav" alt="Offres" src="/assets/images/Offre.png">Offres</a>
+            <span></span>
+            <a href="#"><img class="Logo_nav" alt="Conseil" src="/assets/images/Conseil.png">Conseil</a>
+            <span></span>
+            <a href="#"><img class="Logo_nav" alt="Support" src="/assets/images/Support.png">Support</a>
         </nav>
 
-        <aside>
+        <img class="Logo_connexion" src="/assets/images/compte.png" alt="compte">
+    </header>
 
-        </aside>
-        <main>
-            <div class="Cadre">
-                <div>
-                    <h2 class="Bloc">Créer un compte</h2>
-                    <form>
-                        <input name="lastname" type="text" size="50" placeholder="Nom de l'entreprise" required >
-                        <select name="genre">
-                            <option value="TPE">TPE</option>
-							<option value="PME">PME</option>
-                            <option value="ETI">ETI</option>
-                            <option value="GE">GE</option>
-                        </select>
+    <div class="Contenu_page">
+        <section style="width: 80%; max-width: 900px; margin: 3rem auto;">
+            <h1 style="text-align:center; margin-bottom:2rem;">Créer un compte entreprise</h1>
 
-                        <input name="Secteur" type="text" size="50" placeholder="Secteur" required >
-                        <input name="Siret" type="text" size="50" placeholder="N°SIRET" required >
-                        <input name="Adresse" type="text" size="50" placeholder="Adresse siège social" required >
+            <form action="/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_entreprise.php" method="post" style="display:flex; flex-direction:column; gap:1rem;">
+                <input name="nom_entreprise" type="text" placeholder="Nom de l'entreprise" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
 
+                <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                    <select name="taille_entreprise" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                        <option value="" disabled selected>Choisissez la taille</option>
+                        <option value="TPE">TPE</option>
+                        <option value="PME">PME</option>
+                        <option value="ETI">ETI</option>
+                        <option value="GE">GE</option>
+                    </select>
 
-                        <input name="email" type="email" value="" size="50" autocomplete="on" placeholder="e-mail/login" required >
-
-                        <input name="password" type="password" placeholder="Mot de passe" required >
-                        <input name="password_confirm" type="password" placeholder="Confirmation" required >
-                        <button type="submit">Se connecter</button>
-                    </form>
+                    <input name="secteur" type="text" placeholder="Secteur" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
                 </div>
-            </div>
-        </main>
+
+                <input name="siret" type="text" placeholder="N° SIRET" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <input name="adresse" type="text" placeholder="Adresse du siège social" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <input name="email" type="email" placeholder="e-mail / login" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <input name="password" type="password" placeholder="Mot de passe" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <input name="password_confirm" type="password" placeholder="Confirmation" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+
+                <button class="b2" type="submit" style="align-self:center;">Créer mon compte</button>
+            </form>
+        </section>
     </div>
+
     <footer>
-        <h1>© Stage 4 All - 2026</h1>
-        <a><h1>Mentions légales</h1></a>
-        <div class="Follow">
-            <h2>Suivez nous sur &nbsp;</h2>
-            <a><img src="./assets/images/X.png" alt="X"></a>
-            <a><img src="./assets/images/Insta.png" alt="Instagramme"></a>
-            <a><img src="./assets/images/Youtube.png" alt="Youtube"></a>
+        <h2>Stage 4 All</h2>
+        <a><h2>Mentions légales</h2></a>
+        <a><h2>Cookies</h2></a>
+        <a><h2>Besoin d'Aide ?</h2></a>
+        <div class="Follow_us">
+            <h2>Suivez nous sur :&nbsp;</h2>
+            <a><img class="Logo_connexion" src="/assets/images/Insta.png" alt="Insta"></a>
+            <a><img class="Logo_connexion" src="/assets/images/X.png" alt="X"></a>
+            <a><img class="Logo_connexion" src="/assets/images/Youtube.png" alt="Youtube"></a>
         </div>
     </footer>
 </body>
