@@ -2,114 +2,84 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Stage</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <title>Accueil</title>
+    <link rel="stylesheet" href="src/assets/style.css">
+    <link rel="icon" type="image/png" href="src/assets/images/icon.png" sizes="48x48">
 </head>
 <body>
     <header>
-        <div class="Logo_titre">
-            <img class="image_head" src="assets/images/logo.png" alt="logo de S4A">
-            <h1 class="Main_title">Stage4all</h1>
+        <div class="Titre">
+            <img class="Logo" src="src/assets/images/icon.png" alt="Logo">
+            <h1 class="Nom_site">Stage 4 All</h1>
         </div>
 
-        <nav class="Link_menu_classique">
-            <a class="nav_link" href="index.html"><h1>Accueil</h1></a><span></span>
-            <a class="nav_link" href="?uri=depot"><h1>Offre</h1></a><span></span>
-            <a class="nav_link" href="conseil.html"><h1>Conseil</h1></a><span></span>
-            <a class="nav_link" href="support.html"><h1>Support</h1></a>
+        <div class="Bouton_menu_burger" id="burger">
+            <span class="Barre_menu_burger"></span>
+            <span class="Barre_menu_burger"></span>
+            <span class="Barre_menu_burger"></span>
+        </div>
+
+        <nav class="nav_PC">
+            <a href="#"><img class="Logo_nav" alt="Accueil" src="src/assets/images/Accueil.png">Accueil</a>
+            <span></span>
+            <a href="#"><img class="Logo_nav" alt="Offres" src="src/assets/images/Offre.png">Offres</a>
+            <span></span>
+            <a href="#"><img class="Logo_nav" alt="Conseil" src="src/assets/images/Conseil.png">Conseil</a>
+            <span></span>
+            <a href="#"><img class="Logo_nav" alt="Support" src="src/assets/images/Support.png">Support</a>
         </nav>
 
-        <div class="Menu_burger">
-            <label for="burger" class="Button_burger" aria-label="Ouvrir le menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-        </div>
 
-        <a class="Compte image_head" href="compte.html" aria-label="Compte">
-            <img class="image_connexion" src="assets/images/compte.png" alt="compte">
-        </a>
+        <img class="Logo_connexion" src="src/assets/images/compte.png" alt="compte">
     </header>
+    <div class="Contenu_page">
 
-    <div class="contenu_page contenu_accueil">
-        <input type="checkbox" id="burger">
 
-        <nav class="Link_menu_burger" aria-label="Menu mobile">
-            <a class="nav_link" href="index.html"><p>Accueil</p></a>
-            <a class="nav_link" href="offre.html"><p>Offre</p></a>
-            <a class="nav_link" href="conseil.html"><p>Conseil</p></a>
-            <a class="nav_link" href="support.html"><p>Support</p></a>
-        </nav>
 
-        <main class="Accueil_main">
-            <!-- Description brève -->
-            <section class="Accueil_desc">
-                <p>
-                    Stage4all regroupe des offres de stage et t’aide à organiser ta recherche au même endroit :
-                    offres, entreprises, candidatures et suivi.
-                </p>
-            </section>
-
-            <!-- Blocs du mockup -->
-            <section class="Accueil_blocs">
-                <!-- Article publicitaire -->
-                <div class="Bloc_pub">
-                    <div class="Bloc_content">
-                        <h2>Article publicitaire</h2>
-
-                        <p>
-                            Martine pensait que retrouver un stage après plusieurs années loin des études serait compliqué.
-                            Entre les annonces dispersées et les candidatures sans réponse, elle avait l’impression de tourner en rond.
-                        </p>
-
-                        <p>
-                            En passant par Stage4all, elle a pu chercher plus simplement, repérer des offres adaptées,
-                            et surtout garder un suivi clair de ses démarches. Résultat : elle a décroché un stage,
-                            avec un message simple en tête : ce qui compte, c’est le sérieux et la motivation, pas l’âge.
-                        </p>
-
-                        <p>
-                            Toi aussi, simplifie ta recherche : centralise tes offres, repère les entreprises, et avance étape par étape.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- À propos -->
-                <div class="Bloc_about">
-                    <div class="Bloc_content">
-                        <h2>A propos de nous</h2>
-
-                        <p>
-                            Stage4all est né d’un constat simple : chercher un stage peut vite devenir une galère.
-                            Les offres sont éparpillées, les infos sur les entreprises se perdent,
-                            et on finit par postuler sans vraie organisation.
-                        </p>
-
-                        <p>
-                            On a donc voulu créer un site clair et pratique, pensé pour les étudiants :
-                            un endroit unique pour consulter des offres, garder en mémoire les entreprises qui recrutent,
-                            et suivre ses candidatures sans se disperser. Notre objectif : te faire gagner du temps
-                            et te donner une méthode simple pour avancer.
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <footer>
-        <h1>© Stage4all - 2026</h1>
-        <a href="mentions-legales.html"><h1>Mentions légales</h1></a>
-
-        <div class="Follow">
-            <h2>Suivez-nous sur&nbsp;</h2>
-            <a href="#" aria-label="X"><img src="./assets/images/X.png" alt="X"></a>
-            <a href="#" aria-label="Instagram"><img src="./assets/images/Insta.png" alt="Instagram"></a>
-            <a href="#" aria-label="YouTube"><img src="./assets/images/Youtube.png" alt="YouTube"></a>
+        <div class="Presentation">
+            <img src="src/assets/images/Fond_accueil.jpg" alt="Fond_page" class="Fond_page">
+            <div class="Titre_presentation">
+                <h1 class="Nom_site Nom_presentation">Stage 4 all</h1>
+            </div>
+            <h2>La recherche de stage facile pour tous</h2>
+            <button class="b1">Commencer</button>
         </div>
+        <h1>Actualité</h1>
+        <div class="Actualité">
+            <div class="Article">
+                <img src="#" alt="Fond_article">
+                <h2>Titre article</h2>
+                <p>Texte de l'article</p>
+                <button class="b2">Consulter</button>
+            </div>
+            <!--système d'ajout de pages d'Articles-->
+        </div>
+        <h1>Conseils</h1>
+        <div class="Liste_conseils">
+            <div class="Conseil">
+                <h2>Titre conseil</h2>
+                <p>Explication du conseil (ex:comment faire un CV)</p>
+                <button>Consulter</button>
+            </div>
+            <!--système d'ajout de pages d'Articles-->
+        </div>
+        <h1>Offres</h1>
+        <div class="Liste_offres">
+            <div class="Offre">
+                <img src="#" alt="Fond_offre">
+                <h2>Titre Offre</h2>
+                <p>Phrase du stage</p>
+                <button>Consulter</button>
+            </div>
+            <!--système d'ajout de pages d'Articles-->
+        </div>
+    </div>
+    <footer>
+        <h2>Stage 4 All</h2>
+        <a><h2>Mentions légales</h2></a>
+        <a><h2>Cookies</h2></a>
+        <a><h2>Besoin d'Aide ?</h2></a>
+        <div class="Follow_us"><h2>Suivez nous sur :&nbsp;</h2><a><img class="Logo_connexion" src="src/assets/images/Insta.png" alt="Insta"></a><a><img class="Logo_connexion" src="src/assets/images/X.png" alt="X"></a><a><img class="Logo_connexion" src="src/assets/images/Youtube.png" alt="Youtube"></a></div>
     </footer>
 </body>
 </html>
