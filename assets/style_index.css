@@ -1,7 +1,7 @@
 .nav_page{
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 85%;
     align-items: center;
     scroll-behavior: smooth;
 }
@@ -9,7 +9,7 @@
 .fleche{
     border: none;
     width: 5vw;
-    height: 100%;
+    height: 30vw;
     position: absolute;
     background: rgba(255,255,255,0);
     font-size: 5vw;
@@ -18,12 +18,12 @@
 
 .fleche_gauche{
     left: 7.5%;
-    background: linear-gradient(90deg, rgba(255,255,255,1),rgba(255,255,255,0));
+    background: linear-gradient(90deg, #F6E7FDFF,#F6E7FD00);
 }
 
 .fleche_droite{
     right: 7.5%;
-    background: linear-gradient(90deg, rgba(255,255,255,0),rgba(255,255,255,1));
+    background: linear-gradient(90deg, #F6E7FD00,#F6E7FDFF);
 }
 
 .Presentation{
@@ -76,8 +76,13 @@
 }
 
 .Conseils{
-    width: 85%;
+    width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#F6E7FD00,#F6E7FDFF 10% 90%,#F6E7FD00);
+    padding: 15vh 0;
 }
 
 .Liste_conseils{
