@@ -5,7 +5,7 @@ require __DIR__ . "/vendor/autoload.php";
 #ini_set("display_startup_errors", 1);
 #error_reporting(E_ALL);
 
-use App\Controllers\FileDepotController;
+use App\Controllers\MainController;
 
 $loader = new \Twig\Loader\FilesystemLoader("templates");
 $twig = new \Twig\Environment($loader, [
@@ -19,7 +19,7 @@ else{
     $uri = "/";
 }
 
-$controller = new FileDepotController($twig);
+$controller = new MainController($twig);
 
 switch($uri){
     case '/':

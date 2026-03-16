@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Models\FileDepotModel;
 
-class FileDepotController extends Controller{
+class MainController extends Controller{
     public function __construct($templateEngine){
         $this->Depot_model = new FileDepotModel();
         $this->templateEngine = $templateEngine;
