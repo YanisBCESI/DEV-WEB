@@ -110,13 +110,39 @@
     border-radius: 10%;
 }
 
+.Offres{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(#F6E7FD00,#F6E7FDFF 10% 90%,#F6E7FD00);
+    padding: 15vh 0;
+}
+
 .Liste_offres{
     width: 100%;
     height: 60vh;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    gap: 5%;
+    overflow-x: hidden;
+    padding: 0 5%;
+}
+
+.Offre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 16vw;
+    height: 16vw;
+    padding: 2vw;
+    border: solid var(--Couleur2) 0.2vw;
+    background-color: var(--Couleur3);
+    border-radius: 10%;
 }
 
 .Titre_sub_class{
