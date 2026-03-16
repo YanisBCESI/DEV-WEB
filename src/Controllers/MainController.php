@@ -12,10 +12,10 @@ class MainController extends Controller{
         echo $this->templateEngine->render("index.html");
     }
     public function depotPage(){
-        $success = isset($_GET['success']) ? true : false;
-        echo $this->templateEngine->render("deposer_offre.html", [
-            'success' => $success
-        ]);
+        echo $this->templateEngine->render("deposer_offre.html.twig");
+    }
+    public function inscriptionEntreprise(){
+        echo $this->templateEngine->render("inscrire_entreprise.html.twig");
     }
     public function sendFile(){
         var_dump($_FILES);

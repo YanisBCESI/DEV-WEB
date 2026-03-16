@@ -28,6 +28,8 @@ switch($uri){
     case 'offres':
         $controller->offersPage();
         break;
+    case 'inscription_entreprise':
+        $controller->inscriptionEntreprise();
     case 'depot':
         $controller->depotPage();
         break;
