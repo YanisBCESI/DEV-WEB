@@ -61,11 +61,12 @@ header{
     flex-direction: row;
     align-items: center;
     gap:2vw;
+    margin-left:0.5vh;
 }
 
 .Logo{
-    height: 9vh;
-    width: 9vh;
+    height: 7vh;
+    width: 7vh;
 }
 
 .Nom_site{
@@ -123,7 +124,7 @@ header a{
 }
 
 .Bouton_menu_burger{
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -134,7 +135,7 @@ header a{
 }
 
 .Barre_menu_burger{
-    display: flex;
+    display: none;
     border: solid black 8px;
     width: 12vw;
 }
