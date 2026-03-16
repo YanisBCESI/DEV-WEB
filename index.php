@@ -30,9 +30,11 @@ switch($uri){
         break;
     case 'inscription_entreprise':
         $controller->inscriptionEntreprise();
+        break;
     case 'page_connexion':
         $controller->connectionPage();
         break;
     case 'send_file':
         $controller->sendFile();
+        break;
 }
