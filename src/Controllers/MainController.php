@@ -11,8 +11,8 @@ class MainController extends Controller{
     public function welcomePage(){
         echo $this->templateEngine->render("index.html");
     }
-    public function depotPage(){
-        echo $this->templateEngine->render("deposer_offre.html.twig");
+    public function connectionPage(){
+        echo $this->templateEngine->render("page_connexion.html.twig");
     }
     public function inscriptionEntreprise(){
         echo $this->templateEngine->render("inscrire_entreprise.html.twig");
