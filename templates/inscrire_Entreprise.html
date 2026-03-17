@@ -37,10 +37,10 @@
             <h1 style="text-align:center; margin-bottom:2rem;">Créer un compte entreprise</h1>
 
             <form action="/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_entreprise.php" method="post" style="display:flex; flex-direction:column; gap:1rem;">
-                <input name="nom_entreprise" type="text" placeholder="Nom de l'entreprise" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <input name="company_name" type="text" placeholder="Nom de l'entreprise" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
 
                 <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-                    <select name="taille_entreprise" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                    <select name="company_type" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
                         <option value="" disabled selected>Choisissez la taille</option>
                         <option value="TPE">TPE</option>
                         <option value="PME">PME</option>
@@ -48,11 +48,11 @@
                         <option value="GE">GE</option>
                     </select>
 
-                    <input name="secteur" type="text" placeholder="Secteur" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                    <input name="sector" type="text" placeholder="Secteur" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
                 </div>
 
                 <input name="siret" type="text" placeholder="N° SIRET" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
-                <input name="adresse" type="text" placeholder="Adresse du siège social" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <input name="address" type="text" placeholder="Adresse du siège social" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
                 <input name="email" type="email" placeholder="e-mail / login" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
                 <input name="password" type="password" placeholder="Mot de passe" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
                 <input name="password_confirm" type="password" placeholder="Confirmation" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">

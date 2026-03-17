@@ -26,9 +26,14 @@ if (
     $siret === '' ||
     $adresse === '' ||
     !filter_var($email, FILTER_VALIDATE_EMAIL) ||
-    $password === ''
+    $password === '' ||
+    $passwordConfirm === ''
 ) {
     exit('Formulaire invalide.');
+}
+
+if (!preg_match('/^\d{14}$/', $siret)) {
+    exit('Le SIRET doit contenir exactement 14 chiffres.');
 }
 
 if ($password !== $passwordConfirm) {
@@ -41,8 +46,14 @@ try {
     $pdo->beginTransaction();
 
     $stmtCompte = $pdo->prepare("
-        INSERT INTO comptes (email, mot_de_passe, role)
-        VALUES (:email, :mot_de_passe, 'entreprise')
+        INSERT INTO comptes (email, mot_de_passe, role_id, actif, created_at)
+        VALUES (
+            :email,
+            :mot_de_passe,
+            (SELECT id FROM roles WHERE nom = 'entreprise' LIMIT 1),
+            1,
+            NOW()
+        )
     ");
     $stmtCompte->execute([
         ':email' => $email,
@@ -52,8 +63,8 @@ try {
     $compteId = (int) $pdo->lastInsertId();
 
     $stmtEntreprise = $pdo->prepare("
-        INSERT INTO entreprises (compte_id, nom_entreprise, type_entreprise, secteur, siret, adresse)
-        VALUES (:compte_id, :nom_entreprise, :type_entreprise, :secteur, :siret, :adresse)
+        INSERT INTO entreprises (compte_id, nom_entreprise, type_entreprise, secteur, siret, adresse, created_at)
+        VALUES (:compte_id, :nom_entreprise, :type_entreprise, :secteur, :siret, :adresse, NOW())
     ");
     $stmtEntreprise->execute([
         ':compte_id' => $compteId,
@@ -71,7 +82,7 @@ try {
         $pdo->rollBack();
     }
 
-    if ((string)$e->getCode() === '23000') {
+    if ((string) $e->getCode() === '23000') {
         exit('Email ou SIRET déjà utilisé.');
     }
 
