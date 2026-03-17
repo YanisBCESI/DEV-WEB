@@ -5,7 +5,10 @@ require __DIR__ . "/vendor/autoload.php";
 #ini_set("display_startup_errors", 1);
 #error_reporting(E_ALL);
 
-use App\Controllers\MainController;
+use App\Controllers\HomepageController;
+use App\Controllers\OffersController;
+use App\Controllers\FileDepotController;
+
 
 $loader = new \Twig\Loader\FilesystemLoader("templates");
 $twig = new \Twig\Environment($loader, [
@@ -19,22 +22,21 @@ else{
     $uri = "/";
 }
 
-$controller = new MainController($twig);
+$HomepageController = new HomepageController($twig);
+$OffersController = new OffersController($twig);
+$FileDepotController = new FileDepotController($twig);
 
 switch($uri){
     case '/':
-        $controller->welcomePage();
+        $HomepageController->welcomePage();
         break;
     case 'offres':
-        $controller->offersPage();
+        $OffersController->offersPage();
         break;
-    case 'inscription_entreprise':
-        $controller->inscriptionEntreprise();
+    case 'creer_offre':
+        $OffersController->createOfferPage();
         break;
-    case 'page_connexion':
-        $controller->connectionPage();
-        break;
-    case 'send_file':
-        $controller->sendFile();
+    case 'deposer_fichier':
+        $FileDepotController->filedepotPage();
         break;
 }
