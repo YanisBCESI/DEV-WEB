@@ -152,3 +152,100 @@
 .Texte_sub_class{
     font-size: 1.2vw;
 }
+
+.Cookie_banner{
+    position: fixed;
+    right: 2vw;
+    bottom: 2vw;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2vw;
+    width: min(42rem, calc(100vw - 4vw));
+    padding: 1.5vw;
+    border: solid 0.2vw var(--Couleur2);
+    border-radius: 1.5vw;
+    background: linear-gradient(135deg, var(--Couleur4), white);
+    box-shadow: 0 1vw 3vw rgba(0, 0, 0, 0.18);
+    z-index: 20;
+}
+
+.Cookie_banner_texte{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+}
+
+.Cookie_banner_texte h2{
+    font-family: "Recoleta", sans-serif;
+    font-size: 2vw;
+}
+
+.Cookie_banner_texte p{
+    margin: 0;
+    font-size: 1vw;
+    line-height: 1.5;
+}
+
+.Cookie_banner_actions{
+    display: flex;
+    gap: 1vw;
+    flex-shrink: 0;
+}
+
+.Cookie_button_primary,
+.Cookie_button_secondary{
+    font-size: 1vw;
+    padding: 0.9vw 1.4vw;
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.Cookie_button_secondary{
+    background-color: white;
+    border: solid var(--Couleur2) 0.15vw;
+    color: var(--txt2);
+}
+
+.Cookie_button_secondary:hover{
+    border-color: black;
+}
+
+@media (orientation: portrait) {
+    .Cookie_banner{
+        right: 4vw;
+        left: 4vw;
+        bottom: 3vw;
+        flex-direction: column;
+        align-items: stretch;
+        width: auto;
+        padding: 5vw;
+        border-width: 0.6vw;
+        border-radius: 5vw;
+    }
+
+    .Cookie_banner_texte{
+        gap: 2vw;
+    }
+
+    .Cookie_banner_texte h2{
+        font-size: 7vw;
+    }
+
+    .Cookie_banner_texte p{
+        font-size: 3.8vw;
+    }
+
+    .Cookie_banner_actions{
+        flex-direction: column-reverse;
+        gap: 3vw;
+    }
+
+    .Cookie_button_primary,
+    .Cookie_button_secondary{
+        width: 100%;
+        padding: 3.5vw 4vw;
+        font-size: 4vw;
+        border-width: 0.5vw;
+    }
+}

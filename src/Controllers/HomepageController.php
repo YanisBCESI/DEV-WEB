@@ -9,6 +9,55 @@ class HomepageController extends Controller{
         $this->templateEngine = $templateEngine;
     }
     public function welcomePage(){
-        echo $this->templateEngine->render("index.html");
+        $consentCookieName = "stage4all_cookie_consent";
+        $visitCookieName = "stage4all_visite";
+
+        if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["cookie_action"])) {
+            $cookieAction = $_POST["cookie_action"];
+
+            if ($cookieAction === "accept") {
+                $visitCookieValue = date("Y-m-d H:i:s");
+
+                setcookie($consentCookieName, "accepted", [
+                    "expires" => time() + (365 * 24 * 60 * 60),
+                    "path" => "/",
+                    "httponly" => true,
+                    "samesite" => "Lax",
+                ]);
+                setcookie($visitCookieName, $visitCookieValue, [
+                    "expires" => time() + (30 * 24 * 60 * 60),
+                    "path" => "/",
+                    "httponly" => true,
+                    "samesite" => "Lax",
+                ]);
+            }
+
+            if ($cookieAction === "reject") {
+                setcookie($consentCookieName, "rejected", [
+                    "expires" => time() + (365 * 24 * 60 * 60),
+                    "path" => "/",
+                    "httponly" => true,
+                    "samesite" => "Lax",
+                ]);
+                setcookie($visitCookieName, "", [
+                    "expires" => time() - 3600,
+                    "path" => "/",
+                    "httponly" => true,
+                    "samesite" => "Lax",
+                ]);
+            }
+
+            header("Location: /");
+            exit;
+        }
+
+        $cookieConsent = $_COOKIE[$consentCookieName] ?? null;
+        $cookieValue = $_COOKIE[$visitCookieName] ?? null;
+
+        echo $this->templateEngine->render("index.html", [
+            "show_cookie_banner" => $cookieConsent === null,
+            "cookie_consent" => $cookieConsent,
+            "cookie_value" => $cookieValue,
+        ]);
     }
 }
