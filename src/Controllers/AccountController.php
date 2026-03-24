@@ -13,4 +13,14 @@ class AccountController extends Controller{
     public function userInscriptionPage(){
         echo $this->templateEngine->render("inscrire_User.html.twig");
     }
+
+    public function isPostMethod(){
+        if($_SERVER['REQUEST_METHOD'] !== "POST"){
+            return false;
+        }
+    }
+
+    public function getData(){
+        
+    }
 }

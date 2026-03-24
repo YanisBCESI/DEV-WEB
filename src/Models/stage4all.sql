@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `candidatures` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `etudiant_id` int NOT NULL,
   `offre_id` int NOT NULL,
   `statut` enum('envoyee','vue','retenue','refusee') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'envoyee',
@@ -43,7 +43,7 @@ CREATE TABLE `candidatures` (
 --
 
 CREATE TABLE `comptes` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `mot_de_passe` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role_id` int NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE `comptes` (
 --
 
 CREATE TABLE `entreprises` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `compte_id` int NOT NULL,
   `nom_entreprise` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type_entreprise` enum('TPE','PME','ETI','GE') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `entreprises` (
 --
 
 CREATE TABLE `etudiants` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `compte_id` int NOT NULL,
   `pilote_id` int DEFAULT NULL,
   `nom` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `etudiants` (
 --
 
 CREATE TABLE `evaluations_entreprises` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `etudiant_id` int NOT NULL,
   `entreprise_id` int NOT NULL,
   `note` tinyint NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE `evaluations_entreprises` (
 --
 
 CREATE TABLE `logs_actions` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `compte_id` int DEFAULT NULL,
   `action` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `details` text COLLATE utf8mb4_unicode_ci,
@@ -132,7 +132,7 @@ CREATE TABLE `logs_actions` (
 --
 
 CREATE TABLE `offres` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `entreprise_id` int NOT NULL,
   `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type_contrat` enum('stage','alternance','emploi') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -157,7 +157,7 @@ CREATE TABLE `offres` (
 --
 
 CREATE TABLE `pilotes` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `compte_id` int NOT NULL,
   `nom` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -173,7 +173,7 @@ CREATE TABLE `pilotes` (
 --
 
 CREATE TABLE `roles` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -194,7 +194,7 @@ INSERT INTO `roles` (`id`, `nom`) VALUES
 --
 
 CREATE TABLE `sessions_utilisateurs` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `compte_id` int NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -208,7 +208,7 @@ CREATE TABLE `sessions_utilisateurs` (
 --
 
 CREATE TABLE `wishlist` (
-  `id` int NOT NULL,
+  `id` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `etudiant_id` int NOT NULL,
   `offre_id` int NOT NULL,
   `date_ajout` timestamp NULL DEFAULT CURRENT_TIMESTAMP
