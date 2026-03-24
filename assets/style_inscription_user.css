@@ -8,3 +8,25 @@
     text-align: center;
     margin-bottom: 2rem;
 }
+
+.u_block1 form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.u_div{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.u_input{
+    flex: 1;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+}
+.u_button{
+    align-self: center;
+}

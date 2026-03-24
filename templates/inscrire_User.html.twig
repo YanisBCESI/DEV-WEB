@@ -7,12 +7,12 @@
     <section class="u_block1">
         <h1>Créer un compte</h1>
 
-        <form action="/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_user.php" method="post" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:1rem;">
-            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
-                <input name="lastname" type="text" placeholder="Nom" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
-                <input name="surname" type="text" placeholder="Prénom" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+        <form action="/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_user.php" method="post" enctype="multipart/form-data">
+            <div class="u_div">
+                <input name="lastname" type="text" placeholder="Nom" required class="u_input">
+                <input name="surname" type="text" placeholder="Prénom" required class="u_input">
             </div>
-            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <div class="u_div">
                 <select name="genre" required>
                 <option value="" disabled selected>Choisissez votre genre</option>
                 <option value="femme">Madame</option>
@@ -20,19 +20,18 @@
                 <option value="autre">Autre</option>
                 </select>
 
-                <select name="role" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <select name="role" required class="u_input">
                 <option value="etudiant" selected>Étudiant</option>
                 </select>
             </div>
 
-            <input name="email" type="email" placeholder="e-mail / login" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
-            <input name="password" type="password" placeholder="Mot de passe" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
-            <input name="password_confirm" type="password" placeholder="Confirmation" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+            <input name="email" type="email" placeholder="e-mail / login" required class="u_input">
+            <input name="password" type="password" placeholder="Mot de passe" required class="u_input">
+            <input name="password_confirm" type="password" placeholder="Confirmation" required class="u_input">
 
             <label for="cv">Dépose ton CV (PDF uniquement, 2 Mo max)</label>
-            <input id="cv" name="cv" type="file" accept=".pdf,application/pdf" style="padding:0.8rem; border-radius:12px; border:1px solid #ccc; background:white;">
-
-            <button class="b2" type="submit" style="align-self:center;">Créer mon compte</button>
+            <input id="cv" name="cv" type="file" accept=".pdf,application/pdf" class="u_input">
+            <button class="b2" type="submit" class="u_button">Créer mon compte</button>
         </form>
     </section>
 </div>
