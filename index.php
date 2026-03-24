@@ -8,6 +8,7 @@ require __DIR__ . "/vendor/autoload.php";
 use App\Controllers\HomepageController;
 use App\Controllers\OffersController;
 use App\Controllers\FileDepotController;
+use App\Controllers\AccountController;
 
 
 $loader = new \Twig\Loader\FilesystemLoader("templates");
@@ -25,6 +26,7 @@ else{
 $HomepageController = new HomepageController($twig);
 $OffersController = new OffersController($twig);
 $FileDepotController = new FileDepotController($twig);
+$AccountController = new AccountController($twig);
 
 switch($uri){
     case '/':
@@ -38,5 +40,8 @@ switch($uri){
         break;
     case 'deposer_fichier':
         $FileDepotController->filedepotPage();
+        break;
+    case 'inscription_user':
+        $AccountController->userInscriptionPage();
         break;
 }
