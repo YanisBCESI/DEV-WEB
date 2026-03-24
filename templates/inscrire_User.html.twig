@@ -1,10 +1,11 @@
 {% extends "base.html.twig" %}
+{% block link %} <link rel="stylesheet" href="/assets/style_inscription_user.css"> {% endblock %}
 {% block title %}Inscription Utilisateur - Stage4all{% endblock %}
 
 {% block content %}
 <div class="Contenu_page">
-    <section style="width: 80%; max-width: 900px; margin: 3rem auto;">
-        <h1 style="text-align:center; margin-bottom:2rem;">Créer un compte</h1>
+    <section class="u_block1">
+        <h1>Créer un compte</h1>
 
         <form action="/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_user.php" method="post" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:1rem;">
             <div style="display:flex; gap:1rem; flex-wrap:wrap;">

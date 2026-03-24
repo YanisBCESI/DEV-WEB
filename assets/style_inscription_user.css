@@ -1,0 +1,10 @@
+.u_block1{
+    width: 80%;
+    max-width: 900px;
+    margin: 3rem auto;
+}
+
+.u_block1 h1{
+    text-align: center;
+    margin-bottom: 2rem;
+}
