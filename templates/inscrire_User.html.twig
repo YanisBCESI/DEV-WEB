@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{% block title %}Inscription Utilisateur - Stage4all{% endblock %}
+
+{% block content %}
+<div class="Contenu_page">
+    <section style="width: 80%; max-width: 900px; margin: 3rem auto;">
+        <h1 style="text-align:center; margin-bottom:2rem;">Créer un compte</h1>
+
+        <form action="/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_user.php" method="post" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:1rem;">
+            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                <input name="lastname" type="text" placeholder="Nom" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <input name="surname" type="text" placeholder="Prénom" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+            </div>
+            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+                <select name="genre" required>
+                <option value="" disabled selected>Choisissez votre genre</option>
+                <option value="femme">Madame</option>
+                <option value="homme">Monsieur</option>
+                <option value="autre">Autre</option>
+                </select>
+
+                <select name="role" required style="flex:1; padding:1rem; border-radius:12px; border:1px solid #ccc;">
+                <option value="etudiant" selected>Étudiant</option>
+                </select>
+            </div>
+
+            <input name="email" type="email" placeholder="e-mail / login" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+            <input name="password" type="password" placeholder="Mot de passe" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+            <input name="password_confirm" type="password" placeholder="Confirmation" required style="padding:1rem; border-radius:12px; border:1px solid #ccc;">
+
+            <label for="cv">Dépose ton CV (PDF uniquement, 2 Mo max)</label>
+            <input id="cv" name="cv" type="file" accept=".pdf,application/pdf" style="padding:0.8rem; border-radius:12px; border:1px solid #ccc; background:white;">
+
+            <button class="b2" type="submit" style="align-self:center;">Créer mon compte</button>
+        </form>
+    </section>
+</div>
+{% endblock %}
