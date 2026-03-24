@@ -4,21 +4,21 @@ namespace App\Models;
 
 class AccountModel extends Model{
 
-    CONST ADMIN = "debian-syst-main";
+    CONST ADMIN = "debian-sys-maint";
     CONST PASS = "LYK8WN3Oup7UxkZW";
 
     public function __construct($info = null){
-        if(is_null($file)){
+        if(is_null($info)){
             $this->data=[];
-            $this->dbh= new PDO("mysql:localhost;dbname = stage4all", self::ADMIN, self::PASS);
+            $this->dbh= new \PDO("mysql:host=localhost;dbname = stage4all", self::ADMIN, self::PASS);
         }else{
             $this->data = $info;
-            $this->dbh = new PDO("mysql:localhost;dbname = stage4all", $this->data[$id], $this->data[$password]);
+            $this->dbh = new \PDO("mysql:host=localhost;dbname = stage4all", $this->data["email"], $this->data["password"]);
         }
     }
 
     public function retrieveData(){
-        if(!isPostMethod){
+        if($_SERVER['REQUEST_METHOD'] !== "POST"){
             http_response_code(405);
             return("Méthode non autorisée");
         }
@@ -43,9 +43,18 @@ class AccountModel extends Model{
             return("Les mots de passe ne correspondent pas");
         }
         $password = password_hash($password, PASSWORD_DEFAULT);
+        $this->data = ["compte_id" => 1, "pilote_id" => NULL, "nom" => $nom, "prenom" => $prenom, "genre" => $genre
+        , "mdp" => $password, "email" => $email];
     }
 
     public function getData(){
         return $this->data;
+    }
+
+    public function sendToDataBase($data = null){
+        if(isset($data)){
+            $this->data = $data;
+        }
+
     }
 }
