@@ -52,6 +52,14 @@ class AccountModel extends Model{
         if(isset($data)){
             $this->data = $data;
         }
-
+        $stmt = $this->dbh->prepare("INSERT INTO etudiants (compte_id, pilote_id, nom, prenom, genre, mdp, email) VALUES (:compte_id, :pilote_id, :nom, :prenom, :genre, :mdp, :email);");
+        $stmt->bindParam(":compte_id", $this->data["compte_id"]);
+        $stmt->bindParam(":pilote_id", $this->data["pilote_id"]);
+        $stmt->bindParam(":nom", $this->data["nom"]);
+        $stmt->bindParam(":prenom", $this->data["prenom"]);
+        $stmt->bindParam(":genre", $this->data["genre"]);
+        $stmt->bindParam(":mdp", $this->data["mdp"]);
+        $stmt->bindParam(":email", $this->data["email"]);
+        $stmt->execute();
     }
 }
