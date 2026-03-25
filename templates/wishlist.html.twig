@@ -3,27 +3,68 @@
 {% block title %}Ma wishlist - Stage4all{% endblock %}
 
 {% block content %}
-<main>
-    <h1>Ma wishlist</h1>
+<section class="wishlist-page">
+    {% set wishlist_items = wishlist|default([]) %}
 
-    {% if wishlist is empty %}
-        <p>Votre wishlist est vide.</p>
+    <div class="wishlist-hero">
+        <div>
+            <h1>Ma wish-list</h1>
+            <p class="wishlist-subtitle">
+                Retrouvez les offres sauvegardées et retirez celles qui ne vous intéressent plus.
+            </p>
+        </div>
+        <div class="wishlist-count">
+            {{ wishlist_items|length }} offre{{ wishlist_items|length > 1 ? 's' : '' }} sauvegardée{{ wishlist_items|length > 1 ? 's' : '' }}
+        </div>
+    </div>
+
+    {% if wishlist_items is empty %}
+        <div class="wishlist-empty">
+            <p>Votre wish-list est vide pour le moment.</p>
+            <a class="wishlist-button" href="?uri=offres">Voir les offres disponibles</a>
+        </div>
     {% else %}
-        {% for offre in wishlist %}
-            <div class="offre">
-                <h2>{{ offre.titre }}</h2>
+        <div class="wishlist-grid">
+            {% for offre in wishlist_items %}
+                <article class="wishlist-card">
+                    <div class="wishlist-card-header">
+                        <div>
+                            <h2>{{ offre.titre|default('Offre sans titre') }}</h2>
+                            <p class="wishlist-company">
+                                {{ offre.nom_entreprise|default(offre.entreprise|default('Entreprise non précisée')) }}
+                            </p>
+                        </div>
 
-                <p><strong>Entreprise :</strong> {{ offre.nom_entreprise }}</p>
-                <p><strong>Type de contrat :</strong> {{ offre.type_contrat }}</p>
-                <p><strong>Secteur :</strong> {{ offre.secteur }}</p>
-                <p><strong>Localisation :</strong> {{ offre.localisation }}</p>
-                <p><strong>Description :</strong><br>{{ offre.description|nl2br }}</p>
-                <p><strong>Rémunération :</strong> {{ offre.remuneration ?? 'Non précisée' }}</p>
-                <p><strong>Date de début :</strong> {{ offre.date_debut ?? 'Non précisée' }}</p>
-                <p><strong>Ajoutée le :</strong> {{ offre.date_ajout }}</p>
-            </div>
-            <hr>
-        {% endfor %}
+                        {% if offre.type_contrat is defined and offre.type_contrat %}
+                            <span class="wishlist-tag">{{ offre.type_contrat }}</span>
+                        {% endif %}
+                    </div>
+
+                    <ul class="wishlist-meta">
+                        <li><strong>Secteur :</strong> {{ offre.secteur|default('Non précisé') }}</li>
+                        <li><strong>Localisation :</strong> {{ offre.localisation|default('Non précisée') }}</li>
+                        <li><strong>Rémunération :</strong> {{ offre.remuneration|default('Non précisée') }}</li>
+                        <li><strong>Date de début :</strong> {{ offre.date_debut|default('Non précisée') }}</li>
+                    </ul>
+
+                    <p class="wishlist-description">
+                        <strong>Description :</strong><br>
+                        {{ offre.description|default('Aucune description disponible.')|nl2br }}
+                    </p>
+
+                    <div class="wishlist-actions">
+                        <p class="wishlist-added-date">
+                            <strong>Ajoutée le :</strong> {{ offre.date_ajout|default(offre.created_at|default('Date inconnue')) }}
+                        </p>
+
+                        <form action="/wishlist/retirer" method="POST">
+                            <input type="hidden" name="offre_id" value="{{ offre.id }}">
+                            <button class="wishlist-remove-button" type="submit">Retirer de la wish-list</button>
+                        </form>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
     {% endif %}
-</main>
+</section>
 {% endblock %}
