@@ -168,6 +168,7 @@
         <a class="footer-link" href="#"><h2>Besoin d'Aide ?</h2></a>
         <div class="Follow_us"><h2>Suivez nous sur :&nbsp;</h2><a><img class="Logo_connexion" src="/assets/images/Insta.png" alt="Insta"></a><a><img class="Logo_connexion" src="/assets/images/X.png" alt="X"></a><a><img class="Logo_connexion" src="/assets/images/Youtube.png" alt="Youtube"></a></div>
     </footer>
+    {% if show_cookie_banner %}
         <div class="Cookie_banner">
             <div class="Cookie_banner_texte">
                 <h2>Cookies</h2>
@@ -178,5 +179,6 @@
                 <button type="submit" name="cookie_action" value="accept" class="b2 Cookie_button_primary">Accepter</button>
             </form>
         </div>
+    {% endif %}
 </body>
 </html>
