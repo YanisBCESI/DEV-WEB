@@ -27,7 +27,7 @@ function verifierFleches1(){
 
 liste1.addEventListener("scroll", verifierFleches1);
 window.addEventListener("load", verifierFleches1);
-
+/*
 const liste2 = document.getElementById("liste2");
 const gauche2 = document.getElementById("fleche_gauche2");
 const droite2 = document.getElementById("fleche_droite2");
@@ -57,7 +57,7 @@ function verifierFleches2(){
 
 liste2.addEventListener("scroll", verifierFleches2);
 window.addEventListener("load", verifierFleches2);
-
+*/
 const liste3 = document.getElementById("liste3");
 const gauche3 = document.getElementById("fleche_gauche3");
 const droite3 = document.getElementById("fleche_droite3");
