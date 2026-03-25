@@ -4,6 +4,11 @@ namespace App\Models;
 
 class AccountModel extends Model{
 
+
+    CONST ADMIN = "stageuser";
+    CONST PASS = "MotDePasseFort123!";
+
+(Mise a jour des templates, du controleur legal et de AccountModel)
     public function __construct($info = null){
         if(is_null($info)){
             $this->data=[];
