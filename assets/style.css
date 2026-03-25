@@ -193,6 +193,17 @@ footer h2{
     font-size: 1.25vw;
 }
 
+.footer-link{
+    color: black;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible{
+    color: white;
+}
+
 .Follow_us{
     display: flex;
     flex-direction: row;

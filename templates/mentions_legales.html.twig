@@ -1,0 +1,105 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Mentions légales - Stage4All{% endblock %}
+
+{% block styles %}
+<style>
+    .legal-page {
+        width: min(1000px, calc(100% - 3rem));
+        margin: 3rem auto;
+        padding: 2.5rem;
+        background: #ffffff;
+        border-radius: 24px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .legal-page h1 {
+        margin-bottom: 1rem;
+        font-size: 2.4rem;
+    }
+
+    .legal-page p {
+        line-height: 1.7;
+        margin-bottom: 1rem;
+    }
+
+    .legal-page section + section {
+        margin-top: 2rem;
+    }
+
+    .legal-page h2 {
+        margin-bottom: 0.75rem;
+        font-size: 1.4rem;
+    }
+
+    @media (max-width: 768px) {
+        .legal-page {
+            width: min(100% - 1.5rem, 100%);
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+        }
+
+        .legal-page h1 {
+            font-size: 1.9rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<article class="legal-page">
+    <h1>Mentions légales</h1>
+    <p>
+        Bienvenue sur Stage4All, une plateforme pensée pour accompagner les étudiants,
+        alternants et entreprises dans la recherche de stages, d'offres et d'opportunités professionnelles.
+    </p>
+
+    <section>
+        <h2>Présentation du site</h2>
+        <p>
+            Stage4All est une plateforme qui aide les utilisateurs à consulter des offres,
+            créer un compte et s'informer sur les opportunités de stage et d'alternance.
+        </p>
+    </section>
+
+    <section>
+        <h2>Éditeur</h2>
+        <p>
+            Ce site est édité dans le cadre du projet Stage4All. Les contenus publiés ont pour objectif
+            d'informer les utilisateurs et de faciliter leur navigation sur la plateforme.
+        </p>
+    </section>
+
+    <section>
+        <h2>Données personnelles</h2>
+        <p>
+            Les informations communiquées par les utilisateurs sont utilisées uniquement pour les besoins
+            liés au fonctionnement du site, comme l'inscription, la consultation d'offres et l'amélioration du service.
+        </p>
+    </section>
+
+    <section>
+        <h2>Propriété intellectuelle</h2>
+        <p>
+            Les textes, logos, éléments graphiques et contenus présents sur Stage4All sont protégés.
+            Toute reproduction non autorisée est interdite.
+        </p>
+    </section>
+
+    <section>
+        <h2>Responsabilité</h2>
+        <p>
+            Stage4All fait son possible pour fournir un site accessible et des informations fiables,
+            sans pouvoir garantir l'absence totale d'erreurs ou d'interruptions.
+        </p>
+    </section>
+
+    <section>
+        <h2>Cookies</h2>
+        <p>
+            Des cookies peuvent être utilisés pour améliorer l'expérience utilisateur et mémoriser certaines préférences
+            de navigation sur la plateforme.
+        </p>
+    </section>
+</article>
+{% endblock %}

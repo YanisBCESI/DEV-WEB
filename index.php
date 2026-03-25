@@ -9,6 +9,7 @@ use App\Controllers\HomepageController;
 use App\Controllers\OffersController;
 use App\Controllers\FileDepotController;
 use App\Controllers\AccountController;
+use App\Controllers\LegalController;
 
 
 $loader = new \Twig\Loader\FilesystemLoader("templates");
@@ -27,6 +28,7 @@ $HomepageController = new HomepageController($twig);
 $OffersController = new OffersController($twig);
 $FileDepotController = new FileDepotController($twig);
 $AccountController = new AccountController($twig);
+$LegalController = new LegalController($twig);
 
 switch($uri){
     case '/':
@@ -43,5 +45,8 @@ switch($uri){
         break;
     case 'inscription_user':
         $AccountController->userInscriptionPage();
+        break;
+    case 'mentions_legales':
+        $LegalController->legalNoticePage();
         break;
 }
