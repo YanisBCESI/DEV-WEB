@@ -30,7 +30,7 @@ class AccountModel extends Model{
         $password = $_POST['password'] ?? '';
         $passwordConfirm = $_POST['password_confirm'] ?? '';
         $genres_autorises = ["femme", "homme", "autre"];
-        $roles_autorises = ["etudiant"];
+        $roles_autorises = ["etudiant", "alternant"];
         if($nom === "" or 
            $prenom ==="" or
            !in_array($genre, $genres_autorises, true) or
