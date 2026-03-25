@@ -44,4 +44,7 @@ switch($uri){
     case 'inscription_user':
         $AccountController->userInscriptionPage();
         break;
+    case 'account_created':
+        $AccountController->AccountInfoSent();
+        break;
 }
