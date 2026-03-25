@@ -14,4 +14,7 @@ class OffersController extends Controller{
     public function createOfferPage(){
         echo $this->templateEngine->render("deposer_offre.html");
     }
+
+    
+
 }
