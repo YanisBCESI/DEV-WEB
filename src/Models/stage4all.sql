@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 13 mars 2026 à 15:39
+-- Généré le : mer. 25 mars 2026 à 08:24
 -- Version du serveur : 8.0.45-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -24,15 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `articles`
+--
+
+CREATE TABLE `articles` (
+  `id` int NOT NULL,
+  `Titre` varchar(100) NOT NULL,
+  `Contenu` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `candidatures`
 --
 
 CREATE TABLE `candidatures` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `etudiant_id` int NOT NULL,
   `offre_id` int NOT NULL,
-  `statut` enum('envoyee','vue','retenue','refusee') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'envoyee',
-  `comaire` text COLLATE utf8mb4_unicode_ci,
+  `statut` enum('envoyee','vue','retenue','refusee') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'envoyee',
+  `comaire` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `date_candidature` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -43,9 +55,9 @@ CREATE TABLE `candidatures` (
 --
 
 CREATE TABLE `comptes` (
-  `id` int  NOT NULL ,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mot_de_passe` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` int NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mot_de_passe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `role_id` int NOT NULL,
   `actif` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
@@ -54,21 +66,34 @@ CREATE TABLE `comptes` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `conseils`
+--
+
+CREATE TABLE `conseils` (
+  `id` int NOT NULL,
+  `Titre` varchar(100) NOT NULL,
+  `Contenu` text,
+  `Tags` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `entreprises`
 --
 
 CREATE TABLE `entreprises` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `compte_id` int NOT NULL,
-  `nom_entreprise` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type_entreprise` enum('TPE','PME','ETI','GE') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secteur` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `siret` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adresse` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ville` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `code_postal` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
-  `site_web` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nom_entreprise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type_entreprise` enum('TPE','PME','ETI','GE') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secteur` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `siret` varchar(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adresse` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ville` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code_postal` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `site_web` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `moyenne_note` decimal(3,2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -80,20 +105,15 @@ CREATE TABLE `entreprises` (
 --
 
 CREATE TABLE `etudiants` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `compte_id` int NOT NULL,
   `pilote_id` int DEFAULT NULL,
-  `nom` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `prenom` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `genre` enum('femme','homme','autre') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telephone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `promotion` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cv_nom_original` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cv_nom_stocke` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cv_chemin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `cv_taille` int UNSIGNED DEFAULT NULL,
+  `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `genre` enum('femme','homme','autre') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `cv_type_mime` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `mdp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -103,13 +123,13 @@ CREATE TABLE `etudiants` (
 --
 
 CREATE TABLE `evaluations_entreprises` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `etudiant_id` int NOT NULL,
   `entreprise_id` int NOT NULL,
   `note` tinyint NOT NULL,
-  `comaire` text COLLATE utf8mb4_unicode_ci,
+  `comaire` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -118,10 +138,10 @@ CREATE TABLE `evaluations_entreprises` (
 --
 
 CREATE TABLE `logs_actions` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `compte_id` int DEFAULT NULL,
-  `action` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `details` text COLLATE utf8mb4_unicode_ci,
+  `action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -132,18 +152,18 @@ CREATE TABLE `logs_actions` (
 --
 
 CREATE TABLE `offres` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `entreprise_id` int NOT NULL,
-  `titre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type_contrat` enum('stage','alternance','emploi') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secteur` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `localisation` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `competences` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remuneration` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type_contrat` enum('stage','alternance','emploi') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `secteur` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `localisation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `competences` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remuneration` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_debut` date DEFAULT NULL,
   `date_fin` date DEFAULT NULL,
-  `statut` enum('ouverte','fermee','archivee') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'ouverte',
+  `statut` enum('ouverte','fermee','archivee') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'ouverte',
   `nb_places` int NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -157,12 +177,12 @@ CREATE TABLE `offres` (
 --
 
 CREATE TABLE `pilotes` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `compte_id` int NOT NULL,
-  `nom` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `prenom` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `genre` enum('femme','homme','autre') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telephone` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `genre` enum('femme','homme','autre') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telephone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -173,12 +193,12 @@ CREATE TABLE `pilotes` (
 --
 
 CREATE TABLE `roles` (
-  `id` int  NOT NULL ,
-  `nom` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+  `id` int NOT NULL,
+  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Décharge des données de la table `roles`
+-- Déchargement des données de la table `roles`
 --
 
 INSERT INTO `roles` (`id`, `nom`) VALUES
@@ -194,9 +214,9 @@ INSERT INTO `roles` (`id`, `nom`) VALUES
 --
 
 CREATE TABLE `sessions_utilisateurs` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `compte_id` int NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `expires_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -208,7 +228,7 @@ CREATE TABLE `sessions_utilisateurs` (
 --
 
 CREATE TABLE `wishlist` (
-  `id` int  NOT NULL ,
+  `id` int NOT NULL,
   `etudiant_id` int NOT NULL,
   `offre_id` int NOT NULL,
   `date_ajout` timestamp NULL DEFAULT CURRENT_TIMESTAMP
@@ -217,6 +237,12 @@ CREATE TABLE `wishlist` (
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `candidatures`
@@ -235,6 +261,12 @@ ALTER TABLE `comptes`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `role_id` (`role_id`);
+
+--
+-- Index pour la table `conseils`
+--
+ALTER TABLE `conseils`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `entreprises`
@@ -311,6 +343,12 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT pour la table `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `candidatures`
 --
 ALTER TABLE `candidatures`
@@ -320,6 +358,12 @@ ALTER TABLE `candidatures`
 -- AUTO_INCREMENT pour la table `comptes`
 --
 ALTER TABLE `comptes`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `conseils`
+--
+ALTER TABLE `conseils`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
