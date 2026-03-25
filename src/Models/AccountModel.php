@@ -4,9 +4,6 @@ namespace App\Models;
 
 class AccountModel extends Model{
 
-    CONST ADMIN = "debian-sys-maint";
-    CONST PASS = "LYK8WN3Oup7UxkZW";
-
     public function __construct($info = null){
         if(is_null($info)){
             $this->data=[];
