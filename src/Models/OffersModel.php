@@ -16,5 +16,6 @@ class OffersModel extends Model{
     }
 
     
+    
 
 }

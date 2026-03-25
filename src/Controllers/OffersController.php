@@ -15,6 +15,6 @@ class OffersController extends Controller{
         echo $this->templateEngine->render("deposer_offre.html");
     }
 
-    
+      
 
 }
