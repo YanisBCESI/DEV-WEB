@@ -49,4 +49,7 @@ switch($uri){
     case 'mentions_legales':
         $LegalController->legalNoticePage();
         break;
+    case 'account_created':
+        $AccountController->AccountInfoSent();
+        break;
 }

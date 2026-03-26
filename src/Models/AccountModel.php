@@ -9,10 +9,10 @@ class AccountModel extends Model{
     public function __construct($info = null){
         if(is_null($info)){
             $this->data=[];
-            $this->dbh= new \PDO("mysql:host=localhost;dbname = stage4all", self::ADMIN, self::PASS);
+            $this->dbh= new \PDO("mysql:host=localhost;dbname=stage4all", self::ADMIN, self::PASS);
         }else{
             $this->data = $info;
-            $this->dbh = new \PDO("mysql:host=localhost;dbname = stage4all", $this->data["email"], $this->data["password"]);
+            $this->dbh = new \PDO("mysql:host=localhost;dbname=stage4all", $this->data["email"], $this->data["password"]);
         }
     }
 
@@ -42,7 +42,7 @@ class AccountModel extends Model{
             return("Les mots de passe ne correspondent pas");
         }
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $this->data = ["compte_id" => 1, "pilote_id" => NULL, "nom" => $nom, "prenom" => $prenom, "genre" => $genre
+        $this->data = ["compte_id" => "etudiant", "pilote_id" => NULL, "nom" => $nom, "prenom" => $prenom, "genre" => $genre
         , "mdp" => $password, "email" => $email];
     }
 

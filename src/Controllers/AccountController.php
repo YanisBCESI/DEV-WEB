@@ -20,6 +20,12 @@ class AccountController extends Controller{
         }
     }
 
+    public function AccountInfoSent(){
+        $this->account_model->retrieveData();
+        $this->account_model->sendToDatabase();
+        echo("Compte créé avec succès");
+    }
+
     public function getData(){
         
     }
