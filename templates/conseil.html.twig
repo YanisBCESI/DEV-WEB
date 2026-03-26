@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conseils - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_conseils.css">{% endblock %}
+
+{% block content %}
+<section class="conseils-page">
+    <h1>Liste des Conseils</h1>
+    <p class="conseils-intro">Retrouve ici les conseils disponibles dans un affichage clair et cohérent avec Stage4All.</p>
+
+    {% set liste_conseils = $conseils %}
+    <div class="conseils-grid">
+        {% for conseil in liste_conseils %}
+            <article class="conseil-card">
+                <div class="conseil-card-body">
+                    <h2>{{ conseil.titre|default('Titre conseil') }}</h2>
+                <div class="conseil-actions">
+                        <input type="hidden" name="conseil_id" value="{{ conseil.id }}">
+                        <button class="b2" type="submit">Voir le conseil</button>
+                    </form>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

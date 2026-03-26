@@ -11,5 +11,10 @@ class AccountController extends Controller{
     }
 
     public function getData(){
-        return $this->getFronDataBase()
+        return $this->getFronDataBase();
     }
+
+    public function conseilsPage(){
+            echo $this->templateEngine->render("conseils.html.twig");
+        }
+
