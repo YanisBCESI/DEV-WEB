@@ -22,6 +22,6 @@ class OffersController extends Controller {
     }
 
     public function offersPage(){
-        echo $this->templateEngine->render("deposer_offre.html.twig");
+        echo $this->templateEngine->render("offres.html.twig");
     }
 }
