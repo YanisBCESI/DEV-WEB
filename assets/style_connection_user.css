@@ -1,0 +1,39 @@
+.Contenu_page{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.uc_block1{
+    width: min(1120px, 100%);
+}
+
+.uc_block1 h1{
+    text-align: center;
+    margin: 0 0 2.25rem;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 500;
+}
+
+.uc_block1 form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.uc_input{
+    width: 100%;
+    min-height: 62px;
+    padding: 0 1.2rem;
+    border-radius: 18px;
+    border: 1px solid #d1d1d1;
+    box-sizing: border-box;
+    background: #ffffff;
+    font: inherit;
+    font-size: 1rem;
+    color: #3a3a3a;
+}
+
+.uc_input::placeholder{
+    color: #5f6470;
+}
