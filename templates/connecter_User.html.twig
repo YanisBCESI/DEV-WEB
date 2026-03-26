@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block link %} <link rel="stylesheet" href="/assets/style_connection_user.css"> {% endblock %}
+{% block title %} Connection Utilisateur - Stage4all {% endblock %}
+
+{% block content %}
+<div class="Contenu_page">
+    <section class="u_block1">
+        <h1>Se connecter</h1>
+        <form action="index.php?uri=account_connected" method="post" enctype="multipart/form-data">
+            <input name="email" type="email" placeholder="e-mail / login" required class="u_input">
+            <input name="password" type="password" placeholder="Mot de passe" required class="u_input">
+            <button class="b2 u_button" type="submit">Créer mon compte</button>
+            <a href="?uri=inscription_user">Vous n'avez pas de compte ?</a>
+        </form>
+    </section>
+</div>
+{% endblock %}

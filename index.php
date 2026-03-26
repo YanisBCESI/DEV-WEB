@@ -1,15 +1,16 @@
 <?php
 
 require __DIR__ . "/vendor/autoload.php";
-#ini_set("display_errors", 1);
-#ini_set("display_startup_errors", 1);
-#error_reporting(E_ALL);
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
+error_reporting(E_ALL);
 
 use App\Controllers\HomepageController;
 use App\Controllers\OffersController;
 use App\Controllers\FileDepotController;
 use App\Controllers\AccountController;
 use App\Controllers\LegalController;
+use App\Controllers\ConseilsController;
 
 
 $loader = new \Twig\Loader\FilesystemLoader("templates");
@@ -29,6 +30,7 @@ $OffersController = new OffersController($twig);
 $FileDepotController = new FileDepotController($twig);
 $AccountController = new AccountController($twig);
 $LegalController = new LegalController($twig);
+$ConseilsController = new ConseilsController($twig);
 
 switch($uri){
     case '/':
@@ -54,5 +56,8 @@ switch($uri){
         break;
     case 'connect':
         $AccountController->userConnexionPage();
+        break;
+    case "conseils":
+        $ConseilsController->conseilsPage();
         break;
 }
