@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 25 mars 2026 à 08:24
+-- Généré le : mer. 25 mars 2026 à 10:52
 -- Version du serveur : 8.0.45-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -106,7 +106,7 @@ CREATE TABLE `entreprises` (
 
 CREATE TABLE `etudiants` (
   `id` int NOT NULL,
-  `compte_id` int NOT NULL,
+  `compte_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pilote_id` int DEFAULT NULL,
   `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -281,8 +281,8 @@ ALTER TABLE `entreprises`
 --
 ALTER TABLE `etudiants`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `compte_id` (`compte_id`),
-  ADD KEY `pilote_id` (`pilote_id`);
+  ADD KEY `pilote_id` (`pilote_id`),
+  ADD KEY `compte_id` (`compte_id`);
 
 --
 -- Index pour la table `evaluations_entreprises`
@@ -376,7 +376,7 @@ ALTER TABLE `entreprises`
 -- AUTO_INCREMENT pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `evaluations_entreprises`
@@ -447,8 +447,8 @@ ALTER TABLE `entreprises`
 -- Contraintes pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
-  ADD CONSTRAINT `etudiants_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `etudiants_ibfk_2` FOREIGN KEY (`pilote_id`) REFERENCES `pilotes` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `etudiants_ibfk_2` FOREIGN KEY (`pilote_id`) REFERENCES `pilotes` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `etudiants_ibfk_3` FOREIGN KEY (`compte_id`) REFERENCES `roles` (`nom`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Contraintes pour la table `evaluations_entreprises`

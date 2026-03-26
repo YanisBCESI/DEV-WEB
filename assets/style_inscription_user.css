@@ -1,32 +1,84 @@
-.u_block1{
-    width: 80%;
-    max-width: 900px;
-    margin: 3rem auto;
+.contenu_page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5rem 1.5rem 4rem;
 }
 
-.u_block1 h1{
+.Contenu_page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.u_block1 {
+    width: min(1120px, 100%);
+}
+
+.u_block1 h1 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin: 0 0 2.25rem;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 500;
 }
 
-.u_block1 form{
+.u_block1 form {
     display: flex;
     flex-direction: column;
+    gap: 1.3rem;
+}
+
+.u_div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
 
-.u_div{
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+.u_input,
+.u_block1 select {
+    width: 100%;
+    min-height: 62px;
+    padding: 0 1.2rem;
+    border-radius: 18px;
+    border: 1px solid #d1d1d1;
+    box-sizing: border-box;
+    background: #ffffff;
+    font: inherit;
+    font-size: 1rem;
+    color: #3a3a3a;
 }
 
-.u_input{
-    flex: 1;
-    padding: 1rem;
-    border-radius: 12px;
-    border: 1px solid #ccc;
+.u_block1 select {
+    appearance: auto;
 }
-.u_button{
+
+.u_input::placeholder {
+    color: #5f6470;
+}
+
+.u_button {
     align-self: center;
+    margin-top: 0.5rem;
+    min-width: 225px;
+    font-size: 1rem;
+    padding: 0.95rem 1.6rem;
+}
+
+@media (max-width: 768px) {
+    .contenu_page {
+        padding: 2rem 1rem 3rem;
+    }
+
+    .u_div {
+        grid-template-columns: 1fr;
+    }
+
+    .u_block1 h1 {
+        margin-bottom: 1.75rem;
+    }
+
+    .u_input,
+    .u_block1 select {
+        min-height: 56px;
+    }
 }
