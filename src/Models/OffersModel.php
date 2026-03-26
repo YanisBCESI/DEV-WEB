@@ -12,18 +12,7 @@ class OffersModel extends Model {
     }
 
     public function getAllOffers(){
-        $sql = "SELECT 
-                    offres.id,
-                    offres.titre,
-                    offres.type_contrat,
-                    offres.secteur,
-                    offres.localisation,
-                    offres.description,
-                    offres.competences,
-                    offres.remuneration,
-                    offres.date_debut,
-                    offres.created_at,
-                    entreprises.nom_entreprise
+        $sql = "SELECT *
                 FROM offres
                 INNER JOIN entreprises ON offres.entreprise_id = entreprises.id
                 ORDER BY offres.created_at DESC";

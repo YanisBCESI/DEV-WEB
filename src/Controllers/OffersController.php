@@ -10,7 +10,7 @@ class OffersController extends Controller {
         $this->templateEngine = $templateEngine;
     }
 
-    public function offersPage(){
+    public function getoffers(){
 
         // 1. Récupérer les données
         $offres = $this->Offer_model->getAllOffers();
@@ -21,7 +21,7 @@ class OffersController extends Controller {
         ]);
     }
 
-    public function createOfferPage(){
+    public function OfferPage(){
         echo $this->templateEngine->render("deposer_offre.html.twig");
     }
 }
