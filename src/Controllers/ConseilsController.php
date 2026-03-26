@@ -4,9 +4,9 @@ namespace App\Controllers;
 
 use App\Models\ConseilsModel;
 
-class AccountController extends Controller{
+class ConseilsController extends Controller{
     public function __construct($templateEngine){
-        $this->account_model = new AccountModel();
+        $this->conseils_model = new ConseilsModel();
         $this->templateEngine = $templateEngine;
     }
 
@@ -15,6 +15,6 @@ class AccountController extends Controller{
     }
 
     public function conseilsPage(){
-            echo $this->templateEngine->render("conseils.html.twig");
+            echo $this->templateEngine->render("conseil.html.twig");
         }
-
+}
