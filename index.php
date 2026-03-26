@@ -47,4 +47,7 @@ switch($uri){
     case 'account_created':
         $AccountController->AccountInfoSent();
         break;
+    case 'connect':
+        $AccountController->userConnexionPage();
+        break;
 }
