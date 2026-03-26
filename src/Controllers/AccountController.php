@@ -27,6 +27,10 @@ class AccountController extends Controller{
     }
 
     public function getData(){
-        
+        return $this->account_model->getData();
+    }
+
+    public function userConnectionPage(){
+        echo $this->templateEngine->render('connecter_User.html.twig');
     }
 }
