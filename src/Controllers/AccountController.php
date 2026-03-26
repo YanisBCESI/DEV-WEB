@@ -14,10 +14,10 @@ class AccountController extends Controller{
         echo $this->templateEngine->render("inscrire_User.html.twig");
     }
 
-    public function isPostMethod(){
-        if($_SERVER['REQUEST_METHOD'] !== "POST"){
-            return false;
-        }
+    public function AccountInfoSent(){
+        $this->account_model->retrieveData();
+        $this->account_model->sendToDatabase();
+        echo("Compte créé avec succès");
     }
 
     public function getData(){
