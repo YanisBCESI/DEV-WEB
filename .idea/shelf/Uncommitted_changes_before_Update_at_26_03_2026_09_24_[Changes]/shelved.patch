@@ -1,0 +1,181 @@
+Index: src/Models/Model.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\nnamespace App\\Models;\n\n/**\n * The Model class is an abstract class that serves as the base class for all models in the application.\n */\nabstract class Model {\n\n    CONST ADMIN = \"debian-sys-maint\";\n    CONST PASS = \"LYK8WN3Oup7UxkZW\";\n    protected $connection = null;\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Models/Model.php b/src/Models/Model.php
+--- a/src/Models/Model.php	(revision 80df6b4f69ec5a442607657bd6ec48a3b37334ad)
++++ b/src/Models/Model.php	(date 1774436315862)
+@@ -4,9 +4,9 @@
+ /**
+  * The Model class is an abstract class that serves as the base class for all models in the application.
+  */
++
+ abstract class Model {
+-
+     CONST ADMIN = "debian-sys-maint";
+-    CONST PASS = "LYK8WN3Oup7UxkZW";
++    CONST PASS = "AbyMJU61Q1H2h6co";
+     protected $connection = null;
+ }
+\ No newline at end of file
+Index: src/Models/AccountModel.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\n\nnamespace App\\Models;\n\nclass AccountModel extends Model{\n\n\n//(Mise a jour des templates, du controleur legal et de AccountModel)\n    public function __construct($info = null){\n        if(is_null($info)){\n            $this->data=[];\n            $this->dbh= new \\PDO(\"mysql:host=localhost;dbname = stage4all\", self::ADMIN, self::PASS);\n        }else{\n            $this->data = $info;\n            $this->dbh = new \\PDO(\"mysql:host=localhost;dbname = stage4all\", $this->data[\"email\"], $this->data[\"password\"]);\n        }\n    }\n\n    public function retrieveData(){\n        if($_SERVER['REQUEST_METHOD'] !== \"POST\"){\n            http_response_code(405);\n            return(\"Méthode non autorisée\");\n        }\n        $nom = trim($_POST[\"lastname\"] ?? \"\");\n        $prenom = trim($_POST['surname'] ?? '');\n        $genre = trim($_POST['genre'] ?? '');\n        $role = trim($_POST['role'] ?? '');\n        $email = trim($_POST['email'] ?? '');\n        $password = $_POST['password'] ?? '';\n        $passwordConfirm = $_POST['password_confirm'] ?? '';\n        $genres_autorises = [\"femme\", \"homme\", \"autre\"];\n        $roles_autorises = [\"etudiant\", \"alternant\"];\n        if($nom === \"\" or \n           $prenom ===\"\" or\n           !in_array($genre, $genres_autorises, true) or\n           !in_array($role, $roles_autorises, true) or\n           !filter_var($email, FILTER_VALIDATE_EMAIL) or\n           $password === \"\"){\n            return(\"Formulaire invalide\");\n        }\n        if($password !== $passwordConfirm){\n            return(\"Les mots de passe ne correspondent pas\");\n        }\n        $password = password_hash($password, PASSWORD_DEFAULT);\n        $this->data = [\"compte_id\" => 1, \"pilote_id\" => NULL, \"nom\" => $nom, \"prenom\" => $prenom, \"genre\" => $genre\n        , \"mdp\" => $password, \"email\" => $email];\n    }\n\n    public function getData(){\n        return $this->data;\n    }\n\n    public function sendToDataBase($data = null){\n        if(isset($data)){\n            $this->data = $data;\n        }\n        $stmt = $this->dbh->prepare(\"INSERT INTO etudiants (compte_id, pilote_id, nom, prenom, genre, mdp, email) VALUES (:compte_id, :pilote_id, :nom, :prenom, :genre, :mdp, :email);\");\n        $stmt->bindParam(\":compte_id\", $this->data[\"compte_id\"]);\n        $stmt->bindParam(\":pilote_id\", $this->data[\"pilote_id\"]);\n        $stmt->bindParam(\":nom\", $this->data[\"nom\"]);\n        $stmt->bindParam(\":prenom\", $this->data[\"prenom\"]);\n        $stmt->bindParam(\":genre\", $this->data[\"genre\"]);\n        $stmt->bindParam(\":mdp\", $this->data[\"mdp\"]);\n        $stmt->bindParam(\":email\", $this->data[\"email\"]);\n        $stmt->execute();\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Models/AccountModel.php b/src/Models/AccountModel.php
+--- a/src/Models/AccountModel.php	(revision 80df6b4f69ec5a442607657bd6ec48a3b37334ad)
++++ b/src/Models/AccountModel.php	(date 1774436402031)
+@@ -9,10 +9,10 @@
+     public function __construct($info = null){
+         if(is_null($info)){
+             $this->data=[];
+-            $this->dbh= new \PDO("mysql:host=localhost;dbname = stage4all", self::ADMIN, self::PASS);
++            $this->dbh= new \PDO("mysql:host=localhost;dbname=stage4all", self::ADMIN, self::PASS);
+         }else{
+             $this->data = $info;
+-            $this->dbh = new \PDO("mysql:host=localhost;dbname = stage4all", $this->data["email"], $this->data["password"]);
++            $this->dbh = new \PDO("mysql:host=localhost;dbname=stage4all", $this->data["email"], $this->data["password"]);
+         }
+     }
+ 
+@@ -42,7 +42,7 @@
+             return("Les mots de passe ne correspondent pas");
+         }
+         $password = password_hash($password, PASSWORD_DEFAULT);
+-        $this->data = ["compte_id" => 1, "pilote_id" => NULL, "nom" => $nom, "prenom" => $prenom, "genre" => $genre
++        $this->data = ["compte_id" => "etudiant", "pilote_id" => NULL, "nom" => $nom, "prenom" => $prenom, "genre" => $genre
+         , "mdp" => $password, "email" => $email];
+     }
+ 
+Index: src/Models/stage4all.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>-- phpMyAdmin SQL Dump\n-- version 5.2.1deb3\n-- https://www.phpmyadmin.net/\n--\n-- Hôte : localhost:3306\n-- Généré le : mer. 25 mars 2026 à 08:24\n-- Version du serveur : 8.0.45-0ubuntu0.24.04.1\n-- Version de PHP : 8.3.6\n\nSET SQL_MODE = \"NO_AUTO_VALUE_ON_ZERO\";\nSTART TRANSACTION;\nSET time_zone = \"+00:00\";\n\n\n/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;\n/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\n/*!40101 SET NAMES utf8mb4 */;\n\n--\n-- Base de données : `stage4all`\n--\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `articles`\n--\n\nCREATE TABLE `articles` (\n  `id` int NOT NULL,\n  `Titre` varchar(100) NOT NULL,\n  `Contenu` text\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `candidatures`\n--\n\nCREATE TABLE `candidatures` (\n  `id` int NOT NULL,\n  `etudiant_id` int NOT NULL,\n  `offre_id` int NOT NULL,\n  `statut` enum('envoyee','vue','retenue','refusee') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'envoyee',\n  `comaire` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,\n  `date_candidature` timestamp NULL DEFAULT CURRENT_TIMESTAMP\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `comptes`\n--\n\nCREATE TABLE `comptes` (\n  `id` int NOT NULL,\n  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `mot_de_passe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `role_id` int NOT NULL,\n  `actif` tinyint(1) NOT NULL DEFAULT '1',\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `conseils`\n--\n\nCREATE TABLE `conseils` (\n  `id` int NOT NULL,\n  `Titre` varchar(100) NOT NULL,\n  `Contenu` text,\n  `Tags` text\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `entreprises`\n--\n\nCREATE TABLE `entreprises` (\n  `id` int NOT NULL,\n  `compte_id` int NOT NULL,\n  `nom_entreprise` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `type_entreprise` enum('TPE','PME','ETI','GE') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `secteur` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `siret` varchar(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `adresse` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `ville` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `code_postal` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,\n  `site_web` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `moyenne_note` decimal(3,2) DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `etudiants`\n--\n\nCREATE TABLE `etudiants` (\n  `id` int NOT NULL,\n  `compte_id` int NOT NULL,\n  `pilote_id` int DEFAULT NULL,\n  `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `genre` enum('femme','homme','autre') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  `mdp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `evaluations_entreprises`\n--\n\nCREATE TABLE `evaluations_entreprises` (\n  `id` int NOT NULL,\n  `etudiant_id` int NOT NULL,\n  `entreprise_id` int NOT NULL,\n  `note` tinyint NOT NULL,\n  `comaire` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `logs_actions`\n--\n\nCREATE TABLE `logs_actions` (\n  `id` int NOT NULL,\n  `compte_id` int DEFAULT NULL,\n  `action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `offres`\n--\n\nCREATE TABLE `offres` (\n  `id` int NOT NULL,\n  `entreprise_id` int NOT NULL,\n  `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `type_contrat` enum('stage','alternance','emploi') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `secteur` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `localisation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `competences` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `remuneration` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `date_debut` date DEFAULT NULL,\n  `date_fin` date DEFAULT NULL,\n  `statut` enum('ouverte','fermee','archivee') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'ouverte',\n  `nb_places` int NOT NULL DEFAULT '1',\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n  `nb_vues` int NOT NULL DEFAULT '0'\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `pilotes`\n--\n\nCREATE TABLE `pilotes` (\n  `id` int NOT NULL,\n  `compte_id` int NOT NULL,\n  `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `genre` enum('femme','homme','autre') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `telephone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `roles`\n--\n\nCREATE TABLE `roles` (\n  `id` int NOT NULL,\n  `nom` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n--\n-- Déchargement des données de la table `roles`\n--\n\nINSERT INTO `roles` (`id`, `nom`) VALUES\n(1, 'admin'),\n(2, 'entreprise'),\n(3, 'etudiant'),\n(4, 'pilote');\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `sessions_utilisateurs`\n--\n\nCREATE TABLE `sessions_utilisateurs` (\n  `id` int NOT NULL,\n  `compte_id` int NOT NULL,\n  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,\n  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,\n  `expires_at` datetime NOT NULL\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n-- --------------------------------------------------------\n\n--\n-- Structure de la table `wishlist`\n--\n\nCREATE TABLE `wishlist` (\n  `id` int NOT NULL,\n  `etudiant_id` int NOT NULL,\n  `offre_id` int NOT NULL,\n  `date_ajout` timestamp NULL DEFAULT CURRENT_TIMESTAMP\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;\n\n--\n-- Index pour les tables déchargées\n--\n\n--\n-- Index pour la table `articles`\n--\nALTER TABLE `articles`\n  ADD PRIMARY KEY (`id`);\n\n--\n-- Index pour la table `candidatures`\n--\nALTER TABLE `candidatures`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `unique_candidature` (`etudiant_id`,`offre_id`),\n  ADD KEY `idx_candidatures_offre` (`offre_id`),\n  ADD KEY `idx_candidatures_etudiant` (`etudiant_id`),\n  ADD KEY `idx_candidatures_statut` (`statut`);\n\n--\n-- Index pour la table `comptes`\n--\nALTER TABLE `comptes`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `email` (`email`),\n  ADD KEY `role_id` (`role_id`);\n\n--\n-- Index pour la table `conseils`\n--\nALTER TABLE `conseils`\n  ADD PRIMARY KEY (`id`);\n\n--\n-- Index pour la table `entreprises`\n--\nALTER TABLE `entreprises`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `compte_id` (`compte_id`),\n  ADD UNIQUE KEY `siret` (`siret`);\n\n--\n-- Index pour la table `etudiants`\n--\nALTER TABLE `etudiants`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `compte_id` (`compte_id`),\n  ADD KEY `pilote_id` (`pilote_id`);\n\n--\n-- Index pour la table `evaluations_entreprises`\n--\nALTER TABLE `evaluations_entreprises`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `unique_evaluation` (`etudiant_id`,`entreprise_id`),\n  ADD KEY `entreprise_id` (`entreprise_id`);\n\n--\n-- Index pour la table `logs_actions`\n--\nALTER TABLE `logs_actions`\n  ADD PRIMARY KEY (`id`),\n  ADD KEY `compte_id` (`compte_id`);\n\n--\n-- Index pour la table `offres`\n--\nALTER TABLE `offres`\n  ADD PRIMARY KEY (`id`),\n  ADD KEY `idx_offres_entreprise` (`entreprise_id`),\n  ADD KEY `idx_offres_type` (`type_contrat`),\n  ADD KEY `idx_offres_statut` (`statut`);\n\n--\n-- Index pour la table `pilotes`\n--\nALTER TABLE `pilotes`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `compte_id` (`compte_id`);\n\n--\n-- Index pour la table `roles`\n--\nALTER TABLE `roles`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `nom` (`nom`);\n\n--\n-- Index pour la table `sessions_utilisateurs`\n--\nALTER TABLE `sessions_utilisateurs`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `token` (`token`),\n  ADD KEY `compte_id` (`compte_id`);\n\n--\n-- Index pour la table `wishlist`\n--\nALTER TABLE `wishlist`\n  ADD PRIMARY KEY (`id`),\n  ADD UNIQUE KEY `unique_wishlist` (`etudiant_id`,`offre_id`),\n  ADD KEY `offre_id` (`offre_id`);\n\n--\n-- AUTO_INCREMENT pour les tables déchargées\n--\n\n--\n-- AUTO_INCREMENT pour la table `articles`\n--\nALTER TABLE `articles`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `candidatures`\n--\nALTER TABLE `candidatures`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `comptes`\n--\nALTER TABLE `comptes`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `conseils`\n--\nALTER TABLE `conseils`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `entreprises`\n--\nALTER TABLE `entreprises`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `etudiants`\n--\nALTER TABLE `etudiants`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `evaluations_entreprises`\n--\nALTER TABLE `evaluations_entreprises`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `logs_actions`\n--\nALTER TABLE `logs_actions`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `offres`\n--\nALTER TABLE `offres`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `pilotes`\n--\nALTER TABLE `pilotes`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `roles`\n--\nALTER TABLE `roles`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;\n\n--\n-- AUTO_INCREMENT pour la table `sessions_utilisateurs`\n--\nALTER TABLE `sessions_utilisateurs`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- AUTO_INCREMENT pour la table `wishlist`\n--\nALTER TABLE `wishlist`\n  MODIFY `id` int NOT NULL AUTO_INCREMENT;\n\n--\n-- Contraintes pour les tables déchargées\n--\n\n--\n-- Contraintes pour la table `candidatures`\n--\nALTER TABLE `candidatures`\n  ADD CONSTRAINT `candidatures_ibfk_1` FOREIGN KEY (`etudiant_id`) REFERENCES `etudiants` (`id`) ON DELETE CASCADE,\n  ADD CONSTRAINT `candidatures_ibfk_2` FOREIGN KEY (`offre_id`) REFERENCES `offres` (`id`) ON DELETE CASCADE;\n\n--\n-- Contraintes pour la table `comptes`\n--\nALTER TABLE `comptes`\n  ADD CONSTRAINT `comptes_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);\n\n--\n-- Contraintes pour la table `entreprises`\n--\nALTER TABLE `entreprises`\n  ADD CONSTRAINT `entreprises_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE CASCADE;\n\n--\n-- Contraintes pour la table `etudiants`\n--\nALTER TABLE `etudiants`\n  ADD CONSTRAINT `etudiants_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE CASCADE,\n  ADD CONSTRAINT `etudiants_ibfk_2` FOREIGN KEY (`pilote_id`) REFERENCES `pilotes` (`id`) ON DELETE SET NULL;\n\n--\n-- Contraintes pour la table `evaluations_entreprises`\n--\nALTER TABLE `evaluations_entreprises`\n  ADD CONSTRAINT `evaluations_entreprises_ibfk_1` FOREIGN KEY (`etudiant_id`) REFERENCES `etudiants` (`id`) ON DELETE CASCADE,\n  ADD CONSTRAINT `evaluations_entreprises_ibfk_2` FOREIGN KEY (`entreprise_id`) REFERENCES `entreprises` (`id`) ON DELETE CASCADE;\n\n--\n-- Contraintes pour la table `logs_actions`\n--\nALTER TABLE `logs_actions`\n  ADD CONSTRAINT `logs_actions_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE SET NULL;\n\n--\n-- Contraintes pour la table `offres`\n--\nALTER TABLE `offres`\n  ADD CONSTRAINT `offres_ibfk_1` FOREIGN KEY (`entreprise_id`) REFERENCES `entreprises` (`id`) ON DELETE CASCADE;\n\n--\n-- Contraintes pour la table `pilotes`\n--\nALTER TABLE `pilotes`\n  ADD CONSTRAINT `pilotes_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE CASCADE;\n\n--\n-- Contraintes pour la table `sessions_utilisateurs`\n--\nALTER TABLE `sessions_utilisateurs`\n  ADD CONSTRAINT `sessions_utilisateurs_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE CASCADE;\n\n--\n-- Contraintes pour la table `wishlist`\n--\nALTER TABLE `wishlist`\n  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`etudiant_id`) REFERENCES `etudiants` (`id`) ON DELETE CASCADE,\n  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`offre_id`) REFERENCES `offres` (`id`) ON DELETE CASCADE;\nCOMMIT;\n\n/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;\n/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Models/stage4all.sql b/src/Models/stage4all.sql
+--- a/src/Models/stage4all.sql	(revision 80df6b4f69ec5a442607657bd6ec48a3b37334ad)
++++ b/src/Models/stage4all.sql	(date 1774436402031)
+@@ -3,7 +3,7 @@
+ -- https://www.phpmyadmin.net/
+ --
+ -- Hôte : localhost:3306
+--- Généré le : mer. 25 mars 2026 à 08:24
++-- Généré le : mer. 25 mars 2026 à 10:52
+ -- Version du serveur : 8.0.45-0ubuntu0.24.04.1
+ -- Version de PHP : 8.3.6
+ 
+@@ -106,7 +106,7 @@
+ 
+ CREATE TABLE `etudiants` (
+   `id` int NOT NULL,
+-  `compte_id` int NOT NULL,
++  `compte_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+   `pilote_id` int DEFAULT NULL,
+   `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+   `prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+@@ -281,8 +281,8 @@
+ --
+ ALTER TABLE `etudiants`
+   ADD PRIMARY KEY (`id`),
+-  ADD UNIQUE KEY `compte_id` (`compte_id`),
+-  ADD KEY `pilote_id` (`pilote_id`);
++  ADD KEY `pilote_id` (`pilote_id`),
++  ADD KEY `compte_id` (`compte_id`);
+ 
+ --
+ -- Index pour la table `evaluations_entreprises`
+@@ -376,7 +376,7 @@
+ -- AUTO_INCREMENT pour la table `etudiants`
+ --
+ ALTER TABLE `etudiants`
+-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
++  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+ 
+ --
+ -- AUTO_INCREMENT pour la table `evaluations_entreprises`
+@@ -447,8 +447,8 @@
+ -- Contraintes pour la table `etudiants`
+ --
+ ALTER TABLE `etudiants`
+-  ADD CONSTRAINT `etudiants_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE CASCADE,
+-  ADD CONSTRAINT `etudiants_ibfk_2` FOREIGN KEY (`pilote_id`) REFERENCES `pilotes` (`id`) ON DELETE SET NULL;
++  ADD CONSTRAINT `etudiants_ibfk_2` FOREIGN KEY (`pilote_id`) REFERENCES `pilotes` (`id`) ON DELETE SET NULL,
++  ADD CONSTRAINT `etudiants_ibfk_3` FOREIGN KEY (`compte_id`) REFERENCES `roles` (`nom`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ 
+ --
+ -- Contraintes pour la table `evaluations_entreprises`
+Index: src/Controllers/AccountController.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\n\nnamespace App\\Controllers;\n\nuse App\\Models\\AccountModel;\n\nclass AccountController extends Controller{\n    public function __construct($templateEngine){\n        $this->account_model = new AccountModel();\n        $this->templateEngine = $templateEngine;\n    }\n\n    public function userInscriptionPage(){\n        echo $this->templateEngine->render(\"inscrire_User.html.twig\");\n    }\n\n    public function isPostMethod(){\n        if($_SERVER['REQUEST_METHOD'] !== \"POST\"){\n            return false;\n        }\n    }\n\n    public function getData(){\n        \n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Controllers/AccountController.php b/src/Controllers/AccountController.php
+--- a/src/Controllers/AccountController.php	(revision 80df6b4f69ec5a442607657bd6ec48a3b37334ad)
++++ b/src/Controllers/AccountController.php	(date 1774436402027)
+@@ -20,6 +20,12 @@
+         }
+     }
+ 
++    public function AccountInfoSent(){
++        $this->account_model->retrieveData();
++        $this->account_model->sendToDatabase();
++        echo("Compte créé avec succès");
++    }
++
+     public function getData(){
+         
+     }
+Index: index.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?php\n\nrequire __DIR__ . \"/vendor/autoload.php\";\n#ini_set(\"display_errors\", 1);\n#ini_set(\"display_startup_errors\", 1);\n#error_reporting(E_ALL);\n\nuse App\\Controllers\\HomepageController;\nuse App\\Controllers\\OffersController;\nuse App\\Controllers\\FileDepotController;\nuse App\\Controllers\\AccountController;\nuse App\\Controllers\\LegalController;\n\n\n$loader = new \\Twig\\Loader\\FilesystemLoader(\"templates\");\n$twig = new \\Twig\\Environment($loader, [\n    \"debug\" => true\n]);\n\nif(isset($_GET[\"uri\"])){\n    $uri = $_GET['uri'];\n}\nelse{\n    $uri = \"/\";\n}\n\n$HomepageController = new HomepageController($twig);\n$OffersController = new OffersController($twig);\n$FileDepotController = new FileDepotController($twig);\n$AccountController = new AccountController($twig);\n$LegalController = new LegalController($twig);\n\nswitch($uri){\n    case '/':\n        $HomepageController->welcomePage();\n        break;\n    case 'offres':\n        $OffersController->offersPage();\n        break;\n    case 'creer_offre':\n        $OffersController->createOfferPage();\n        break;\n    case 'deposer_fichier':\n        $FileDepotController->filedepotPage();\n        break;\n    case 'inscription_user':\n        $AccountController->userInscriptionPage();\n        break;\n    case 'mentions_legales':\n        $LegalController->legalNoticePage();\n        break;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/index.php b/index.php
+--- a/index.php	(revision 80df6b4f69ec5a442607657bd6ec48a3b37334ad)
++++ b/index.php	(date 1774513453692)
+@@ -46,7 +46,14 @@
+     case 'inscription_user':
+         $AccountController->userInscriptionPage();
+         break;
++<<<<<<< HEAD
+     case 'mentions_legales':
+         $LegalController->legalNoticePage();
+         break;
+ }
++=======
++    case 'account_created':
++        $AccountController->AccountInfoSent();
++        break;
++}
++>>>>>>> 5f41cd334dc5b1a0ec346c8431abe580b56df955
+Index: templates/inscrire_User.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{% extends \"base.html.twig\" %}\r\n{% block link %} <link rel=\"stylesheet\" href=\"/assets/style_inscription_user.css\"> {% endblock %}\r\n{% block title %}Inscription Utilisateur - Stage4all{% endblock %}\r\n\r\n{% block content %}\r\n<div class=\"Contenu_page\">\r\n    <section class=\"u_block1\">\r\n        <h1>Créer un compte</h1>\r\n\r\n        <form action=\"/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_user.php\" method=\"post\" enctype=\"multipart/form-data\">\r\n            <div class=\"u_div\">\r\n                <input name=\"lastname\" type=\"text\" placeholder=\"Nom\" required class=\"u_input\">\r\n                <input name=\"surname\" type=\"text\" placeholder=\"Prénom\" required class=\"u_input\">\r\n            </div>\r\n            <div class=\"u_div\">\r\n                <select name=\"genre\" required>\r\n                <option value=\"\" disabled selected>Choisissez le genre de l'étudiant</option>\r\n                <option value=\"femme\">Madame</option>\r\n                <option value=\"homme\">Monsieur</option>\r\n                <option value=\"autre\">Autre</option>\r\n                </select>\r\n\r\n                <select name=\"role\" required class=\"u_input\">\r\n                <option value=\"etudiant\" selected>Étudiant</option>\r\n                <option value=\"alternant\">Alternant</option>\r\n                </select>\r\n            </div>\r\n\r\n            <input name=\"email\" type=\"email\" placeholder=\"e-mail / login\" required class=\"u_input\">\r\n            <input name=\"password\" type=\"password\" placeholder=\"Mot de passe\" required class=\"u_input\">\r\n            <input name=\"password_confirm\" type=\"password\" placeholder=\"Confirmation\" required class=\"u_input\">\r\n            <button class=\"b2 u_button\" type=\"submit\">Créer mon compte</button>\r\n        </form>\r\n    </section>\r\n</div>\r\n{% endblock %}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/inscrire_User.html.twig b/templates/inscrire_User.html.twig
+--- a/templates/inscrire_User.html.twig	(revision 80df6b4f69ec5a442607657bd6ec48a3b37334ad)
++++ b/templates/inscrire_User.html.twig	(date 1774436402031)
+@@ -7,7 +7,7 @@
+     <section class="u_block1">
+         <h1>Créer un compte</h1>
+ 
+-        <form action="/FICHIERS_PHP_A_CONVERTIR/traitement_inscription_user.php" method="post" enctype="multipart/form-data">
++        <form action="index.php?uri=account_created" method="post" enctype="multipart/form-data">
+             <div class="u_div">
+                 <input name="lastname" type="text" placeholder="Nom" required class="u_input">
+                 <input name="surname" type="text" placeholder="Prénom" required class="u_input">

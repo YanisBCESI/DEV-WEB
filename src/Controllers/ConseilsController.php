@@ -11,10 +11,10 @@ class ConseilsController extends Controller{
     }
 
     public function getData(){
-        return $this->getFronDataBase();
+        return $this->conseils_model->getFromDataBase();
     }
 
     public function conseilsPage(){
-            echo $this->templateEngine->render("conseil.html.twig");
+            echo $this->templateEngine->render("conseil.html.twig", ["conseils" => $this->getData()]);
         }
 }
