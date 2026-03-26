@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ConseilsModel;
 
-class AccountController extends Controller{
+class ConseilsController extends Controller{
     public function __construct($templateEngine){
         $this->account_model = new AccountModel();
         $this->templateEngine = $templateEngine;
