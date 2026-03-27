@@ -10,18 +10,14 @@ class OffersController extends Controller {
         $this->templateEngine = $templateEngine;
     }
 
-    public function getoffers(){
 
-        // 1. RÃƒÂ©cupÃƒÂ©rer les donnÃƒÂ©es
+    public function offersPage(){
+        // 1. Récupérer les données
         $offres = $this->Offer_model->getAllOffers();
 
         // 2. Envoyer ÃƒÂ  la vue
         echo $this->templateEngine->render('offres.html.twig', [
             'offres' => $offres
-        ]);
-    }
-
-    public function offersPage(){
-        echo $this->templateEngine->render("offres.html.twig");
+        ]);    
     }
 }
