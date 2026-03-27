@@ -53,11 +53,13 @@ class HomepageController extends Controller{
 
         $cookieConsent = $_COOKIE[$consentCookieName] ?? null;
         $cookieValue = $_COOKIE[$visitCookieName] ?? null;
+        $latestOffers = $this->Homepage_model->getLatestOffers();
 
         echo $this->templateEngine->render("index.html", [
             "show_cookie_banner" => $cookieConsent === null,
             "cookie_consent" => $cookieConsent,
             "cookie_value" => $cookieValue,
+            "latest_offers" => $latestOffers,
         ]);
     }
 }
