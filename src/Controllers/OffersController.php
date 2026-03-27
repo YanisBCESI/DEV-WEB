@@ -15,7 +15,7 @@ class OffersController extends Controller {
         // 1. Récupérer les données
         $offres = $this->Offer_model->getAllOffers();
 
-        // 2. Envoyer à la vue
+        // 2. Envoyer ÃƒÂ  la vue
         echo $this->templateEngine->render('offres.html.twig', [
             'offres' => $offres
         ]);    

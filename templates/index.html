@@ -50,46 +50,19 @@
             <div class="nav_page">
                 <button class="fleche_gauche fleche" id="fleche_gauche1" onclick="scrollListe1(-70)"><</button>
                 <div class="Liste_offres" id="liste1">
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
-                    <div class="Offre">
-                        <h2>Titre Offre</h2>
-                        <p>Phrase du stage</p>
-                    </div>
+                    {% if latest_offers is defined and latest_offers is not empty %}
+                        {% for offre in latest_offers %}
+                            <div class="Offre">
+                                <h2>{{ offre.titre|default('Titre Offre') }}</h2>
+                                <p class="Texte_sub_class">{{ offre.description|default('Phrase du stage')|striptags|slice(0, 110) }}{% if offre.description is defined and offre.description|length > 110 %}...{% endif %}</p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="Offre">
+                            <h2>Titre Offre</h2>
+                            <p>Phrase du stage</p>
+                        </div>
+                    {% endif %}
                     <!--système d'ajout de pages d'Articles-->
                     <button class="fleche_droite fleche" id="fleche_droite1" onclick="scrollListe1(70)">></button>
                 </div>
@@ -110,7 +83,7 @@
                 <div class="Liste_conseils liste" id="liste3">
                     <div class="Conseil">
                         <h2 class="Titre_sub_class">Soigner son CV</h2>
-                        <p class="Texte_sub_class">Un CV clair, structuré et sans fautes augmente fortement vos chances dêtre retenu.</p>
+                        <p class="Texte_sub_class">Un CV clair, structuré et sans fautes augmente fortement vos chances d'être retenu.</p>
                         <button class="b2">Consulter</button>
                     </div>
 
@@ -155,7 +128,7 @@
                         <p class="Texte_sub_class">Une relance polie peut montrer votre motivation.</p>
                         <button class="b2">Consulter</button>
                     </div>
-                    <!--systÃ¨me d'ajout de pages d'Articles-->
+                    <!--système d'ajout de pages d'Articles-->
                 </div>
                 <button class="fleche_droite fleche" id="fleche_droite3" onclick="scrollListe3(70)">></button>
             </div>
