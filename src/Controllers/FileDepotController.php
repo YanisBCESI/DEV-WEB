@@ -10,7 +10,7 @@ class FileDepotController extends Controller{
         $this->templateEngine = $templateEngine;
     }
     public function filedepotPage(){
-        echo $this->templateEngine->render("formulaire_depot_fichier.html");
+        echo $this->templateEngine->render("formulaire_depot_fichier.html.twig");
     }
     public function sendFile(){
         var_dump($_FILES);
