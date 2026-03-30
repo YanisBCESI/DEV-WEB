@@ -92,3 +92,53 @@
         padding: 1.5rem 1.25rem;
     }
 }
+
+
+.pagination {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+    flex-wrap: wrap;
+}
+
+/* Boutons */
+.pagination a,
+.pagination span {
+    padding: 0.6vh 1.2vw;
+    border-radius: 0.8vw;
+    background-color: var(--Couleur1);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 0.15vw solid transparent;
+    font-size: 0.9vw;
+}
+
+/* Hover */
+.pagination a:hover {
+    background-color: var(--Couleur3);
+    color: var(--Couleur1);
+}
+
+/* Page active */
+.pagination .current {
+    background-color: var(--Couleur3);
+    color: var(--Couleur1);
+    border: 0.15vw solid var(--Couleur1);
+    cursor: default;
+}
+
+/* Précédent / suivant */
+.pagination a:first-child,
+.pagination a:last-child {
+    font-size: 0.8vw;
+    padding: 0.6vh 1vw;
+}
+
+/* Effet clic */
+.pagination a:active {
+    transform: scale(0.95);
+}
