@@ -27,7 +27,7 @@
                         <p>{{ offre.localisation|default('Localisation non précisée') }}</p>
 
                         <p class="offre-description">
-                            {{ offre.description|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description is defined and offre.description|length > 180 %}...{% endif %}
+                            {{ offre.description_offre|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description is defined and offre.description|length > 180 %}...{% endif %}
                         </p>
                     </div>
 
@@ -35,6 +35,10 @@
                         <form action="/wishlist/ajouter" method="POST">
                             <input type="hidden" name="offre_id" value="{{ offre.id }}">
                             <button class="b2" type="submit">Ajouter à ma wishlist</button>
+                        </form>
+                        <form action="?uri=offres&id_offre={{offre.id_offre}}" method="POST">
+                            <input type="hidden" name="offre_id" value="{{offre.id}}">
+                            <button class="b2" type="submit">Consulter</button> 
                         </form>
                     </div>
                 </article>

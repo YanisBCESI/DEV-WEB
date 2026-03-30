@@ -37,7 +37,7 @@ switch($uri){
         $HomepageController->welcomePage();
         break;
     case 'offres':
-        $OffersController->offersPage();
+        $OffersController->showOffer();
         break;
     case 'creer_offre':
         $OffersController->createOfferPage();

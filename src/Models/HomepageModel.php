@@ -12,9 +12,9 @@ class HomepageModel extends Model{
 
     public function getLatestOffers(int $limit = 10): array{
         $sql = "SELECT
-                    offres.id,
+                    offres.id_offre,
                     offres.titre,
-                    offres.description,
+                    offres.description_offre,
                     offres.localisation,
                     offres.type_contrat,
                     entreprises.nom_entreprise
