@@ -82,3 +82,7 @@
         min-height: 56px;
     }
 }
+
+.u_lastname{
+    text-transform: uppercase;
+}
