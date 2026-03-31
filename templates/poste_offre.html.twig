@@ -1,3 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} - Stage4all{% endblock %}
+{% block link %} {% endblock %}
+
+{% block content %}
+{% set offer = offre|default([]) %}
+<article>
+    <h1>{{ offer.titre|default('Titre offre')}}</h1>
+    <h3>Domaine :</h3>
+    <p>{{ offer.secteur|default("Domaine offre")}}
+    <h3>Description de l'offre : </h3>
+    <p>{{ offer.description_offre|default("Description offre") }}</p>
+</article>
+{% endblock %}
