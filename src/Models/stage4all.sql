@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : mer. 25 mars 2026 à 08:24
+-- Généré le : mar. 31 mars 2026 à 09:03
 -- Version du serveur : 8.0.45-0ubuntu0.24.04.1
 -- Version de PHP : 8.3.6
 
@@ -63,6 +63,16 @@ CREATE TABLE `comptes` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `comptes`
+--
+
+INSERT INTO `comptes` (`id`, `email`, `mot_de_passe`, `role_id`, `actif`, `created_at`) VALUES
+(1, 'contact@websolutions.fr', 'hash_mdp1', 2, 1, '2026-03-30 08:44:50'),
+(2, 'rh@data-insights.fr', 'hash_mdp2', 2, 1, '2026-03-30 08:44:50'),
+(3, 'jobs@cybersecure.fr', 'hash_mdp3', 2, 1, '2026-03-30 08:44:50'),
+(4, 'hr@cloudfactory.io', 'hash_mdp4', 2, 1, '2026-03-30 08:44:50');
+
 -- --------------------------------------------------------
 
 --
@@ -98,6 +108,16 @@ CREATE TABLE `entreprises` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `entreprises`
+--
+
+INSERT INTO `entreprises` (`id`, `compte_id`, `nom_entreprise`, `type_entreprise`, `secteur`, `siret`, `adresse`, `ville`, `code_postal`, `description`, `site_web`, `moyenne_note`, `created_at`) VALUES
+(1, 1, 'Web Solutions', 'PME', 'Informatique / Web', '12345678900011', '10 rue du Web', 'Paris', '75010', 'Agence spécialisée dans le développement d\'applications web.', 'https://www.websolutions.fr', NULL, '2026-03-30 08:44:50'),
+(2, 2, 'Data Insights', 'ETI', 'Data / BI', '12345678900022', '20 avenue des Données', 'Issy-les-Moulineaux', '92130', 'Société de conseil en data analytics et business intelligence.', 'https://www.data-insights.fr', NULL, '2026-03-30 08:44:50'),
+(3, 3, 'CyberSecure', 'PME', 'Cybersécurité', '12345678900033', '5 boulevard de la Sécurité', 'Toulouse', '31000', 'Entreprise spécialisée dans la sécurité des systèmes d\'information.', 'https://www.cybersecure.fr', NULL, '2026-03-30 08:44:50'),
+(4, 4, 'CloudFactory', 'GE', 'Cloud / SaaS', '12345678900044', '15 rue du Cloud', 'Paris', '75009', 'Fournisseur de solutions cloud et SaaS pour entreprises.', 'https://www.cloudfactory.io', NULL, '2026-03-30 08:44:50');
+
 -- --------------------------------------------------------
 
 --
@@ -106,7 +126,7 @@ CREATE TABLE `entreprises` (
 
 CREATE TABLE `etudiants` (
   `id` int NOT NULL,
-  `compte_id` int NOT NULL,
+  `compte_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pilote_id` int DEFAULT NULL,
   `nom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `prenom` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -115,6 +135,13 @@ CREATE TABLE `etudiants` (
   `mdp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `etudiants`
+--
+
+INSERT INTO `etudiants` (`id`, `compte_id`, `pilote_id`, `nom`, `prenom`, `genre`, `created_at`, `mdp`, `email`) VALUES
+(13, 'etudiant', NULL, 'gougou', 'gaga', 'homme', '2026-03-26 09:48:28', '$2y$10$9sLHlU7nDdMKLpuN.Dru0.RaKlkLzpRxK/cYyumbWC2DAhc/ixYie', 'abcd@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -152,13 +179,13 @@ CREATE TABLE `logs_actions` (
 --
 
 CREATE TABLE `offres` (
-  `id` int NOT NULL,
+  `id_offre` int NOT NULL,
   `entreprise_id` int NOT NULL,
   `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `type_contrat` enum('stage','alternance','emploi') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `secteur` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `localisation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_offre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `competences` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `remuneration` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_debut` date DEFAULT NULL,
@@ -169,6 +196,28 @@ CREATE TABLE `offres` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nb_vues` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `offres`
+--
+
+INSERT INTO `offres` (`id_offre`, `entreprise_id`, `titre`, `type_contrat`, `secteur`, `localisation`, `description_offre`, `competences`, `remuneration`, `date_debut`, `date_fin`, `statut`, `nb_places`, `created_at`, `updated_at`, `nb_vues`) VALUES
+(1, 1, 'Stagiaire Développeur Web PHP', 'stage', 'Informatique', 'Paris (75)', 'Participation au développement et à la maintenance d\'un site web interne en PHP et MySQL.', 'PHP, MySQL, HTML, CSS, notions de JavaScript, Git, bonnes pratiques de développement.', '900 €/mois', '2026-04-01', '2026-09-30', 'ouverte', 2, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(2, 1, 'Stagiaire Data & Business Intelligence', 'stage', 'Data / BI', 'Issy-les-Moulineaux (92)', 'Développement de pipelines ETL, modélisation de données et création de tableaux de bord décisionnels.', 'Python, SQL, Power BI ou équivalent, notions de cloud, Git, esprit d\'analyse.', '1 100 €/mois', '2026-05-01', '2026-10-31', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(3, 1, 'Alternant Administrateur Systèmes & Réseaux', 'alternance', 'Informatique / Réseaux', 'Paris (75)', 'Administration des serveurs Linux/Windows, supervision et support aux utilisateurs.', 'Linux, Windows Server, TCP/IP, VLAN, scripting Bash ou PowerShell, sens du service.', 'Selon grille alternance', '2026-09-01', '2027-08-31', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(4, 2, 'Stagiaire DevOps Junior', 'stage', 'DevOps', 'Lyon (69)', 'Mise en place et amélioration de la chaîne CI/CD, automatisation et supervision des environnements.', 'Docker, GitLab CI ou Jenkins, Linux, bases en cloud (AWS/Azure/GCP), scripting.', '1 000 €/mois', '2026-04-15', '2026-10-15', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(5, 2, 'Développeur Web Junior', 'emploi', 'Informatique', 'Paris (75)', 'Développement de nouvelles fonctionnalités sur une application web à fort trafic.', 'JavaScript, framework front (Vue/React/Angular), API REST, bonnes pratiques de tests.', '32 000 €/an', '2026-06-01', NULL, 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(6, 2, 'Alternant Développeur Full‑Stack', 'alternance', 'Informatique', 'Marseille (13)', 'Participation au développement full‑stack d\'applications internes.', 'Node.js ou PHP, framework front, SQL, Git, méthodologie agile, curiosité technique.', 'Selon rythme et convention', '2026-09-01', '2027-08-31', 'ouverte', 2, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(7, 3, 'Stagiaire Cybersecurité', 'stage', 'Cybersécurité', 'Toulouse (31)', 'Contribution aux audits de sécurité, à la gestion des vulnérabilités et à la sensibilisation des équipes.', 'Connaissances réseaux, Linux, outils de scan, notions d\'OWASP, rigueur et confidentialité.', '1 050 €/mois', '2026-05-15', '2026-11-15', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(8, 3, 'Stagiaire Data Analyst Junior', 'stage', 'Data / Analytics', 'Paris (75)', 'Analyse de données marketing et opérationnelles, production de tableaux de bord.', 'SQL, Excel/Google Sheets, un outil de dataviz (Power BI, Tableau), esprit de synthèse.', '1 000 €/mois', '2026-04-01', '2026-09-30', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(9, 3, 'Alternant Data Engineer', 'alternance', 'Data / Engineering', 'Nantes (44)', 'Mise en place de flux de données, optimisation des performances et industrialisation.', 'Python, SQL, ETL, Git, notions de cloud, bonnes pratiques de code.', 'Selon convention', '2026-10-01', '2027-09-30', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(10, 3, 'Stagiaire QA / Testeur Logiciel', 'stage', 'Qualité Logicielle', 'Lille (59)', 'Rédaction et exécution de plans de tests, automatisation de scénarios de non‑régression.', 'Méthodes de tests, outils type Selenium/Cypress, rigueur, bonne communication écrite.', '900 €/mois', '2026-06-01', '2026-11-30', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(11, 4, 'Alternant Administrateur Cloud', 'alternance', 'Cloud', 'Paris (75)', 'Participation à la gestion et à l\'automatisation des infrastructures cloud.', 'AWS ou Azure ou GCP, Linux, scripting, notions de sécurité, Git.', 'Selon politique entreprise', '2026-09-01', '2027-08-31', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(12, 4, 'Stagiaire Support Applicatif', 'stage', 'Support / Production', 'Rennes (35)', 'Support de niveau 2 sur des applications métiers, analyse d\'incidents et rédaction de documentation.', 'Bases SQL, compréhension des architectures web, pédagogie, bon relationnel.', '850 €/mois', '2026-04-15', '2026-09-15', 'ouverte', 2, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(13, 4, 'Développeur Backend Junior', 'emploi', 'Informatique', 'Lyon (69)', 'Conception et développement de services backend robustes et scalables.', 'Java ou C#, bases de données relationnelles, API REST, Git, intégration continue.', '35 000 €/an', '2026-07-01', NULL, 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(14, 2, 'Stagiaire Product Owner IT', 'stage', 'Produit / IT', 'Paris (75)', 'Aide à la rédaction des user stories, priorisation du backlog et suivi des développements.', 'Compréhension fonctionnelle, bases agiles (Scrum/Kanban), bonnes capacités de communication.', '1 000 €/mois', '2026-05-01', '2026-10-31', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(15, 1, 'Alternant Technicien Réseaux', 'alternance', 'Réseaux', 'Nice (06)', 'Déploiement et maintenance d\'équipements réseau chez les clients (switch, routeur, Wi‑Fi).', 'Bases solides en TCP/IP, routage, VLAN, outils de supervision, permis B apprécié.', 'Selon convention', '2026-09-01', '2027-08-31', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0),
+(16, 4, 'Stagiaire UX/UI Designer', 'stage', 'Design / UX', 'Paris (75)', 'Conception de maquettes et de prototypes pour des interfaces web et mobiles.', 'Figma ou équivalent, notions HTML/CSS, sens de l\'ergonomie et du détail.', '900 €/mois', '2026-04-01', '2026-09-30', 'ouverte', 1, '2026-03-30 08:44:50', '2026-03-30 08:44:50', 0);
 
 -- --------------------------------------------------------
 
@@ -281,8 +330,8 @@ ALTER TABLE `entreprises`
 --
 ALTER TABLE `etudiants`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `compte_id` (`compte_id`),
-  ADD KEY `pilote_id` (`pilote_id`);
+  ADD KEY `pilote_id` (`pilote_id`),
+  ADD KEY `compte_id` (`compte_id`);
 
 --
 -- Index pour la table `evaluations_entreprises`
@@ -303,7 +352,7 @@ ALTER TABLE `logs_actions`
 -- Index pour la table `offres`
 --
 ALTER TABLE `offres`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id_offre`),
   ADD KEY `idx_offres_entreprise` (`entreprise_id`),
   ADD KEY `idx_offres_type` (`type_contrat`),
   ADD KEY `idx_offres_statut` (`statut`);
@@ -358,7 +407,7 @@ ALTER TABLE `candidatures`
 -- AUTO_INCREMENT pour la table `comptes`
 --
 ALTER TABLE `comptes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `conseils`
@@ -370,13 +419,13 @@ ALTER TABLE `conseils`
 -- AUTO_INCREMENT pour la table `entreprises`
 --
 ALTER TABLE `entreprises`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `evaluations_entreprises`
@@ -394,7 +443,7 @@ ALTER TABLE `logs_actions`
 -- AUTO_INCREMENT pour la table `offres`
 --
 ALTER TABLE `offres`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_offre` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `pilotes`
@@ -429,7 +478,7 @@ ALTER TABLE `wishlist`
 --
 ALTER TABLE `candidatures`
   ADD CONSTRAINT `candidatures_ibfk_1` FOREIGN KEY (`etudiant_id`) REFERENCES `etudiants` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `candidatures_ibfk_2` FOREIGN KEY (`offre_id`) REFERENCES `offres` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `candidatures_ibfk_2` FOREIGN KEY (`offre_id`) REFERENCES `offres` (`id_offre`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `comptes`
@@ -447,8 +496,8 @@ ALTER TABLE `entreprises`
 -- Contraintes pour la table `etudiants`
 --
 ALTER TABLE `etudiants`
-  ADD CONSTRAINT `etudiants_ibfk_1` FOREIGN KEY (`compte_id`) REFERENCES `comptes` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `etudiants_ibfk_2` FOREIGN KEY (`pilote_id`) REFERENCES `pilotes` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `etudiants_ibfk_2` FOREIGN KEY (`pilote_id`) REFERENCES `pilotes` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `etudiants_ibfk_3` FOREIGN KEY (`compte_id`) REFERENCES `roles` (`nom`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Contraintes pour la table `evaluations_entreprises`
@@ -486,7 +535,7 @@ ALTER TABLE `sessions_utilisateurs`
 --
 ALTER TABLE `wishlist`
   ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`etudiant_id`) REFERENCES `etudiants` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`offre_id`) REFERENCES `offres` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`offre_id`) REFERENCES `offres` (`id_offre`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
