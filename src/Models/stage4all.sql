@@ -536,6 +536,37 @@ ALTER TABLE `sessions_utilisateurs`
 ALTER TABLE `wishlist`
   ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`etudiant_id`) REFERENCES `etudiants` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`offre_id`) REFERENCES `offres` (`id_offre`) ON DELETE CASCADE;
+
+--
+-- Requetes utiles centralisees pour les tests de la wishlist
+-- Ces requetes remplacent les anciens fichiers SQL temporaires supprimes du projet.
+--
+-- Compte etudiant de test utilise pendant les essais wishlist :
+-- email : wishlist.test@stage4all.local
+-- mot de passe : WishlistTest123!
+--
+-- Requetes utilisees sur la base reelle :
+--
+-- INSERT INTO comptes (email, mot_de_passe, role_id, actif)
+-- VALUES ('wishlist.test@stage4all.local', '$2y$10$dHdHlI/tTnSRLX9JyDdX8uy2lmJ25iivBn5OhXNNRwdsAl9VuEeZu', 3, 1);
+--
+-- SET @compte_id = LAST_INSERT_ID();
+--
+-- INSERT INTO etudiants (compte_id, nom, prenom, genre)
+-- VALUES (@compte_id, 'Wishlist', 'Test', 'autre');
+--
+-- SELECT comptes.id, comptes.email, comptes.role_id, comptes.actif, etudiants.id AS etudiant_id
+-- FROM comptes
+-- INNER JOIN etudiants ON etudiants.compte_id = comptes.id
+-- WHERE comptes.email = 'wishlist.test@stage4all.local';
+--
+-- SELECT wishlist.id, wishlist.etudiant_id, wishlist.offre_id, offres.titre, entreprises.nom_entreprise
+-- FROM wishlist
+-- INNER JOIN offres ON offres.id = wishlist.offre_id
+-- INNER JOIN entreprises ON entreprises.id = offres.entreprise_id
+-- WHERE wishlist.etudiant_id = 14
+-- ORDER BY wishlist.date_ajout DESC;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
