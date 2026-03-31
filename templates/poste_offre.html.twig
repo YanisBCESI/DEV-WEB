@@ -1,15 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} - Stage4all{% endblock %}
-{% block link %} {% endblock %}
+{% block title %} Offre - Stage4all{% endblock %}
+{% block link %} <link rel="stylesheet" href="/assets/style_consulter_offre.css"> {% endblock %}
 
 {% block content %}
 {% set offer = offre|default([]) %}
-<article>
-    <h1>{{ offer.titre|default('Titre offre')}}</h1>
-    <h3>Domaine :</h3>
-    <p>{{ offer.secteur|default("Domaine offre")}}
-    <h3>Description de l'offre : </h3>
-    <p>{{ offer.description_offre|default("Description offre") }}</p>
+<article class="offer-page">
+    <div class="box-contenu">
+        <h1>{{ offer.titre|default('Titre offre')}}</h1>
+        <p>Dernière modif le : {{ offer.updated_at|default("JAMAIS MOUHAHAHA")}}
+        <h3>Domaine :</h3>
+        <p>{{ offer.secteur|default("Domaine offre")}}
+        <h3>Description de l'offre : </h3>
+        <p>{{ offer.description_offre|default("Description offre") }}</p>
+        <h3>Compétences conseillées : </h3>
+        <p>{{ offer.competences|default("Compétences demandées")}}</p>
+    </div>
+    <aside class="box-contenu">
+        <p>Localisation : {{ offer.localisation|default("Endroit de l'offre")}} </p>
+        <p>Rémunération : {{ offer.remuneration|default("X euros")}} </p>
+        <p>Dates : Entre le {{ offer.date_debut|default("DATE DEBUT")}} et le {{ offer.date_fin|default("DATE FIN")}} </p>
+    </aside>
 </article>
 {% endblock %}
