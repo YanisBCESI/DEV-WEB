@@ -37,4 +37,17 @@ class OffersModel extends Model {
         $stmt = $this->dbh->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function getOfferById($id){
+        $sql = "SELECT
+                    offres.*,
+                    entreprises.nom_entreprise
+                FROM offres
+                INNER JOIN entreprises ON offres.entreprise_id = entreprises.id
+                WHERE offres.id_offre = :id";
+
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
 }

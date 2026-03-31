@@ -71,7 +71,8 @@ INSERT INTO `comptes` (`id`, `email`, `mot_de_passe`, `role_id`, `actif`, `creat
 (1, 'contact@websolutions.fr', 'hash_mdp1', 2, 1, '2026-03-30 08:44:50'),
 (2, 'rh@data-insights.fr', 'hash_mdp2', 2, 1, '2026-03-30 08:44:50'),
 (3, 'jobs@cybersecure.fr', 'hash_mdp3', 2, 1, '2026-03-30 08:44:50'),
-(4, 'hr@cloudfactory.io', 'hash_mdp4', 2, 1, '2026-03-30 08:44:50');
+(4, 'hr@cloudfactory.io', 'hash_mdp4', 2, 1, '2026-03-30 08:44:50'),
+(6, 'admin@stage4all.local', '$2y$10$FgYCM2CtSf4KXKEF/nSPaeozGVsAA0wO9MnT4jRHbBLBW.KPIZMdS', 1, 1, '2026-03-31 09:00:00');
 
 -- --------------------------------------------------------
 
@@ -407,7 +408,7 @@ ALTER TABLE `candidatures`
 -- AUTO_INCREMENT pour la table `comptes`
 --
 ALTER TABLE `comptes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `conseils`

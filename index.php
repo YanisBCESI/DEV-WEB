@@ -11,6 +11,7 @@ use App\Controllers\HomepageController;
 use App\Controllers\OffersController;
 use App\Controllers\FileDepotController;
 use App\Controllers\AccountController;
+use App\Controllers\AdminController;
 use App\Controllers\LegalController;
 use App\Controllers\ConseilsController;
 use App\Controllers\WishlistController;
@@ -22,8 +23,11 @@ $twig = new \Twig\Environment($loader, [
 ]);
 
 $currentStudent = $_SESSION["student"] ?? null;
+$currentAdmin = $_SESSION["admin"] ?? null;
 $twig->addGlobal("current_student", $currentStudent);
+$twig->addGlobal("current_admin", $currentAdmin);
 $twig->addGlobal("is_student_logged_in", isset($currentStudent["id"]));
+$twig->addGlobal("is_admin_logged_in", isset($currentAdmin["id"]));
 $twig->addGlobal("wishlist_icon_path", "/assets/images/30571.png");
 
 if(isset($_GET["uri"])){
@@ -85,6 +89,14 @@ switch($uri){
     case 'logout':
         $AccountController = new AccountController($twig);
         $AccountController->logoutStudent();
+        break;
+    case 'admin_pilots':
+        $AdminController = new AdminController($twig);
+        $AdminController->pilotsPage();
+        break;
+    case 'admin_pilot_create':
+        $AdminController = new AdminController($twig);
+        $AdminController->createPilotAccount();
         break;
     case "conseils":
         $ConseilsController = new ConseilsController($twig);

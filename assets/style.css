@@ -144,6 +144,11 @@ header{
     justify-content: center;
 }
 
+.header-admin-link{
+    text-decoration: none;
+    line-height: 1;
+}
+
 .header-icon{
     height: 2vw;
     width: 2vw;
