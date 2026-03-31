@@ -1,146 +1,108 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="/assets/style.css">
-    <link rel="stylesheet" href="/assets/style_index.css">
-    <link rel="icon" type="image/png" href="/assets/images/icon.png" sizes="48x48">
-    <script src="/assets/script_index.js" defer></script>
-</head>
-<body>
-    <header>
-        <div class="Titre">
-            <img class="Logo" src="/assets/images/icon.png" alt="Logo">
-            <h1 class="Nom_site">Stage 4 All</h1>
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_index.css">{% endblock %}
+
+{% block content %}
+    <div class="Presentation">
+        <img src="/assets/images/Fond_accueil.jpg" alt="Fond_page" class="Fond_page">
+        <div class="Titre_presentation">
+            <h1 class="Nom_site Nom_presentation">Stage 4 all</h1>
         </div>
-
-        <div class="Bouton_menu_burger" id="burger">
-            <span class="Barre_menu_burger"></span>
-            <span class="Barre_menu_burger"></span>
-            <span class="Barre_menu_burger"></span>
-        </div>
-
-        <nav class="nav_PC">
-            <a href="/"><img class="Logo_nav" alt="Accueil" src="/assets/images/Accueil.png">Accueil</a>
-            <span></span>
-            <a href="?uri=offres"><img class="Logo_nav" alt="Offres" src="/assets/images/Offre.png">Offres</a>
-            <span></span>
-            <a href="?uri=conseils"><img class="Logo_nav" alt="Conseil" src="/assets/images/Conseil.png">Conseil</a>
-            <span></span>
-            <a href="#"><img class="Logo_nav" alt="Support" src="/assets/images/Support.png">Support</a>
-        </nav>
-
-        <a href="?uri=inscription_user">
-            <img class="Logo_connexion" src="/assets/images/compte.png" alt="compte">
-        </a>
-    </header>
-    <main class="Contenu_page">
-
-        <div class="Presentation">
-            <img src="/assets/images/Fond_accueil.jpg" alt="Fond_page" class="Fond_page">
-            <div class="Titre_presentation">
-                <h1 class="Nom_site Nom_presentation">Stage 4 all</h1>
-            </div>
-            <h2>La recherche de stage facile pour tous</h2>
-            <a href="?uri=offres"><button class="b1" type="button">Commencer</button></a>
-        </div>
-        <div class="Offres">
-            <h1>Quelques Offres</h1>
-            <div class="nav_page">
-                <button class="fleche_gauche fleche" id="fleche_gauche1" onclick="scrollListe1(-70)"><</button>
-                <div class="Liste_offres" id="liste1">
-                    {% if latest_offers is defined and latest_offers is not empty %}
-                        {% for offre in latest_offers %}
-                            <div class="Offre">
-                                <h2>{{ offre.titre|default('Titre Offre') }}</h2>
-                                <p class="Texte_sub_class">{{ offre.description|default('Phrase du stage')|striptags|slice(0, 110) }}{% if offre.description is defined and offre.description|length > 110 %}...{% endif %}</p>
-                            </div>
-                        {% endfor %}
-                    {% else %}
+        <h2>La recherche de stage facile pour tous</h2>
+        <a href="?uri=offres"><button class="b1" type="button">Commencer</button></a>
+    </div>
+    <div class="Offres">
+        <h1>Quelques Offres</h1>
+        <div class="nav_page">
+            <button class="fleche_gauche fleche" id="fleche_gauche1" onclick="scrollListe1(-70)"><</button>
+            <div class="Liste_offres" id="liste1">
+                {% if latest_offers is defined and latest_offers is not empty %}
+                    {% for offre in latest_offers %}
                         <div class="Offre">
-                            <h2>Titre Offre</h2>
-                            <p>Phrase du stage</p>
+                            <h2>{{ offre.titre|default('Titre Offre') }}</h2>
+                            <p class="Texte_sub_class">
+                                {{ offre.description_offre|default(offre.description|default('Phrase du stage'))|striptags|slice(0, 110) }}
+                                {% if offre.description_offre is defined and offre.description_offre|length > 110 %}...{% endif %}
+                            </p>
                         </div>
-                    {% endif %}
-                    <!--système d'ajout de pages d'Articles-->
-                    <button class="fleche_droite fleche" id="fleche_droite1" onclick="scrollListe1(70)">></button>
+                    {% endfor %}
+                {% else %}
+                    <div class="Offre">
+                        <h2>Titre Offre</h2>
+                        <p>Phrase du stage</p>
+                    </div>
+                {% endif %}
+                <!--systÃ¨me d'ajout de pages d'Articles-->
+                <button class="fleche_droite fleche" id="fleche_droite1" onclick="scrollListe1(70)">></button>
+            </div>
+        </div>
+    </div>
+    <div class="Actualite">
+        <div class="Article">
+            <h2>Titre article</h2>
+            <p>Texte de l'article</p>
+            <button class="b2">Consulter</button>
+        </div>
+        <!--systÃ¨me d'ajout de pages d'Articles-->
+    </div>
+    <div class="Conseils">
+        <h2>Quelques conseils</h2>
+        <div class="nav_page">
+            <button class="fleche_gauche fleche" id="fleche_gauche3" onclick="scrollListe3(-70)"><</button>
+            <div class="Liste_conseils liste" id="liste3">
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">Soigner son CV</h2>
+                    <p class="Texte_sub_class">Un CV clair, structurÃ© et sans fautes augmente fortement vos chances d'Ãªtre retenu.</p>
+                    <button class="b2">Consulter</button>
                 </div>
-            </div>
-        </div>
-        <div class="Actualite">
-            <div class="Article">
-                <h2>Titre article</h2>
-                <p>Texte de l'article</p>
-                <button class="b2">Consulter</button>
-            </div>
-            <!--système d'ajout de pages d'Articles-->
-        </div>
-        <div class="Conseils">
-            <h2>Quelques conseils</h2>
-            <div class="nav_page">
-                <button class="fleche_gauche fleche" id="fleche_gauche3" onclick="scrollListe3(-70)"><</button>
-                <div class="Liste_conseils liste" id="liste3">
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Soigner son CV</h2>
-                        <p class="Texte_sub_class">Un CV clair, structuré et sans fautes augmente fortement vos chances d'être retenu.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
 
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Personnaliser sa candidature</h2>
-                        <p class="Texte_sub_class">Adaptez votre CV et votre lettre de motivation à chaque entreprise.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
-
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Mettre en avant ses compétences</h2>
-                        <p class="Texte_sub_class">Présentez clairement les compétences utiles pour le poste visé.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
-
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Se renseigner sur l'entreprise</h2>
-                        <p class="Texte_sub_class">Montrez votre intérêt en connaissant l'activité et les valeurs de l'entreprise.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
-
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Préparer l'entretien</h2>
-                        <p class="Texte_sub_class">Anticipez les questions fréquentes pour être plus à l'aise le jour J.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
-
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Soigner sa présence en ligne</h2>
-                        <p class="Texte_sub_class">Vérifiez que votre image sur internet reste professionnelle.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
-
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Être clair et concis</h2>
-                        <p class="Texte_sub_class">Les recruteurs apprécient les candidatures simples et faciles à lire.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
-
-                    <div class="Conseil">
-                        <h2 class="Titre_sub_class">Relancer sa candidature</h2>
-                        <p class="Texte_sub_class">Une relance polie peut montrer votre motivation.</p>
-                        <button class="b2">Consulter</button>
-                    </div>
-                    <!--système d'ajout de pages d'Articles-->
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">Personnaliser sa candidature</h2>
+                    <p class="Texte_sub_class">Adaptez votre CV et votre lettre de motivation Ã  chaque entreprise.</p>
+                    <button class="b2">Consulter</button>
                 </div>
-                <button class="fleche_droite fleche" id="fleche_droite3" onclick="scrollListe3(70)">></button>
+
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">Mettre en avant ses compÃ©tences</h2>
+                    <p class="Texte_sub_class">PrÃ©sentez clairement les compÃ©tences utiles pour le poste visÃ©.</p>
+                    <button class="b2">Consulter</button>
+                </div>
+
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">Se renseigner sur l'entreprise</h2>
+                    <p class="Texte_sub_class">Montrez votre intÃ©rÃªt en connaissant l'activitÃ© et les valeurs de l'entreprise.</p>
+                    <button class="b2">Consulter</button>
+                </div>
+
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">PrÃ©parer l'entretien</h2>
+                    <p class="Texte_sub_class">Anticipez les questions frÃ©quentes pour Ãªtre plus Ã  l'aise le jour J.</p>
+                    <button class="b2">Consulter</button>
+                </div>
+
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">Soigner sa prÃ©sence en ligne</h2>
+                    <p class="Texte_sub_class">VÃ©rifiez que votre image sur internet reste professionnelle.</p>
+                    <button class="b2">Consulter</button>
+                </div>
+
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">ÃŠtre clair et concis</h2>
+                    <p class="Texte_sub_class">Les recruteurs apprÃ©cient les candidatures simples et faciles Ã  lire.</p>
+                    <button class="b2">Consulter</button>
+                </div>
+
+                <div class="Conseil">
+                    <h2 class="Titre_sub_class">Relancer sa candidature</h2>
+                    <p class="Texte_sub_class">Une relance polie peut montrer votre motivation.</p>
+                    <button class="b2">Consulter</button>
+                </div>
+                <!--systÃ¨me d'ajout de pages d'Articles-->
             </div>
+            <button class="fleche_droite fleche" id="fleche_droite3" onclick="scrollListe3(70)">></button>
         </div>
-    </main>
-    <footer>
-        <h2>Stage 4 All</h2>
-        <a class="footer-link" href="?uri=mentions_legales"><h2>Mentions légales</h2></a>
-        <a class="footer-link" href="#"><h2>Cookies</h2></a>
-        <a class="footer-link" href="#"><h2>Besoin d'Aide ?</h2></a>
-        <div class="Follow_us"><h2>Suivez nous sur :&nbsp;</h2><a><img class="Logo_connexion" src="/assets/images/Insta.png" alt="Insta"></a><a><img class="Logo_connexion" src="/assets/images/X.png" alt="X"></a><a><img class="Logo_connexion" src="/assets/images/Youtube.png" alt="Youtube"></a></div>
-    </footer>
+    </div>
     {% if show_cookie_banner %}
         <div class="Cookie_banner">
             <div class="Cookie_banner_texte">
@@ -153,5 +115,4 @@
             </form>
         </div>
     {% endif %}
-</body>
-</html>
+{% endblock %}

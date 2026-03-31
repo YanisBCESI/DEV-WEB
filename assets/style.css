@@ -113,6 +113,25 @@ header{
     width: 2vw;
 }
 
+.header-actions{
+    display: flex;
+    align-items: center;
+    gap: 1.6vw;
+    padding-right: 2.2vw;
+}
+
+.header-icon-link{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-icon{
+    height: 2vw;
+    width: 2vw;
+    object-fit: contain;
+}
+
 .nav_PC{
     display: flex;
     justify-content: space-evenly;
@@ -240,6 +259,16 @@ footer h2{
         height: 9vh;
         width: auto;
         padding-right: 1.5vh;
+    }
+
+    .header-actions{
+        gap: 2vw;
+        padding-right: 1.5vh;
+    }
+
+    .header-icon{
+        height: 6vh;
+        width: 6vh;
     }
 
     footer{

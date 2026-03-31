@@ -12,6 +12,9 @@
             <button class="b2 uc_button" type="submit">connexion</button>
             <a href="?uri=inscription_user">Vous n'avez pas de compte ?</a>
         </form>
+        {% if login_error %}
+            <p class="uc_error_message">Adresse e-mail ou mot de passe incorrect.</p>
+        {% endif %}
     </section>
 </div>
 {% endblock %}

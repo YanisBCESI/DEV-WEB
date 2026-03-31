@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Ma wishlist - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_wishlist.css">{% endblock %}
 
 {% block content %}
 <section class="wishlist-page">
@@ -31,7 +32,7 @@
                         <div>
                             <h2>{{ offre.titre|default('Offre sans titre') }}</h2>
                             <p class="wishlist-company">
-                                {{ offre.nom_entreprise|default(offre.entreprise|default('Entreprise non précisée')) }}
+                                {{ offre.nom_entreprise|default('Entreprise non précisée') }}
                             </p>
                         </div>
 
@@ -54,11 +55,12 @@
 
                     <div class="wishlist-actions">
                         <p class="wishlist-added-date">
-                            <strong>Ajoutée le :</strong> {{ offre.date_ajout|default(offre.created_at|default('Date inconnue')) }}
+                            <strong>Ajoutée le :</strong> {{ offre.date_ajout|default('Date inconnue') }}
                         </p>
 
-                        <form action="/wishlist/retirer" method="POST">
-                            <input type="hidden" name="offre_id" value="{{ offre.id }}">
+                        <form action="?uri=wishlist_remove" method="POST">
+                            <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
+                            <input type="hidden" name="redirect_to" value="?uri=wishlist">
                             <button class="wishlist-remove-button" type="submit">Retirer de la wish-list</button>
                         </form>
                     </div>

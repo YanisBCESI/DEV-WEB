@@ -33,9 +33,17 @@
             <a href="#"><img class="Logo_nav" alt="Support" src="/assets/images/Support.png">Support</a>
         </nav>
 
-        <a href="?uri=inscription_user">
-            <img class="Logo_connexion" src="/assets/images/compte.png" alt="compte">
-        </a>
+        <div class="header-actions">
+            {% if is_student_logged_in %}
+                <a class="header-icon-link" href="?uri=wishlist" aria-label="Ma wishlist">
+                    <img class="header-icon" src="{{ wishlist_icon_path }}" alt="wishlist">
+                </a>
+            {% endif %}
+
+            <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=logout{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Se déconnecter{% else %}Se connecter{% endif %}">
+                <img class="header-icon" src="/assets/images/compte.png" alt="compte">
+            </a>
+        </div>
 
         </header>
 

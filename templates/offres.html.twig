@@ -9,6 +9,7 @@
     <p class="offres-intro">Retrouve ici les offres disponibles dans un affichage clair et cohérent avec Stage4All.</p>
 
     {% set liste_offres = offres|default([]) %}
+    {% set wishlist_ids = wishlist_offer_ids|default([]) %}
 
     {% if liste_offres is empty %}
         <div class="offres-empty">
@@ -27,18 +28,32 @@
                         <p>{{ offre.localisation|default('Localisation non précisée') }}</p>
 
                         <p class="offre-description">
-                            {{ offre.description_offre|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description is defined and offre.description|length > 180 %}...{% endif %}
+                            {{ offre.description_offre|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description_offre is defined and offre.description_offre|length > 180 %}...{% endif %}
                         </p>
                     </div>
 
                     <div class="offre-actions">
-                        <form action="/wishlist/ajouter" method="POST">
-                            <input type="hidden" name="offre_id" value="{{ offre.id }}">
-                            <button class="b2" type="submit">Ajouter à ma wishlist</button>
-                        </form>
-                        <form action="?uri=offres&id_offre={{offre.id_offre}}" method="POST">
-                            <input type="hidden" name="offre_id" value="{{offre.id}}">
-                            <button class="b2" type="submit">Consulter</button> 
+                        {% if is_student_logged_in %}
+                            {% if offre.id_offre in wishlist_ids %}
+                                <form action="?uri=wishlist_remove" method="POST">
+                                    <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
+                                    <input type="hidden" name="redirect_to" value="?uri=offres&page={{ page }}">
+                                    <button class="b2 b2-secondary" type="submit">Retirer de ma wishlist</button>
+                                </form>
+                            {% else %}
+                                <form action="?uri=wishlist_add" method="POST">
+                                    <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
+                                    <input type="hidden" name="redirect_to" value="?uri=offres&page={{ page }}">
+                                    <button class="b2" type="submit">Ajouter à ma wishlist</button>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <a class="b2 b2-secondary offre-login-link" href="?uri=connect">Connecte-toi pour ajouter</a>
+                        {% endif %}
+
+                        <form action="?uri=offres&id_offre={{ offre.id_offre }}" method="POST">
+                            <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
+                            <button class="b2" type="submit">Consulter</button>
                         </form>
                     </div>
                 </article>
@@ -46,7 +61,7 @@
         </div>
         <div class="pagination">
             {% if page > 1 %}
-                <a href="?uri=offres&page={{ page - 1 }}"> ❮ </a>
+                <a href="?uri=offres&page={{ page - 1 }}">❮</a>
             {% endif %}
 
             {% for i in 1..totalPages %}
@@ -58,7 +73,7 @@
             {% endfor %}
 
             {% if page < totalPages %}
-                <a href="?uri=offres&page={{ page + 1 }}"> ❯ </a>
+                <a href="?uri=offres&page={{ page + 1 }}">❯</a>
             {% endif %}
         </div>
     {% endif %}
