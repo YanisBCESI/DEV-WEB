@@ -19,7 +19,7 @@ class AccountController extends Controller{
     public function AccountInfoSent(){
         $this->account_model->retrieveData();
         $this->account_model->sendToDataBase();
-        echo("Compte créé avec succès");
+        echo("Compte cree avec succes");
     }
 
     public function getData(){
@@ -43,13 +43,55 @@ class AccountController extends Controller{
 
     private function getUploadMessage(?string $status): ?string{
         return match ($status) {
-            "success" => "Document déposé avec succès.",
-            "missing" => "Aucun fichier n'a été sélectionné.",
-            "invalid_type" => "Seuls les fichiers PDF et DOCX sont autorisés.",
-            "too_large" => "Le fichier dépasse la taille maximale de 2 Mo.",
-            "upload_failed" => "Le dépôt du fichier a échoué.",
+            "success" => "Document depose avec succes.",
+            "missing" => "Aucun fichier n'a ete selectionne.",
+            "invalid_type" => "Format non autorise : seuls les fichiers PDF et DOCX sont acceptes.",
+            "too_large" => "Fichier trop volumineux : la taille maximale autorisee est de 2 Mo.",
+            "upload_failed" => "Le depot du fichier a echoue.",
             default => null,
         };
+    }
+
+    private function getStudentDocumentsDirectory(): string{
+        return dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . "student_documents";
+    }
+
+    private function formatStudentDocumentLabel(int $studentId, string $storedName): string{
+        $pattern = '/^student_' . preg_quote((string) $studentId, '/') . '_(?:[0-9]+_)?(?:[a-f0-9]{16}_)?/i';
+        $label = preg_replace($pattern, '', $storedName);
+
+        if (!is_string($label) || $label === '') {
+            return $storedName;
+        }
+
+        return str_replace('_', ' ', $label);
+    }
+
+    private function getStudentDocuments(int $studentId): array{
+        $directory = $this->getStudentDocumentsDirectory();
+
+        if (!is_dir($directory)) {
+            return [];
+        }
+
+        $files = glob($directory . DIRECTORY_SEPARATOR . "student_" . $studentId . "_*");
+
+        if ($files === false) {
+            return [];
+        }
+
+        usort($files, static function (string $left, string $right): int {
+            return filemtime($right) <=> filemtime($left);
+        });
+
+        return array_map(function (string $path): array {
+            $storedName = basename($path);
+
+            return [
+                "stored_name" => $storedName,
+                "label" => $storedName,
+            ];
+        }, $files);
     }
 
     public function studentProfilePage(){
@@ -58,6 +100,7 @@ class AccountController extends Controller{
 
         echo $this->templateEngine->render("profil_etudiant.html.twig", [
             "student_profile" => $profile,
+            "student_documents" => $this->getStudentDocuments($studentId),
             "upload_message" => $this->getUploadMessage($_GET["upload"] ?? null),
             "upload_success" => ($_GET["upload"] ?? null) === "success",
         ]);
@@ -77,6 +120,17 @@ class AccountController extends Controller{
         }
 
         $file = $_FILES["student_document"];
+
+        if (($file["error"] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_INI_SIZE || ($file["error"] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_FORM_SIZE) {
+            header("Location: ?uri=student_profile&upload=too_large");
+            exit;
+        }
+
+        if (($file["error"] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK) {
+            header("Location: ?uri=student_profile&upload=upload_failed");
+            exit;
+        }
+
         $maxSize = 2 * 1024 * 1024;
         $extension = strtolower(pathinfo($file["name"] ?? "", PATHINFO_EXTENSION));
         $allowedExtensions = ["pdf", "docx"];
@@ -98,14 +152,22 @@ class AccountController extends Controller{
             exit;
         }
 
-        $targetDirectory = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . "student_documents";
+        $targetDirectory = $this->getStudentDocumentsDirectory();
 
         if (!is_dir($targetDirectory) && !mkdir($targetDirectory, 0777, true) && !is_dir($targetDirectory)) {
             header("Location: ?uri=student_profile&upload=upload_failed");
             exit;
         }
 
-        $targetName = "student_" . $studentId . "_" . bin2hex(random_bytes(8)) . "." . $extension;
+        $baseName = pathinfo($file["name"] ?? "document", PATHINFO_FILENAME);
+        $sanitizedBaseName = preg_replace('/[^A-Za-z0-9_-]+/', '_', $baseName);
+        $sanitizedBaseName = trim((string) $sanitizedBaseName, '_');
+
+        if ($sanitizedBaseName === '') {
+            $sanitizedBaseName = 'document';
+        }
+
+        $targetName = "student_" . $studentId . "_" . time() . "_" . bin2hex(random_bytes(8)) . "_" . $sanitizedBaseName . "." . $extension;
         $targetPath = $targetDirectory . DIRECTORY_SEPARATOR . $targetName;
 
         if (!move_uploaded_file($file["tmp_name"], $targetPath)) {

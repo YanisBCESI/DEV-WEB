@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil étudiant - Stage4all{% endblock %}
+{% block title %}Profil etudiant - Stage4all{% endblock %}
 {% block link %}<link rel="stylesheet" href="/assets/style_student_profile.css">{% endblock %}
 
 {% block content %}
 <section class="student-profile-page">
     <div class="student-profile-card">
         <div class="student-profile-section">
-            <h1>Mon profil étudiant</h1>
+            <h1>Mon profil etudiant</h1>
             <div class="student-profile-grid">
                 <div class="student-profile-item">
                     <span class="student-profile-label">Nom</span>
                     <strong>{{ student_profile.nom }}</strong>
                 </div>
                 <div class="student-profile-item">
-                    <span class="student-profile-label">Prénom</span>
+                    <span class="student-profile-label">Prenom</span>
                     <strong>{{ student_profile.prenom }}</strong>
                 </div>
                 <div class="student-profile-item student-profile-item-full">
@@ -29,7 +29,7 @@
         <div class="student-profile-section">
             <div class="student-profile-grid">
                 <div class="student-profile-item">
-                    <span class="student-profile-label">Établissement</span>
+                    <span class="student-profile-label">Etablissement</span>
                     <strong>{{ student_profile.etablissement }}</strong>
                 </div>
                 <div class="student-profile-item">
@@ -38,15 +38,33 @@
                 </div>
             </div>
 
-            <form class="student-upload-form" action="?uri=student_document_upload" method="post" enctype="multipart/form-data">
-                <label class="student-upload-label" for="student_document">Déposer un document</label>
-                <input id="student_document" name="student_document" type="file" accept=".pdf,.docx" required>
-                <p class="student-upload-help">Formats autorisés : PDF et DOCX, taille maximale : 2 Mo.</p>
-                <button class="b2 student-upload-button" type="submit">Déposer</button>
+            <form id="student_upload_form" class="student-upload-form" action="?uri=student_document_upload" method="post" enctype="multipart/form-data">
+                <label class="student-upload-label" for="student_document">Deposer un document</label>
+                <div class="student-upload-layout">
+                    <div class="student-upload-controls">
+                        <input id="student_document" name="student_document" type="file" accept=".pdf,.docx" required>
+                        <p id="student_upload_client_message" class="student-upload-message student-upload-message-error student-upload-message-hidden" aria-live="polite"></p>
+                        <p class="student-upload-help">Formats autorises : PDF et DOCX, taille maximale : 2 Mo.</p>
+                        <button class="b2 student-upload-button" type="submit">Deposer</button>
+                    </div>
+
+                    <div class="student-upload-history">
+                        <span class="student-profile-label">Fichiers deja deposes</span>
+                        {% if student_documents is not empty %}
+                            <ul class="student-document-list">
+                                {% for document in student_documents %}
+                                    <li>{{ document.label }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="student-document-empty">Aucun document depose pour le moment.</p>
+                        {% endif %}
+                    </div>
+                </div>
             </form>
 
             {% if upload_message %}
-                <p class="student-upload-message {% if upload_success %}student-upload-message-success{% else %}student-upload-message-error{% endif %}">
+                <p class="student-upload-message {% if upload_success %}student-upload-message-success{% else %}student-upload-message-error{% endif %}" aria-live="polite">
                     {{ upload_message }}
                 </p>
             {% endif %}
@@ -55,8 +73,74 @@
         <div class="student-profile-divider"></div>
 
         <div class="student-profile-section student-profile-section-actions">
-            <a class="b2 student-logout-button" href="?uri=logout">Déconnexion</a>
+            <a class="b2 student-logout-button" href="?uri=logout">Deconnexion</a>
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("student_upload_form");
+    const input = document.getElementById("student_document");
+    const message = document.getElementById("student_upload_client_message");
+
+    if (!form || !input || !message) {
+        return;
+    }
+
+    const maxSize = 2 * 1024 * 1024;
+    const allowedExtensions = ["pdf", "docx"];
+    const invalidTypeMessage = "Format non autorise : seuls les fichiers PDF et DOCX sont acceptes.";
+    const tooLargeMessage = "Fichier trop volumineux : la taille maximale autorisee est de 2 Mo.";
+
+    const showMessage = (text) => {
+        message.textContent = text;
+        message.classList.remove("student-upload-message-hidden");
+    };
+
+    const hideMessage = () => {
+        message.textContent = "";
+        message.classList.add("student-upload-message-hidden");
+    };
+
+    const validateSelectedFile = () => {
+        hideMessage();
+
+        const selectedFile = input.files && input.files[0] ? input.files[0] : null;
+
+        if (!selectedFile) {
+            return true;
+        }
+
+        const parts = selectedFile.name.split(".");
+        const extension = parts.length > 1 ? parts.pop().toLowerCase() : "";
+
+        if (!allowedExtensions.includes(extension)) {
+            showMessage(invalidTypeMessage);
+            input.value = "";
+            return false;
+        }
+
+        if (selectedFile.size > maxSize) {
+            showMessage(tooLargeMessage);
+            input.value = "";
+            return false;
+        }
+
+        return true;
+    };
+
+    input.addEventListener("change", () => {
+        validateSelectedFile();
+    });
+
+    form.addEventListener("submit", (event) => {
+        if (!validateSelectedFile()) {
+            event.preventDefault();
+        }
+    });
+});
+</script>
 {% endblock %}
