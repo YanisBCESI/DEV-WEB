@@ -6,7 +6,7 @@
 {% block content %}
 {% set offer = offre|default([]) %}
 <article class="offer-page">
-    <div class="box-contenu">
+    <div class="gauche">
         <h1>{{ offer.titre|default('Titre offre')}}</h1>
         <p>Dernière modif le : {{ offer.updated_at|default("JAMAIS MOUHAHAHA")}}
         <h3>Domaine :</h3>
@@ -16,10 +16,15 @@
         <h3>Compétences conseillées : </h3>
         <p>{{ offer.competences|default("Compétences demandées")}}</p>
     </div>
-    <aside class="box-contenu">
-        <p>Localisation : {{ offer.localisation|default("Endroit de l'offre")}} </p>
-        <p>Rémunération : {{ offer.remuneration|default("X euros")}} </p>
-        <p>Dates : Entre le {{ offer.date_debut|default("DATE DEBUT")}} et le {{ offer.date_fin|default("DATE FIN")}} </p>
+    <aside class="droit">
+        <div class="haut">
+            
+        </div>
+        <div class="bas">
+            <p>Localisation : {{ offer.localisation|default("Endroit de l'offre")}} </p>
+            <p>Rémunération : {{ offer.remuneration|default("X euros")}} </p>
+            <p>Dates : Entre le {{ offer.date_debut|default("DATE DEBUT")}} et le {{ offer.date_fin|default("DATE FIN")}} </p>
+        </div>
     </aside>
 </article>
 {% endblock %}

@@ -5,9 +5,20 @@
     background: #ffff;
     border-radius: 24px;
     box-shadow: 0 12px 35px #ab4cd7;
+    display: flex;
+    gap : 100px
 }
 
-.box-contenu{
-    display: flex;
-    gap : 20px
+.gauche{
+    flex: 1;
+}
+
+.droit{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.haut{
+    flex: 1;
 }
