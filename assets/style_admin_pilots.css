@@ -1,0 +1,154 @@
+.admin-pilots-page {
+    width: min(1200px, calc(100% - 3rem));
+    margin: 3rem auto 4rem;
+}
+
+.admin-pilots-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.admin-pilots-hero h1 {
+    margin-bottom: 0.4rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.admin-pilots-hero p {
+    margin: 0;
+    color: #4f3f59;
+}
+
+.admin-create-shortcut {
+    text-decoration: none;
+}
+
+.admin-pilots-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.95fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.admin-panel {
+    padding: 1.75rem;
+    background: #fff;
+    border: 3px solid #e7bdfa;
+    border-radius: 2rem;
+    box-shadow: 0 20px 45px rgba(168, 18, 237, 0.08);
+}
+
+.admin-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.admin-panel-header h2 {
+    font-size: 1.5rem;
+}
+
+.admin-count {
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    background: #f6e7fd;
+    color: #7b0ab1;
+    font-weight: 600;
+}
+
+.admin-table-wrapper {
+    overflow-x: auto;
+}
+
+.admin-pilots-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-pilots-table th,
+.admin-pilots-table td {
+    padding: 0.9rem 0.85rem;
+    text-align: left;
+    border-bottom: 1px solid #ead7f5;
+}
+
+.admin-pilots-table th {
+    color: #5b4568;
+    font-size: 0.95rem;
+}
+
+.admin-pilots-table td {
+    vertical-align: top;
+}
+
+.admin-empty {
+    margin: 0;
+    color: #5b4568;
+    line-height: 1.6;
+}
+
+.admin-pilot-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.admin-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.admin-input {
+    width: 100%;
+    min-height: 56px;
+    padding: 0 1rem;
+    border: 1px solid #d9c0eb;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    font: inherit;
+    background: #fff;
+}
+
+.admin-input-full {
+    grid-column: 1 / -1;
+}
+
+.admin-form-message {
+    margin: 0 0 1rem;
+    font-weight: 600;
+}
+
+.admin-form-message-success {
+    color: #1f7a1f;
+}
+
+.admin-form-message-error {
+    color: #b42318;
+}
+
+@media (max-width: 900px) {
+    .admin-pilots-page {
+        width: min(100% - 1.5rem, 100%);
+        margin: 2rem auto 3rem;
+    }
+
+    .admin-pilots-hero,
+    .admin-panel-header {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .admin-pilots-layout,
+    .admin-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-input-full {
+        grid-column: auto;
+    }
+}

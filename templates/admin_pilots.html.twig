@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comptes pilotes - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_admin_pilots.css">{% endblock %}
+
+{% block content %}
+<section class="admin-pilots-page">
+    <div class="admin-pilots-hero">
+        <div>
+            <h1>Comptes pilotes</h1>
+            <p>Retrouve ici les pilotes inscrits et cree un nouveau compte pilote.</p>
+        </div>
+    </div>
+
+    <div class="admin-pilots-layout">
+        <section class="admin-panel">
+            <div class="admin-panel-header">
+                <h2>Pilotes inscrits</h2>
+                <span class="admin-count">{{ pilots|length }} pilote{{ pilots|length != 1 ? 's' : '' }}</span>
+            </div>
+
+            {% if pilots is empty %}
+                <p class="admin-empty">Aucun pilote n'est enregistre pour le moment.</p>
+            {% else %}
+                <div class="admin-table-wrapper">
+                    <table class="admin-pilots-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                <th>Email</th>
+                                <th>Telephone</th>
+                                <th>Genre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pilot in pilots %}
+                                <tr>
+                                    <td>{{ pilot.nom }}</td>
+                                    <td>{{ pilot.prenom }}</td>
+                                    <td>{{ pilot.email }}</td>
+                                    <td>{{ pilot.telephone is not empty ? pilot.telephone : 'Non renseigne' }}</td>
+                                    <td>{{ pilot.genre }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </section>
+
+        <section id="pilot-create-form" class="admin-panel">
+            <div class="admin-panel-header">
+                <h2>Creer un compte pilote</h2>
+            </div>
+
+            {% if pilot_form_message %}
+                <p class="admin-form-message admin-form-message-{{ pilot_form_message.type }}">{{ pilot_form_message.text }}</p>
+            {% endif %}
+
+            <form class="admin-pilot-form" action="?uri=admin_pilot_create" method="post">
+                <div class="admin-form-grid">
+                    <input class="admin-input" type="text" name="nom" placeholder="Nom" required>
+                    <input class="admin-input" type="text" name="prenom" placeholder="Prenom" required>
+                    <input class="admin-input admin-input-full" type="email" name="email" placeholder="Adresse e-mail" required>
+                    <input class="admin-input" type="text" name="telephone" placeholder="Telephone">
+                    <select class="admin-input" name="genre" required>
+                        <option value="">Genre</option>
+                        <option value="femme">Femme</option>
+                        <option value="homme">Homme</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                    <input class="admin-input" type="password" name="password" placeholder="Mot de passe" required>
+                    <input class="admin-input" type="password" name="password_confirm" placeholder="Confirmer le mot de passe" required>
+                </div>
+                <button class="b2" type="submit">Creer le compte pilote</button>
+            </form>
+        </section>
+    </div>
+</section>
+{% endblock %}

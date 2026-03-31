@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/assets/style_index.css">
     <link rel="icon" type="image/png" href="/assets/images/icon.png">
     {% block link %} <link> {% endblock %}
-    {% block script %} <script></script> {% endblock%}
+    {% block script %} <script></script> {% endblock %}
     {% block styles %}{% endblock %}
 </head>
 <body>
@@ -33,27 +33,29 @@
         </nav>
 
         <div class="header-actions">
+            {% if is_admin_logged_in %}
+                <a class="b2 header-admin-link" href="?uri=admin_pilots">Comptes</a>
+            {% endif %}
+
             {% if is_student_logged_in %}
                 <a class="header-icon-link" href="?uri=wishlist" aria-label="Ma wishlist">
                     <img class="header-icon" src="{{ wishlist_icon_path }}" alt="wishlist">
                 </a>
             {% endif %}
 
-            <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=student_profile{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Mon profil étudiant{% else %}Se connecter{% endif %}">
+            <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=student_profile{% elseif is_admin_logged_in %}?uri=admin_pilots{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Mon profil etudiant{% elseif is_admin_logged_in %}Gestion des comptes pilotes{% else %}Se connecter{% endif %}">
                 <img class="header-icon" src="/assets/images/compte.png" alt="compte">
             </a>
         </div>
-
-        </header>
+    </header>
 
     <main class="contenu_page {% block body_class %}{% endblock %}">
-
         {% block content %}{% endblock %}
     </main>
 
     <footer>
         <h2>Stage 4 All</h2>
-        <a class="footer-link" href="?uri=mentions_legales"><h2>Mentions légales</h2></a>
+        <a class="footer-link" href="?uri=mentions_legales"><h2>Mentions legales</h2></a>
         <a class="footer-link" href="#"><h2>Cookies</h2></a>
         <a class="footer-link" href="#"><h2>Besoin d'Aide ?</h2></a>
         <div class="Follow_us"><h2>Suivez nous sur :&nbsp;</h2><a><img class="Logo_connexion" src="/assets/images/Insta.png" alt="Insta"></a><a><img class="Logo_connexion" src="/assets/images/X.png" alt="X"></a><a><img class="Logo_connexion" src="/assets/images/Youtube.png" alt="Youtube"></a></div>
