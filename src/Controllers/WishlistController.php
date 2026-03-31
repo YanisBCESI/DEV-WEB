@@ -27,6 +27,21 @@ class WishlistController extends Controller{
         return $studentId;
     }
 
+    private function isAjaxRequest(): bool{
+        $requestedWith = $_SERVER["HTTP_X_REQUESTED_WITH"] ?? "";
+        $accept = $_SERVER["HTTP_ACCEPT"] ?? "";
+
+        return (is_string($requestedWith) && strtolower($requestedWith) === "xmlhttprequest")
+            || (is_string($accept) && str_contains(strtolower($accept), "application/json"));
+    }
+
+    private function respondJson(array $payload, int $statusCode = 200): void{
+        http_response_code($statusCode);
+        header("Content-Type: application/json; charset=UTF-8");
+        echo json_encode($payload);
+        exit;
+    }
+
     private function getRedirectTarget(string $default = "?uri=wishlist"): string{
         $redirect = $_POST["redirect_to"] ?? $default;
 
@@ -51,11 +66,42 @@ class WishlistController extends Controller{
     }
 
     public function addOffer(): void{
-        $studentId = $this->requireLoggedStudent();
+        $studentId = $this->getLoggedStudentId();
         $offerId = isset($_POST["offre_id"]) ? (int) $_POST["offre_id"] : 0;
 
-        if ($offerId > 0) {
-            $this->wishlist_model->addOfferToWishlist($studentId, $offerId);
+        if ($studentId === null) {
+            if ($this->isAjaxRequest()) {
+                $this->respondJson([
+                    "success" => false,
+                    "redirect" => "?uri=connect",
+                    "message" => "Connexion requise.",
+                ], 401);
+            }
+
+            header("Location: ?uri=connect");
+            exit;
+        }
+
+        if ($offerId <= 0) {
+            if ($this->isAjaxRequest()) {
+                $this->respondJson([
+                    "success" => false,
+                    "message" => "Offre invalide.",
+                ], 400);
+            }
+
+            header("Location: " . $this->getRedirectTarget("?uri=offres"));
+            exit;
+        }
+
+        $this->wishlist_model->addOfferToWishlist($studentId, $offerId);
+
+        if ($this->isAjaxRequest()) {
+            $this->respondJson([
+                "success" => true,
+                "action" => "added",
+                "offer_id" => $offerId,
+            ]);
         }
 
         header("Location: " . $this->getRedirectTarget("?uri=offres"));
@@ -63,11 +109,42 @@ class WishlistController extends Controller{
     }
 
     public function removeOffer(): void{
-        $studentId = $this->requireLoggedStudent();
+        $studentId = $this->getLoggedStudentId();
         $offerId = isset($_POST["offre_id"]) ? (int) $_POST["offre_id"] : 0;
 
-        if ($offerId > 0) {
-            $this->wishlist_model->removeOfferFromWishlist($studentId, $offerId);
+        if ($studentId === null) {
+            if ($this->isAjaxRequest()) {
+                $this->respondJson([
+                    "success" => false,
+                    "redirect" => "?uri=connect",
+                    "message" => "Connexion requise.",
+                ], 401);
+            }
+
+            header("Location: ?uri=connect");
+            exit;
+        }
+
+        if ($offerId <= 0) {
+            if ($this->isAjaxRequest()) {
+                $this->respondJson([
+                    "success" => false,
+                    "message" => "Offre invalide.",
+                ], 400);
+            }
+
+            header("Location: " . $this->getRedirectTarget("?uri=wishlist"));
+            exit;
+        }
+
+        $this->wishlist_model->removeOfferFromWishlist($studentId, $offerId);
+
+        if ($this->isAjaxRequest()) {
+            $this->respondJson([
+                "success" => true,
+                "action" => "removed",
+                "offer_id" => $offerId,
+            ]);
         }
 
         header("Location: " . $this->getRedirectTarget("?uri=wishlist"));

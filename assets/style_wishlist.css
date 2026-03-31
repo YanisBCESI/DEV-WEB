@@ -1,14 +1,14 @@
 .wishlist-page {
-    width: min(1200px, calc(100% - 3rem));
-    margin: 3rem auto 4rem;
+    width: min(1120px, calc(100% - 4rem));
+    margin: 3.5rem auto 4.5rem;
 }
 
 .wishlist-hero {
     display: flex;
     justify-content: space-between;
-    align-items: end;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .wishlist-hero h1 {
@@ -17,7 +17,7 @@
 }
 
 .wishlist-subtitle {
-    max-width: 700px;
+    max-width: 640px;
     margin: 0;
     color: #4f3f59;
     line-height: 1.6;
@@ -30,6 +30,7 @@
     color: #7b0ab1;
     font-weight: 600;
     white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .wishlist-grid {
@@ -125,15 +126,28 @@
 }
 
 .wishlist-empty {
-    max-width: 500px;
-    margin: 3rem auto 0;
-    padding: 3rem 2rem;
+    max-width: 520px;
+    margin: 4rem auto 0;
+    padding: 3.25rem 2.5rem;
     text-align: center;
 }
 
 .wishlist-empty p {
     margin: 0 0 1.5rem;
     line-height: 1.6;
+}
+
+.wishlist-hidden {
+    display: none;
+}
+
+.wishlist-remove-form-loading .wishlist-remove-button {
+    opacity: 0.75;
+    cursor: wait;
+}
+
+.wishlist-card-removing {
+    opacity: 0.6;
 }
 
 @media (max-width: 768px) {
@@ -145,6 +159,7 @@
     .wishlist-hero {
         flex-direction: column;
         align-items: start;
+        margin-bottom: 2rem;
     }
 
     .wishlist-card {

@@ -11,28 +11,28 @@
         <div>
             <h1>Ma wish-list</h1>
             <p class="wishlist-subtitle">
-                Retrouvez les offres sauvegardées et retirez celles qui ne vous intéressent plus.
+                Retrouvez les offres sauvegardees et retirez celles qui ne vous interessent plus.
             </p>
         </div>
-        <div class="wishlist-count">
-            {{ wishlist_items|length }} offre{{ wishlist_items|length > 1 ? 's' : '' }} sauvegardée{{ wishlist_items|length > 1 ? 's' : '' }}
+        <div id="wishlist-count" class="wishlist-count">
+            {{ wishlist_items|length }} offre{{ wishlist_items|length != 1 ? 's' : '' }} sauvegardee{{ wishlist_items|length != 1 ? 's' : '' }}
         </div>
     </div>
 
     {% if wishlist_items is empty %}
-        <div class="wishlist-empty">
+        <div id="wishlist-empty-state" class="wishlist-empty">
             <p>Votre wish-list est vide pour le moment.</p>
             <a class="wishlist-button" href="?uri=offres">Voir les offres disponibles</a>
         </div>
     {% else %}
-        <div class="wishlist-grid">
+        <div id="wishlist-grid" class="wishlist-grid">
             {% for offre in wishlist_items %}
-                <article class="wishlist-card">
+                <article class="wishlist-card" data-offer-id="{{ offre.id_offre }}">
                     <div class="wishlist-card-header">
                         <div>
                             <h2>{{ offre.titre|default('Offre sans titre') }}</h2>
                             <p class="wishlist-company">
-                                {{ offre.nom_entreprise|default('Entreprise non précisée') }}
+                                {{ offre.nom_entreprise|default('Entreprise non precisee') }}
                             </p>
                         </div>
 
@@ -42,10 +42,10 @@
                     </div>
 
                     <ul class="wishlist-meta">
-                        <li><strong>Secteur :</strong> {{ offre.secteur|default('Non précisé') }}</li>
-                        <li><strong>Localisation :</strong> {{ offre.localisation|default('Non précisée') }}</li>
-                        <li><strong>Rémunération :</strong> {{ offre.remuneration|default('Non précisée') }}</li>
-                        <li><strong>Date de début :</strong> {{ offre.date_debut|default('Non précisée') }}</li>
+                        <li><strong>Secteur :</strong> {{ offre.secteur|default('Non precise') }}</li>
+                        <li><strong>Localisation :</strong> {{ offre.localisation|default('Non precisee') }}</li>
+                        <li><strong>Remuneration :</strong> {{ offre.remuneration|default('Non precisee') }}</li>
+                        <li><strong>Date de debut :</strong> {{ offre.date_debut|default('Non precisee') }}</li>
                     </ul>
 
                     <p class="wishlist-description">
@@ -55,10 +55,10 @@
 
                     <div class="wishlist-actions">
                         <p class="wishlist-added-date">
-                            <strong>Ajoutée le :</strong> {{ offre.date_ajout|default('Date inconnue') }}
+                            <strong>Ajoutee le :</strong> {{ offre.date_ajout|default('Date inconnue') }}
                         </p>
 
-                        <form action="?uri=wishlist_remove" method="POST">
+                        <form class="wishlist-remove-form" action="?uri=wishlist_remove" method="POST">
                             <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
                             <input type="hidden" name="redirect_to" value="?uri=wishlist">
                             <button class="wishlist-remove-button" type="submit">Retirer de la wish-list</button>
@@ -67,6 +67,94 @@
                 </article>
             {% endfor %}
         </div>
+
+        <div id="wishlist-empty-state" class="wishlist-empty wishlist-hidden">
+            <p>Votre wish-list est vide pour le moment.</p>
+            <a class="wishlist-button" href="?uri=offres">Voir les offres disponibles</a>
+        </div>
     {% endif %}
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const forms = document.querySelectorAll(".wishlist-remove-form");
+    const grid = document.getElementById("wishlist-grid");
+    const emptyState = document.getElementById("wishlist-empty-state");
+    const count = document.getElementById("wishlist-count");
+
+    const updateCount = () => {
+        const cardCount = grid ? grid.querySelectorAll(".wishlist-card").length : 0;
+
+        if (count) {
+            count.textContent = `${cardCount} offre${cardCount !== 1 ? "s" : ""} sauvegardee${cardCount !== 1 ? "s" : ""}`;
+        }
+
+        if (grid && cardCount === 0) {
+            grid.classList.add("wishlist-hidden");
+
+            if (emptyState) {
+                emptyState.classList.remove("wishlist-hidden");
+            }
+        }
+    };
+
+    forms.forEach((form) => {
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            if (form.dataset.loading === "true") {
+                return;
+            }
+
+            const card = form.closest(".wishlist-card");
+            const button = form.querySelector(".wishlist-remove-button");
+
+            if (!card || !button) {
+                return;
+            }
+
+            form.dataset.loading = "true";
+            form.classList.add("wishlist-remove-form-loading");
+            card.classList.add("wishlist-card-removing");
+            button.disabled = true;
+
+            try {
+                const response = await fetch(form.action, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Accept": "application/json"
+                    },
+                    body: new URLSearchParams(new FormData(form)).toString()
+                });
+
+                const contentType = response.headers.get("content-type") || "";
+                const data = contentType.includes("application/json") ? await response.json() : null;
+
+                if (!response.ok || !data || !data.success) {
+                    if (data && data.redirect) {
+                        window.location.href = data.redirect;
+                        return;
+                    }
+
+                    throw new Error("Wishlist request failed");
+                }
+
+                card.remove();
+                updateCount();
+            } catch (error) {
+                HTMLFormElement.prototype.submit.call(form);
+            } finally {
+                form.dataset.loading = "false";
+                form.classList.remove("wishlist-remove-form-loading");
+                card.classList.remove("wishlist-card-removing");
+                button.disabled = false;
+            }
+        });
+    });
+});
+</script>
 {% endblock %}
