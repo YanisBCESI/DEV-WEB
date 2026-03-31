@@ -55,7 +55,6 @@ class HomepageController extends Controller{
         $cookieValue = $_COOKIE[$visitCookieName] ?? null;
         $latestOffers = $this->Homepage_model->getLatestOffers();
         $conseils = $this->Homepage_model->getConseils();
-
         echo $this->templateEngine->render("accueil.html.twig", [
             "show_cookie_banner" => $cookieConsent === null,
             "cookie_consent" => $cookieConsent,

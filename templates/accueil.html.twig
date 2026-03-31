@@ -21,7 +21,7 @@
                     {% for offre in latest_offers %}
                         <div class="Offre">
                             <h2>{{ offre.titre|default('Titre Offre') }}</h2>
-                            <p class="Texte_sub_class">{{ offre.description|default('Phrase du stage')|striptags|slice(0, 110) }}{% if offre.description is defined and offre.description|length > 110 %}...{% endif %}</p>
+                            <p class="Texte_sub_class">{{ offre.description_offre|default('Phrase du stage')|striptags|slice(0, 110) }}{% if offre.description_offre is defined and offre.description_offre|length > 110 %}...{% endif %}</p>
                         </div>
                     {% endfor %}
                 {% else %}

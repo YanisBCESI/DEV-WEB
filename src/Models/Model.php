@@ -7,6 +7,6 @@ namespace App\Models;
 abstract class Model {
 
     CONST ADMIN = "debian-sys-maint";
-    CONST PASS = "18htLt63mkhK4qVO";
+    CONST PASS = "LYK8WN3Oup7UxkZW";
     protected $connection = null;
 }
