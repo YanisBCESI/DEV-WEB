@@ -31,6 +31,10 @@ class AdminController extends Controller{
                 "type" => "error",
                 "text" => "Merci de remplir correctement tous les champs obligatoires.",
             ],
+            "password_mismatch" => [
+                "type" => "error",
+                "text" => "Les mots de passe ne correspondent pas.",
+            ],
             "email_exists" => [
                 "type" => "error",
                 "text" => "Cette adresse e-mail est deja utilisee.",
@@ -63,12 +67,17 @@ class AdminController extends Controller{
 
         $nom = trim($_POST["nom"] ?? "");
         $prenom = trim($_POST["prenom"] ?? "");
-        $genre = trim($_POST["genre"] ?? "");
+        $genre = strtolower(trim($_POST["genre"] ?? ""));
         $email = trim($_POST["email"] ?? "");
         $telephone = trim($_POST["telephone"] ?? "");
         $password = $_POST["password"] ?? "";
         $passwordConfirm = $_POST["password_confirm"] ?? "";
         $allowedGenres = ["femme", "homme", "autre"];
+
+        if ($password !== $passwordConfirm) {
+            header("Location: ?uri=admin_pilots&pilot_status=password_mismatch#pilot-create-form");
+            exit;
+        }
 
         if (
             $nom === ""
@@ -76,8 +85,6 @@ class AdminController extends Controller{
             || !in_array($genre, $allowedGenres, true)
             || !filter_var($email, FILTER_VALIDATE_EMAIL)
             || $password === ""
-            || strlen($password) < 6
-            || $password !== $passwordConfirm
         ) {
             header("Location: ?uri=admin_pilots&pilot_status=invalid_data#pilot-create-form");
             exit;
