@@ -6,7 +6,7 @@
 {% block content %}
 <section class="offres-page">
     <h1>Liste des offres</h1>
-    <p class="offres-intro">Retrouve ici les offres disponibles dans un affichage clair et cohérent avec Stage4All.</p>
+    <p class="offres-intro">Retrouve ici les offres disponibles dans un affichage clair et coherent avec Stage4All.</p>
 
     {% set liste_offres = offres|default([]) %}
     {% set wishlist_ids = wishlist_offer_ids|default([]) %}
@@ -14,7 +14,7 @@
     {% if liste_offres is empty %}
         <div class="offres-empty">
             <p>Aucune offre disponible pour le moment.</p>
-            <a class="b2" href="/">Retour à l'accueil</a>
+            <a class="b2" href="/">Retour a l'accueil</a>
         </div>
     {% else %}
         <div class="offres-grid">
@@ -23,9 +23,9 @@
                     <div class="offre-card-body">
                         <h2>{{ offre.titre|default('Titre Offre') }}</h2>
 
-                        <p>{{ offre.nom_entreprise|default('Entreprise non précisée') }}</p>
-                        <p>{{ offre.type_contrat|default('Contrat non précisé') }}</p>
-                        <p>{{ offre.localisation|default('Localisation non précisée') }}</p>
+                        <p>{{ offre.nom_entreprise|default('Entreprise non precisee') }}</p>
+                        <p>{{ offre.type_contrat|default('Contrat non precise') }}</p>
+                        <p>{{ offre.localisation|default('Localisation non precisee') }}</p>
 
                         <p class="offre-description">
                             {{ offre.description_offre|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description_offre is defined and offre.description_offre|length > 180 %}...{% endif %}
@@ -40,16 +40,16 @@
 
                         {% if is_student_logged_in %}
                             {% if offre.id_offre in wishlist_ids %}
-                                <form action="?uri=wishlist_remove" method="POST">
+                                <form class="wishlist-toggle-form" action="?uri=wishlist_remove" method="POST" data-add-url="?uri=wishlist_add" data-remove-url="?uri=wishlist_remove" data-add-label="Ajouter a ma wishlist" data-remove-label="Retirer de ma wishlist" data-in-wishlist="1">
                                     <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
                                     <input type="hidden" name="redirect_to" value="?uri=offres&page={{ page }}">
-                                    <button class="b2 b2-secondary" type="submit">Retirer de ma wishlist</button>
+                                    <button class="b2 b2-secondary wishlist-toggle-button" type="submit">Retirer de ma wishlist</button>
                                 </form>
                             {% else %}
-                                <form action="?uri=wishlist_add" method="POST">
+                                <form class="wishlist-toggle-form" action="?uri=wishlist_add" method="POST" data-add-url="?uri=wishlist_add" data-remove-url="?uri=wishlist_remove" data-add-label="Ajouter a ma wishlist" data-remove-label="Retirer de ma wishlist" data-in-wishlist="0">
                                     <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
                                     <input type="hidden" name="redirect_to" value="?uri=offres&page={{ page }}">
-                                    <button class="b2" type="submit">Ajouter à ma wishlist</button>
+                                    <button class="b2 wishlist-toggle-button" type="submit">Ajouter a ma wishlist</button>
                                 </form>
                             {% endif %}
                         {% else %}
@@ -61,7 +61,7 @@
         </div>
         <div class="pagination">
             {% if page > 1 %}
-                <a href="?uri=offres&page={{ page - 1 }}">❮</a>
+                <a href="?uri=offres&page={{ page - 1 }}">&#10094;</a>
             {% endif %}
 
             {% for i in 1..totalPages %}
@@ -73,9 +73,77 @@
             {% endfor %}
 
             {% if page < totalPages %}
-                <a href="?uri=offres&page={{ page + 1 }}">❯</a>
+                <a href="?uri=offres&page={{ page + 1 }}">&#10095;</a>
             {% endif %}
         </div>
     {% endif %}
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const forms = document.querySelectorAll(".wishlist-toggle-form");
+
+    forms.forEach((form) => {
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            if (form.dataset.loading === "true") {
+                return;
+            }
+
+            const button = form.querySelector(".wishlist-toggle-button");
+
+            if (!button) {
+                return;
+            }
+
+            const requestUrl = form.dataset.inWishlist === "1" ? form.dataset.removeUrl : form.dataset.addUrl;
+            const requestBody = new URLSearchParams(new FormData(form));
+
+            form.dataset.loading = "true";
+            form.classList.add("wishlist-toggle-form-loading");
+            button.disabled = true;
+
+            try {
+                const response = await fetch(requestUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                        "X-Requested-With": "XMLHttpRequest",
+                        "Accept": "application/json"
+                    },
+                    body: requestBody.toString()
+                });
+
+                const contentType = response.headers.get("content-type") || "";
+                const data = contentType.includes("application/json") ? await response.json() : null;
+
+                if (!response.ok || !data || !data.success) {
+                    if (data && data.redirect) {
+                        window.location.href = data.redirect;
+                        return;
+                    }
+
+                    throw new Error("Wishlist request failed");
+                }
+
+                const isNowInWishlist = data.action === "added";
+
+                form.dataset.inWishlist = isNowInWishlist ? "1" : "0";
+                form.action = isNowInWishlist ? form.dataset.removeUrl : form.dataset.addUrl;
+                button.textContent = isNowInWishlist ? form.dataset.removeLabel : form.dataset.addLabel;
+                button.classList.toggle("b2-secondary", isNowInWishlist);
+            } catch (error) {
+                HTMLFormElement.prototype.submit.call(form);
+            } finally {
+                form.dataset.loading = "false";
+                form.classList.remove("wishlist-toggle-form-loading");
+                button.disabled = false;
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

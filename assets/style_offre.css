@@ -72,6 +72,11 @@
     margin: 0;
 }
 
+.wishlist-toggle-form-loading .wishlist-toggle-button {
+    opacity: 0.75;
+    cursor: wait;
+}
+
 .b2-secondary,
 .offre-login-link {
     background-color: transparent;
