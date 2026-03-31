@@ -11,17 +11,17 @@ class HomepageModel extends Model{
     }
 
     public function getLatestOffers(int $limit = 10): array{
-        $sql = "SELECT
-                    offres.id_offre,
-                    offres.titre,
-                    offres.description_offre,
-                    offres.localisation,
-                    offres.type_contrat,
-                    entreprises.nom_entreprise
-                FROM offres
-                INNER JOIN entreprises ON offres.entreprise_id = entreprises.id
-                ORDER BY offres.created_at DESC
-                LIMIT :offer_limit";
+    $sql = "SELECT
+            offres.id,
+            offres.titre,
+            offres.description,
+            offres.localisation,
+            offres.type_contrat,
+            entreprises.nom_entreprise
+        FROM offres
+        INNER JOIN entreprises ON offres.entreprise_id = entreprises.id
+        ORDER BY offres.created_at DESC
+        LIMIT :offer_limit";
 
         $stmt = $this->dbh->prepare($sql);
         $stmt->bindValue(":offer_limit", $limit, \PDO::PARAM_INT);

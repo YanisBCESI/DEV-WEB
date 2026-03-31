@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Models\OffersModel;
+use App\Models\WishlistModel;
 
 class OffersController extends Controller {
 
@@ -14,6 +15,12 @@ class OffersController extends Controller {
     public function offersPage(){
         // 1. Récupérer toutes les offres
         $offres = $this->Offer_model->getAllOffers();
+        $wishlistOfferIds = [];
+
+        if (isset($_SESSION["student"]["id"])) {
+            $wishlistModel = new WishlistModel();
+            $wishlistOfferIds = $wishlistModel->getWishlistOfferIdsByStudentId((int) $_SESSION["student"]["id"]);
+        }
 
         // 2. Pagination
         $parPage = 9;
@@ -33,7 +40,8 @@ class OffersController extends Controller {
         echo $this->templateEngine->render('offres.html.twig', [
             'offres' => $offresPage,
             'page' => $page,
-            'totalPages' => $totalPages
+            'totalPages' => $totalPages,
+            'wishlist_offer_ids' => $wishlistOfferIds,
         ]);
     }
 

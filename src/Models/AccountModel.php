@@ -50,6 +50,51 @@ class AccountModel extends Model{
         return $this->data;
     }
 
+    public function authenticateStudent(string $email, string $password): ?array{
+        $stmt = $this->dbh->prepare(
+            "SELECT
+                etudiants.id,
+                etudiants.nom,
+                etudiants.prenom,
+                comptes.email,
+                comptes.mot_de_passe,
+                comptes.role_id,
+                comptes.actif
+            FROM etudiants
+            INNER JOIN comptes ON comptes.id = etudiants.compte_id
+            WHERE comptes.email = :email
+            LIMIT 1"
+        );
+        $stmt->bindValue(":email", trim($email));
+        $stmt->execute();
+
+        $student = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$student) {
+            return null;
+        }
+
+        if ((int) ($student["role_id"] ?? 0) !== 3) {
+            return null;
+        }
+
+        if ((int) ($student["actif"] ?? 0) !== 1) {
+            return null;
+        }
+
+        if (!password_verify($password, $student["mot_de_passe"] ?? "")) {
+            return null;
+        }
+
+        return [
+            "id" => (int) $student["id"],
+            "role" => "etudiant",
+            "nom" => $student["nom"],
+            "prenom" => $student["prenom"],
+            "email" => $student["email"],
+        ];
+    }
+
     public function sendToDataBase($data = null){
         if(isset($data)){
             $this->data = $data;
