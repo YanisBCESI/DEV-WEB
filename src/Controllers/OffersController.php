@@ -46,9 +46,11 @@ class OffersController extends Controller {
     }
 
     public function showOffer(){
-        $offres=$this->Offer_model->getAllOffers();
         if(isset($_GET["id_offre"])){
-            echo $this->templateEngine->render("poste_offre.html.twig", ["offre"=>$offres[$_GET["id_offre"]-1]]);
+            $offre = $this->Offer_model->getOfferById((int)$_GET["id_offre"]);
+            echo $this->templateEngine->render("poste_offre.html.twig", [
+                "offre" => $offre
+            ]);
         }
         else{
             $this->offersPage();
