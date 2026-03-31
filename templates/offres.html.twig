@@ -33,6 +33,11 @@
                     </div>
 
                     <div class="offre-actions">
+                        <form action="?uri=offres&id_offre={{ offre.id_offre }}" method="POST">
+                            <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
+                            <button class="b2" type="submit">Consulter</button>
+                        </form>
+
                         {% if is_student_logged_in %}
                             {% if offre.id_offre in wishlist_ids %}
                                 <form action="?uri=wishlist_remove" method="POST">
@@ -50,11 +55,6 @@
                         {% else %}
                             <a class="b2 b2-secondary offre-login-link" href="?uri=connect">Connecte-toi pour ajouter</a>
                         {% endif %}
-
-                        <form action="?uri=offres&id_offre={{ offre.id_offre }}" method="POST">
-                            <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
-                            <button class="b2" type="submit">Consulter</button>
-                        </form>
                     </div>
                 </article>
             {% endfor %}

@@ -74,6 +74,14 @@ switch($uri){
         $AccountController = new AccountController($twig);
         $AccountController->userConnexionPage();
         break;
+    case 'student_profile':
+        $AccountController = new AccountController($twig);
+        $AccountController->studentProfilePage();
+        break;
+    case 'student_document_upload':
+        $AccountController = new AccountController($twig);
+        $AccountController->uploadStudentDocument();
+        break;
     case 'logout':
         $AccountController = new AccountController($twig);
         $AccountController->logoutStudent();

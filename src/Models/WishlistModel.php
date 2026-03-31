@@ -15,17 +15,17 @@ class WishlistModel extends Model{
             "SELECT
                 wishlist.offre_id,
                 wishlist.date_ajout,
-                offres.id AS id_offre,
+                offres.id_offre,
                 offres.titre,
                 offres.type_contrat,
                 offres.secteur,
                 offres.localisation,
-                offres.description AS description,
+                offres.description_offre AS description,
                 offres.remuneration,
                 offres.date_debut,
                 entreprises.nom_entreprise
             FROM wishlist
-            INNER JOIN offres ON wishlist.offre_id = offres.id
+            INNER JOIN offres ON wishlist.offre_id = offres.id_offre
             INNER JOIN entreprises ON offres.entreprise_id = entreprises.id
             WHERE wishlist.etudiant_id = :student_id
             ORDER BY wishlist.date_ajout DESC"

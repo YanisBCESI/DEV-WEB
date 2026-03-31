@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\WishlistModel;
 
 class WishlistController extends Controller{
+    protected $wishlist_model = null;
+
     public function __construct($templateEngine){
         $this->wishlist_model = new WishlistModel();
         $this->templateEngine = $templateEngine;

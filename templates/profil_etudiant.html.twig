@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil étudiant - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_student_profile.css">{% endblock %}
+
+{% block content %}
+<section class="student-profile-page">
+    <div class="student-profile-card">
+        <div class="student-profile-section">
+            <h1>Mon profil étudiant</h1>
+            <div class="student-profile-grid">
+                <div class="student-profile-item">
+                    <span class="student-profile-label">Nom</span>
+                    <strong>{{ student_profile.nom }}</strong>
+                </div>
+                <div class="student-profile-item">
+                    <span class="student-profile-label">Prénom</span>
+                    <strong>{{ student_profile.prenom }}</strong>
+                </div>
+                <div class="student-profile-item student-profile-item-full">
+                    <span class="student-profile-label">Adresse mail</span>
+                    <strong>{{ student_profile.email }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="student-profile-divider"></div>
+
+        <div class="student-profile-section">
+            <div class="student-profile-grid">
+                <div class="student-profile-item">
+                    <span class="student-profile-label">Établissement</span>
+                    <strong>{{ student_profile.etablissement }}</strong>
+                </div>
+                <div class="student-profile-item">
+                    <span class="student-profile-label">Tuteur</span>
+                    <strong>{{ student_profile.tuteur }}</strong>
+                </div>
+            </div>
+
+            <form class="student-upload-form" action="?uri=student_document_upload" method="post" enctype="multipart/form-data">
+                <label class="student-upload-label" for="student_document">Déposer un document</label>
+                <input id="student_document" name="student_document" type="file" accept=".pdf,.docx" required>
+                <p class="student-upload-help">Formats autorisés : PDF et DOCX, taille maximale : 2 Mo.</p>
+                <button class="b2 student-upload-button" type="submit">Déposer</button>
+            </form>
+
+            {% if upload_message %}
+                <p class="student-upload-message {% if upload_success %}student-upload-message-success{% else %}student-upload-message-error{% endif %}">
+                    {{ upload_message }}
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="student-profile-divider"></div>
+
+        <div class="student-profile-section student-profile-section-actions">
+            <a class="b2 student-logout-button" href="?uri=logout">Déconnexion</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
