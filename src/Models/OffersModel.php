@@ -13,13 +13,13 @@ class OffersModel extends Model {
 
     public function getAllOffers(){
         $sql = "SELECT
-                    offres.id AS id_offre,
+                    offres.id_offre,
                     offres.entreprise_id,
                     offres.titre,
                     offres.type_contrat,
                     offres.secteur,
                     offres.localisation,
-                    offres.description AS description_offre,
+                    offres.description_offre,
                     offres.competences,
                     offres.remuneration,
                     offres.date_debut,
