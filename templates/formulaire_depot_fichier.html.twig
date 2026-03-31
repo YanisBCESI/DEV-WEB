@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block script %} <script src="/assets/script_depot.js"></script> {% endblock %}
+{% block title %}Depot de fichiers - Stage4all{% endblock %}
+
+{% block content %}
+<div class="Contenu_page">
+    <section class="block1">
+        <h1> Déposer un fichier </h1>
+        <input type="file" id="file" accept=".pdf,.doc,.docx,.odt,.rtf,.jpg,.jpeg,.png" onchange="FileValidation()"/>
+    </section>
+</div>
+{% endblock %}
+

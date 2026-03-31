@@ -27,7 +27,7 @@
                         <p>{{ offre.localisation|default('Localisation non précisée') }}</p>
 
                         <p class="offre-description">
-                            {{ offre.description|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description is defined and offre.description|length > 180 %}...{% endif %}
+                            {{ offre.description_offre|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description is defined and offre.description|length > 180 %}...{% endif %}
                         </p>
                     </div>
 
@@ -36,9 +36,30 @@
                             <input type="hidden" name="offre_id" value="{{ offre.id }}">
                             <button class="b2" type="submit">Ajouter à ma wishlist</button>
                         </form>
+                        <form action="?uri=offres&id_offre={{offre.id_offre}}" method="POST">
+                            <input type="hidden" name="offre_id" value="{{offre.id}}">
+                            <button class="b2" type="submit">Consulter</button> 
+                        </form>
                     </div>
                 </article>
             {% endfor %}
+        </div>
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="?uri=offres&page={{ page - 1 }}"> ❮ </a>
+            {% endif %}
+
+            {% for i in 1..totalPages %}
+                {% if i == page %}
+                    <span class="current">{{ i }}</span>
+                {% else %}
+                    <a href="?uri=offres&page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page < totalPages %}
+                <a href="?uri=offres&page={{ page + 1 }}"> ❯ </a>
+            {% endif %}
         </div>
     {% endif %}
 </section>

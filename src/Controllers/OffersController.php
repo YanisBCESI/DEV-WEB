@@ -10,18 +10,40 @@ class OffersController extends Controller {
         $this->templateEngine = $templateEngine;
     }
 
-    public function getoffers(){
 
-        // 1. Récupérer les données
+    public function offersPage(){
+        // 1. Récupérer toutes les offres
         $offres = $this->Offer_model->getAllOffers();
 
-        // 2. Envoyer à la vue
+        // 2. Pagination
+        $parPage = 9;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+        $total = count($offres);
+        $totalPages = ceil($total / $parPage);
+
+        if ($page < 1) $page = 1;
+        if ($page > $totalPages) $page = $totalPages;
+
+        $offset = ($page - 1) * $parPage;
+
+        $offresPage = array_slice($offres, $offset, $parPage);
+
+        // 3. Envoyer à la vue
         echo $this->templateEngine->render('offres.html.twig', [
-            'offres' => $offres
+            'offres' => $offresPage,
+            'page' => $page,
+            'totalPages' => $totalPages
         ]);
     }
 
-    public function offersPage(){
-        echo $this->templateEngine->render("offres.html.twig");
+    public function showOffer(){
+        $offres=$this->Offer_model->getAllOffers();
+        if(isset($_GET["id_offre"])){
+            echo $this->templateEngine->render("poste_offre.html.twig", ["offre"=>$offres[$_GET["id_offre"]-1]]);
+        }
+        else{
+            $this->offersPage();
+        }
     }
 }

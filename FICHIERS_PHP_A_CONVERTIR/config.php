@@ -4,7 +4,7 @@ declare(strict_types=1);
 $host = '127.0.0.1';
 $dbname = 'stage4all';
 $user = 'stageuser';
-$pass = 'TestStage123!';
+$pass = 'MotDePasseFort123!';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";

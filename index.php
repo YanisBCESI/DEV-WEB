@@ -36,8 +36,11 @@ switch($uri){
     case '/':
         $HomepageController->welcomePage();
         break;
+    case 'file_sent':
+        $FileDepotController->sendFile();
+        break;
     case 'offres':
-        $OffersController->offersPage();
+        $OffersController->showOffer();
         break;
     case 'creer_offre':
         $OffersController->createOfferPage();
