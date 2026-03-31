@@ -1,0 +1,119 @@
+.student-profile-page {
+    width: min(1100px, calc(100% - 3rem));
+    margin: 3rem auto 4rem;
+}
+
+.student-profile-card {
+    width: 100%;
+    padding: 2.5rem;
+    border-radius: 2rem;
+    background: #fff;
+    border: 3px solid #e7bdfa;
+    box-shadow: 0 20px 45px rgba(168, 18, 237, 0.08);
+    box-sizing: border-box;
+}
+
+.student-profile-section h1 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.student-profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.student-profile-item {
+    padding: 1rem 1.2rem;
+    border-radius: 1.25rem;
+    background: #f9f1fd;
+}
+
+.student-profile-item-full {
+    grid-column: 1 / -1;
+}
+
+.student-profile-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #6d5a77;
+    font-size: 0.95rem;
+}
+
+.student-profile-divider {
+    width: 100%;
+    height: 2px;
+    margin: 2rem 0;
+    background: linear-gradient(90deg, transparent, #a812ed, transparent);
+}
+
+.student-upload-form {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.student-upload-label {
+    font-weight: 600;
+}
+
+.student-upload-form input[type="file"] {
+    padding: 1rem;
+    border: 1px solid #d9c0eb;
+    border-radius: 1rem;
+    background: #fff;
+}
+
+.student-upload-help {
+    margin: 0;
+    color: #6d5a77;
+}
+
+.student-upload-button,
+.student-logout-button {
+    align-self: flex-start;
+    text-decoration: none;
+}
+
+.student-upload-message {
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+.student-upload-message-success {
+    color: #1f7a1f;
+}
+
+.student-upload-message-error {
+    color: #b42318;
+}
+
+.student-profile-section-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+    .student-profile-page {
+        width: min(100% - 1.5rem, 100%);
+        margin: 2rem auto 3rem;
+    }
+
+    .student-profile-card {
+        padding: 1.5rem;
+    }
+
+    .student-profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-profile-item-full {
+        grid-column: auto;
+    }
+
+    .student-profile-section-actions {
+        justify-content: flex-start;
+    }
+}

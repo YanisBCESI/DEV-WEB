@@ -40,7 +40,7 @@
                 </a>
             {% endif %}
 
-            <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=logout{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Se déconnecter{% else %}Se connecter{% endif %}">
+            <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=student_profile{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Mon profil étudiant{% else %}Se connecter{% endif %}">
                 <img class="header-icon" src="/assets/images/compte.png" alt="compte">
             </a>
         </div>
