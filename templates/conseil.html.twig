@@ -15,11 +15,11 @@
             <div class="Liste_conseils liste" id="liste1">
                 {% set liste_conseils = conseils %}
                     {% for conseil in liste_conseils %}
-                        <div class="Conseil">
+                        <div class="Conseil cadre">
                             <h2 class="Titre_sub_class">{{ conseil.Titre }}</h2>
                             <form action="?uri=conseils&conseil_id={{conseil.id}}" method="POST">
                                 <input type="hidden" name="conseil_id" value="{{conseil.id}}">
-                                <button class="b2" type="submit">Consulter</button>
+                                <button class="b3" type="submit">Consulter</button>
                             </form>
                         </div>
                     {% endfor %}
