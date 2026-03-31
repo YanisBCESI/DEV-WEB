@@ -17,46 +17,19 @@
         <div class="nav_page">
             <button class="fleche_gauche fleche" id="fleche_gauche1" onclick="scrollListe1(-70)"><</button>
             <div class="Liste_offres" id="liste1">
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
-                <div class="Offre">
-                    <h2>Titre Offre</h2>
-                    <p>Phrase du stage</p>
-                </div>
+                {% if latest_offers is defined and latest_offers is not empty %}
+                    {% for offre in latest_offers %}
+                        <div class="Offre">
+                            <h2>{{ offre.titre|default('Titre Offre') }}</h2>
+                            <p class="Texte_sub_class">{{ offre.description|default('Phrase du stage')|striptags|slice(0, 110) }}{% if offre.description is defined and offre.description|length > 110 %}...{% endif %}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="Offre">
+                        <h2>Titre Offre</h2>
+                        <p>Phrase du stage</p>
+                    </div>
+                {% endif %}
                 <!--système d'ajout de pages d'Articles-->
                 <button class="fleche_droite fleche" id="fleche_droite1" onclick="scrollListe1(70)">></button>
             </div>
