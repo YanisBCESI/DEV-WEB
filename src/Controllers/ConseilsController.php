@@ -15,6 +15,12 @@ class ConseilsController extends Controller{
     }
 
     public function conseilsPage(){
+        $conseils=$this->getData();
+        if (isset($_GET["conseil_id"])){
+            echo $this->templateEngine->render("poste_conseil.html.twig", ["conseil"=>$conseils[$_GET["conseil_id"]-1]]);
+        }
+        else {
             echo $this->templateEngine->render("conseil.html.twig", ["conseils" => $this->getData()]);
         }
+    }
 }

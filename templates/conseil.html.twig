@@ -13,7 +13,7 @@
         {% for conseil in liste_conseils %}
             <div class="Conseil">
                 <h2 class="Titre_sub_class">{{ conseil.Titre }}</h2>
-                <form action="?uri=conseil&id_offre={{conseil.id}}" method="POST">
+                <form action="?uri=conseils&conseil_id={{conseil.id}}" method="POST">
                     <input type="hidden" name="conseil_id" value="{{conseil.id}}">
                     <button class="b2" type="submit">Consulter</button>
                 </form>

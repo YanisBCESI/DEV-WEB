@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% set conseil = conseil|default([]) %}
+{% block title %} {{ conseil }} - Stage4all{% endblock %}
+{% block link %} {% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ conseil.Titre|default('Titre offre')}}</h1>
+        <p>{{ conseil.Contenu|e|nl2br|raw }}</p>
+    </article>
+{% endblock %}
