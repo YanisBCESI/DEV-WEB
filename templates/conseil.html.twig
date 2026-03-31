@@ -2,23 +2,30 @@
 
 {% block title %}Conseils - Stage4all{% endblock %}
 {% block link %}<link rel="stylesheet" href="/assets/style_conseils.css">{% endblock %}
+{% block script %}<script src="/assets/script_conseil.js" defer></script>{% endblock %}
 
 {% block content %}
-<section class="conseils-page">
-    <h1>Liste des Conseils</h1>
-    <p class="conseils-intro">Retrouve ici les conseils disponibles dans un affichage clair et cohérent avec Stage4All.</p>
 
-    {% set liste_conseils = conseils %}
-    <div class="conseils-grid">
-        {% for conseil in liste_conseils %}
-            <div class="Conseil">
-                <h2 class="Titre_sub_class">{{ conseil.Titre }}</h2>
-                <form action="?uri=conseils&conseil_id={{conseil.id}}" method="POST">
-                    <input type="hidden" name="conseil_id" value="{{conseil.id}}">
-                    <button class="b2" type="submit">Consulter</button>
-                </form>
+    <div class="Conseils">
+        <h1>Liste des Conseils</h1>
+        <p class="conseils-intro">Retrouve ici les conseils disponibles dans un affichage clair et cohérent avec Stage4All.</p>
+        <div class="nav_page">
+            {% set liste_conseils = conseils %}
+            <button class="fleche_gauche fleche" id="fleche_gauche1" onclick="scrollListe1(-70)"><</button>
+            <div class="Liste_conseils liste" id="liste1">
+                {% set liste_conseils = conseils %}
+                    {% for conseil in liste_conseils %}
+                        <div class="Conseil">
+                            <h2 class="Titre_sub_class">{{ conseil.Titre }}</h2>
+                            <form action="?uri=conseils&conseil_id={{conseil.id}}" method="POST">
+                                <input type="hidden" name="conseil_id" value="{{conseil.id}}">
+                                <button class="b2" type="submit">Consulter</button>
+                            </form>
+                        </div>
+                    {% endfor %}
             </div>
-        {% endfor %}
+            <button class="fleche_droite fleche" id="fleche_droite1" onclick="scrollListe1(70)">></button>
+        </div>
     </div>
-</section>
+
 {% endblock %}
