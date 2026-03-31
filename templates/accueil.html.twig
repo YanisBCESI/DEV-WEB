@@ -1,6 +1,6 @@
 {%  extends 'base.html.twig' %}
 
-{% bloc title %}Accueil - Stage4all{% endblock %}
+{% block title %}Accueil - Stage4all{% endblock %}
 
 {% block content %}
 
@@ -71,58 +71,19 @@
         <!--système d'ajout de pages d'Articles-->
     </div>
     <div class="Conseils">
-        <h2>Quelques conseils</h2>
         <div class="nav_page">
+            {% set liste_conseils = conseils %}
             <button class="fleche_gauche fleche" id="fleche_gauche3" onclick="scrollListe3(-70)"><</button>
             <div class="Liste_conseils liste" id="liste3">
+            {% for conseil in liste_conseils %}
                 <div class="Conseil">
-                    <h2 class="Titre_sub_class">Soigner son CV</h2>
-                    <p class="Texte_sub_class">Un CV clair, structuré et sans fautes augmente fortement vos chances dêtre retenu.</p>
-                    <button class="b2">Consulter</button>
+                    <h2 class="Titre_sub_class">{{ conseil.Titre }}</h2>
+                    <form action="?uri=conseil&id_offre={{conseil.id}}" method="POST">
+                        <input type="hidden" name="conseil_id" value="{{conseil.id}}">
+                        <button class="b2" type="submit">Consulter</button>
+                    </form>
                 </div>
-
-                <div class="Conseil">
-                    <h2 class="Titre_sub_class">Personnaliser sa candidature</h2>
-                    <p class="Texte_sub_class">Adaptez votre CV et votre lettre de motivation à chaque entreprise.</p>
-                    <button class="b2">Consulter</button>
-                </div>
-
-                <div class="Conseil">
-                    <h2 class="Titre_sub_class">Mettre en avant ses compétences</h2>
-                    <p class="Texte_sub_class">Présentez clairement les compétences utiles pour le poste visé.</p>
-                    <button class="b2">Consulter</button>
-                </div>
-
-                <div class="Conseil">
-                    <h2 class="Titre_sub_class">Se renseigner sur l'entreprise</h2>
-                    <p class="Texte_sub_class">Montrez votre intérêt en connaissant l'activité et les valeurs de l'entreprise.</p>
-                    <button class="b2">Consulter</button>
-                </div>
-
-                <div class="Conseil">
-                    <h2 class="Titre_sub_class">Préparer l'entretien</h2>
-                    <p class="Texte_sub_class">Anticipez les questions fréquentes pour être plus à l'aise le jour J.</p>
-                    <button class="b2">Consulter</button>
-                </div>
-
-                <div class="Conseil">
-                    <h2 class="Titre_sub_class">Soigner sa présence en ligne</h2>
-                    <p class="Texte_sub_class">Vérifiez que votre image sur internet reste professionnelle.</p>
-                    <button class="b2">Consulter</button>
-                </div>
-
-                <div class="Conseil">
-                    <h2 class="Titre_sub_class">Être clair et concis</h2>
-                    <p class="Texte_sub_class">Les recruteurs apprécient les candidatures simples et faciles à lire.</p>
-                    <button class="b2">Consulter</button>
-                </div>
-
-                <div class="Conseil">
-                    <h2 class="Titre_sub_class">Relancer sa candidature</h2>
-                    <p class="Texte_sub_class">Une relance polie peut montrer votre motivation.</p>
-                    <button class="b2">Consulter</button>
-                </div>
-                <!--systÃ¨me d'ajout de pages d'Articles-->
+            {% endfor %}
             </div>
             <button class="fleche_droite fleche" id="fleche_droite3" onclick="scrollListe3(70)">></button>
         </div>

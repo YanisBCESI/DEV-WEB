@@ -11,15 +11,13 @@
     {% set liste_conseils = conseils %}
     <div class="conseils-grid">
         {% for conseil in liste_conseils %}
-            <article class="conseil-card">
-                <div class="conseil-card-body">
-                    <h2>{{ conseil.Titre|default('Titre conseil') }}</h2>
-                <div class="conseil-actions">
-                        <input type="hidden" name="conseil_id" value="{{ conseil.id }}">
-                        <button class="b2" type="submit">Voir le conseil</button>
-                    </form>
-                </div>
-            </article>
+            <div class="Conseil">
+                <h2 class="Titre_sub_class">{{ conseil.Titre }}</h2>
+                <form action="?uri=conseil&id_offre={{conseil.id}}" method="POST">
+                    <input type="hidden" name="conseil_id" value="{{conseil.id}}">
+                    <button class="b2" type="submit">Consulter</button>
+                </form>
+            </div>
         {% endfor %}
     </div>
 </section>

@@ -29,4 +29,11 @@ class HomepageModel extends Model{
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+    public function getConseils(): array{
+        $stmt = $this->dbh->prepare("SELECT * FROM conseils");
+                $stmt->execute();
+                $resultats = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+                return $resultats;
+
+    }
 }
