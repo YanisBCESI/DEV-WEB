@@ -50,6 +50,9 @@ switch($uri){
         $HomepageController = new HomepageController($twig);
         $HomepageController->welcomePage();
         break;
+    case 'postuler':
+        $OffersController = new OffersController($twig);
+        $OffersController->postulerPage();
     case 'file_sent':
         $FileDepotController = new FileDepotController($twig);
         $FileDepotController->sendFile();
