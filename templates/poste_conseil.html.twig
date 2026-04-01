@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% set conseil = conseil|default([]) %}
 {% block title %} {{ conseil.Titre }} - Stage4all{% endblock %}
-{% block link %} {% endblock %}
+{% block link %} <link rel="stylesheet" href="/assets/style_mentions_legales.css"> {% endblock %}
 
 {% block content %}
-    <article>
+    <article class="legal-page">
         <h1>{{ conseil.Titre|default('Titre offre')}}</h1>
         <p>{{ conseil.Contenu|e|nl2br|raw }}</p>
     </article>
