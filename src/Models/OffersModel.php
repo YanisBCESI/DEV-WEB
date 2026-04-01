@@ -37,6 +37,45 @@ class OffersModel extends Model {
         $stmt = $this->dbh->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    /* Insère une nouvelle offre */
+    
+    public function createOffer(array $data) {
+        $sql = "INSERT INTO offres
+                    (entreprise_id, titre, type_contrat, secteur, localisation,
+                     description_offre, competences, remuneration, date_debut)
+                VALUES
+                    (:entreprise_id, :titre, :type_contrat, :secteur, :localisation,
+                     :description_offre, :competences, :remuneration, :date_debut)";
+
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->bindValue(':entreprise_id', $data['entreprise_id'], \PDO::PARAM_INT);
+        $stmt->bindValue(':titre', $data['titre']);
+        $stmt->bindValue(':type_contrat', $data['type_contrat']);
+        $stmt->bindValue(':secteur', $data['secteur']);
+        $stmt->bindValue(':localisation', $data['localisation']);
+        $stmt->bindValue(':description_offre', $data['description_offre']);
+        $stmt->bindValue(':competences', $data['competences']);
+        $stmt->bindValue(':remuneration', $data['remuneration'] ?: null);
+        $stmt->bindValue(':date_debut', $data['date_debut'] ?: null);
+
+        return $stmt->execute();
+    }
+    public function findEntrepriseIdByEmail(string $emailEntreprise) {
+    $sql = "SELECT entreprises.id
+            FROM entreprises
+            INNER JOIN comptes ON entreprises.compte_id = comptes.id
+            WHERE comptes.email = :email
+              AND comptes.role_id = '2'
+            LIMIT 1";
+
+    $stmt = $this->dbh->prepare($sql);
+    $stmt->execute([
+        ':email' => $emailEntreprise
+    ]);
+
+    return $stmt->fetch(\PDO::FETCH_ASSOC);
+}
     public function getOfferById($id){
         $sql = "SELECT
                     offres.*,

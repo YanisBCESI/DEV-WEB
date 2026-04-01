@@ -50,6 +50,9 @@ switch($uri){
         $HomepageController = new HomepageController($twig);
         $HomepageController->welcomePage();
         break;
+    case 'postuler':
+        $OffersController = new OffersController($twig);
+        $OffersController->postulerPage();
     case 'file_sent':
         $FileDepotController = new FileDepotController($twig);
         $FileDepotController->sendFile();
@@ -89,6 +92,10 @@ switch($uri){
     case 'student_profile':
         $AccountController = new AccountController($twig);
         $AccountController->studentProfilePage();
+        break;
+    case 'management_profile':
+        $AccountController = new AccountController($twig);
+        $AccountController->managementProfilePage();
         break;
     case 'student_document_upload':
         $AccountController = new AccountController($twig);

@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte {{ manager_profile.role_label|lower }} - Stage4all{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="/assets/style_student_profile.css">
+    <link rel="stylesheet" href="/assets/style_management_profile.css">
+{% endblock %}
+
+{% block content %}
+<section class="student-profile-page">
+    <div class="student-profile-card">
+        <div class="student-profile-section">
+            <h1>Mon compte {{ manager_profile.role_label|lower }}</h1>
+            <div class="student-profile-grid">
+                <div class="student-profile-item">
+                    <span class="student-profile-label">Role</span>
+                    <strong>{{ manager_profile.role_label }}</strong>
+                </div>
+                <div class="student-profile-item">
+                    <span class="student-profile-label">Adresse mail</span>
+                    <strong>{{ manager_profile.email }}</strong>
+                </div>
+                {% if manager_profile.role == 'pilote' %}
+                    <div class="student-profile-item">
+                        <span class="student-profile-label">Nom</span>
+                        <strong>{{ manager_profile.nom }}</strong>
+                    </div>
+                    <div class="student-profile-item">
+                        <span class="student-profile-label">Prenom</span>
+                        <strong>{{ manager_profile.prenom }}</strong>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="student-profile-divider"></div>
+
+        <div class="student-profile-section">
+            <h2 class="management-profile-subtitle">Acces rapides</h2>
+            <div class="management-profile-actions">
+                <a class="b2" href="?uri=admin_students">Gestion des etudiants</a>
+                {% if manager_profile.role == 'admin' %}
+                    <a class="b2" href="?uri=admin_pilots">Gestion des pilotes</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="student-profile-divider"></div>
+
+        <div class="student-profile-section student-profile-section-actions">
+            <a class="b2 student-logout-button" href="?uri=logout">Deconnexion</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
