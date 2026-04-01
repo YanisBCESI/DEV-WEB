@@ -1,0 +1,22 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}Postuler - Stage4all{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/assets/style_postuler.css">
+{% block script %}{% endblock %}
+
+{% block content %}
+    <div class="cader_recap_postuler cadre">
+        <h1>{{ data[3].titre }}</h1>
+        <h2>{{ data[3].type_contrat }}</h2>
+        <p>
+            Description : {{ data[3].description_offre }}<br>
+            Début : {{ data[3].date_debut }}<br>
+            Fin : {{ data[3].date_fin }}
+        </p>
+        <form method="post">
+            <input type="text" name="Lettre de motivation">
+        </form>
+
+
+    </div>
+{% endblock %}
