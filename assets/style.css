@@ -264,6 +264,17 @@ footer h2{
     justify-content: center;
 }
 
+.top-btn {
+  position: fixed;
+  right: 3vw;
+  bottom: 3vw;
+  height: 4vw;
+  width: 4vw;
+  border-radius: 50%;
+  font-size: 1.2rem; 
+  padding: 0;
+}
+
 
 @media (orientation: portrait) {
     .nav_PC{

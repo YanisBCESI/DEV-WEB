@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="stylesheet" href="/assets/style_index.css">
     <link rel="icon" type="image/png" href="/assets/images/icon.png">
+    <script src="/assets/script_btn.js" defer></script>
     {% block link %} <link> {% endblock %}
     {% block script %} <script></script> {% endblock %}
     {% block styles %}{% endblock %}
@@ -52,6 +53,7 @@
     <main class="contenu_page {% block body_class %}{% endblock %}">
         {% block content %}{% endblock %}
     </main>
+    <button id="topBtn" class="cadre top-btn">↑</button>
 
     <footer>
         <h2>Stage 4 All</h2>

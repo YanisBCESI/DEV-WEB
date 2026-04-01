@@ -27,37 +27,7 @@ function verifierFleches1(){
 
 liste1.addEventListener("scroll", verifierFleches1);
 window.addEventListener("load", verifierFleches1);
-/*
-const liste2 = document.getElementById("liste2");
-const gauche2 = document.getElementById("fleche_gauche2");
-const droite2 = document.getElementById("fleche_droite2");
 
-function scrollListe2(valeur){
-    liste2.scrollBy({
-        left: valeur * window.innerWidth / 100,
-        behavior: "smooth"
-    });
-}
-
-function verifierFleches2(){
-
-    if(liste2.scrollLeft <= 0){
-        gauche2.style.display = "none";
-    }else{
-        gauche2.style.display = "block";
-    }
-
-    if(liste2.scrollLeft + liste2.clientWidth >= liste2.scrollWidth - 1){
-        droite2.style.display = "none";
-    }else{
-        droite2.style.display = "block";
-    }
-
-}
-
-liste2.addEventListener("scroll", verifierFleches2);
-window.addEventListener("load", verifierFleches2);
-*/
 const liste3 = document.getElementById("liste3");
 const gauche3 = document.getElementById("fleche_gauche3");
 const droite3 = document.getElementById("fleche_droite3");
