@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ company.nom_entreprise }} - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_entreprise_detail.css">{% endblock %}
+
+{% block content %}
+<section class="company-detail-page">
+    <div class="company-detail-card">
+        {% if company_status_message %}
+            <p class="companies-message companies-message-{{ company_status_message.type }}">{{ company_status_message.text }}</p>
+        {% endif %}
+
+        <div class="company-detail-header">
+            <div>
+                <p class="company-detail-overline">{{ company.type_entreprise }} • {{ company.secteur }}</p>
+                <h1>{{ company.nom_entreprise }}</h1>
+                <p class="company-detail-rating">
+                    {{ company.moyenne_note is not null ? company.moyenne_note ~ '/5' : 'Non notee' }}
+                    • {{ company.offers_count }} offre{{ company.offers_count != 1 ? 's' : '' }}
+                </p>
+            </div>
+
+            <div class="company-detail-management">
+                {% if is_management_logged_in %}
+                    <a class="b2" href="?uri=entreprise_edit&id={{ company.id }}">Modifier</a>
+                    <form method="post" action="?uri=entreprise_delete&id={{ company.id }}" onsubmit="return confirm('Supprimer cette entreprise ? Les offres associees seront egalement supprimees.');">
+                        <button class="b2 b2-danger" type="submit">Supprimer</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="company-detail-grid">
+            <div class="company-detail-main">
+                <section class="company-section">
+                    <h2>Description</h2>
+                    <p>{{ company.description is not empty ? company.description : 'Aucune description disponible pour le moment.' }}</p>
+                </section>
+
+                <section class="company-section">
+                    <h2>Informations pratiques</h2>
+                    <div class="company-info-grid">
+                        <div class="company-info-item">
+                            <span>Adresse</span>
+                            <strong>{{ company.adresse }}</strong>
+                        </div>
+                        <div class="company-info-item">
+                            <span>Ville</span>
+                            <strong>{{ company.ville is not empty ? company.ville : 'Non renseignee' }}</strong>
+                        </div>
+                        <div class="company-info-item">
+                            <span>Code postal</span>
+                            <strong>{{ company.code_postal is not empty ? company.code_postal : 'Non renseigne' }}</strong>
+                        </div>
+                        <div class="company-info-item">
+                            <span>SIRET</span>
+                            <strong>{{ company.siret }}</strong>
+                        </div>
+                        <div class="company-info-item">
+                            <span>E-mail</span>
+                            <strong>{{ company.email }}</strong>
+                        </div>
+                        <div class="company-info-item">
+                            <span>Site web</span>
+                            <strong>
+                                {% if company.site_web is not empty %}
+                                    <a href="{{ company.site_web }}" target="_blank" rel="noreferrer">{{ company.site_web }}</a>
+                                {% else %}
+                                    Non renseigne
+                                {% endif %}
+                            </strong>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="company-detail-side">
+                <section class="company-section">
+                    <h2>Evaluations</h2>
+                    {% if evaluations is empty %}
+                        <p class="company-empty-copy">Aucune evaluation de gestion n'a encore ete deposee.</p>
+                    {% else %}
+                        <div class="company-reviews-list">
+                            {% for evaluation in evaluations %}
+                                <article class="company-review-card">
+                                    <div class="company-review-head">
+                                        <strong>{{ evaluation.author_label }}</strong>
+                                        <span>{{ evaluation.note }}/5</span>
+                                    </div>
+                                    <p class="company-review-date">Maj le {{ evaluation.updated_at }}</p>
+                                    <p>{{ evaluation.commentaire is not empty ? evaluation.commentaire : 'Aucun commentaire laisse.' }}</p>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </section>
+
+                {% if is_management_logged_in %}
+                    <section class="company-section">
+                        <h2>Evaluer cette entreprise</h2>
+
+                        {% if evaluation_message %}
+                            <p class="companies-message companies-message-{{ evaluation_message.type }}">{{ evaluation_message.text }}</p>
+                        {% endif %}
+
+                        <form class="company-rating-form" method="post" action="?uri=entreprise_rate&id={{ company.id }}">
+                            <label for="company_note">Note</label>
+                            <select id="company_note" name="note" required>
+                                <option value="">Choisir une note</option>
+                                {% for note in 1..5 %}
+                                    <option value="{{ note }}" {% if existing_evaluation and existing_evaluation.note == note %}selected{% endif %}>{{ note }}/5</option>
+                                {% endfor %}
+                            </select>
+
+                            <label for="company_commentaire">Commentaire</label>
+                            <textarea id="company_commentaire" name="commentaire" rows="5" placeholder="Partage ton avis sur cette entreprise">{{ existing_evaluation.commentaire|default('') }}</textarea>
+
+                            <button class="b2" type="submit">Enregistrer l'evaluation</button>
+                        </form>
+                    </section>
+                {% endif %}
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %}
