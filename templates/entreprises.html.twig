@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entreprises - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_entreprises.css">{% endblock %}
+
+{% block content %}
+<section class="companies-page">
+    <div class="companies-hero">
+        <div>
+            <h1>Entreprises</h1>
+            <p>Recherche, consulte et, selon ton role, gere les entreprises referencees sur la plateforme.</p>
+        </div>
+
+        {% if is_management_logged_in %}
+            <a class="b2 companies-create-link" href="?uri=entreprise_create">Creer une entreprise</a>
+        {% endif %}
+    </div>
+
+    {% if company_list_message %}
+        <p class="companies-message companies-message-{{ company_list_message.type }}">{{ company_list_message.text }}</p>
+    {% endif %}
+
+    <form class="companies-search-form" method="get" action="index.php">
+        <input type="hidden" name="uri" value="entreprises">
+        <input class="companies-search-input" type="search" name="search" value="{{ search }}" placeholder="Rechercher par nom, secteur, ville ou e-mail">
+        <button class="b2" type="submit">Rechercher</button>
+        {% if search is not empty %}
+            <a class="companies-reset-link" href="?uri=entreprises">Reinitialiser</a>
+        {% endif %}
+    </form>
+
+    {% if companies is empty %}
+        <div class="companies-empty">
+            <p>Aucune entreprise ne correspond a la recherche.</p>
+        </div>
+    {% else %}
+        <div class="companies-grid">
+            {% for company in companies %}
+                <article class="company-card">
+                    <div class="company-card-body">
+                        <div class="company-card-header">
+                            <h2>{{ company.nom_entreprise }}</h2>
+                            <span class="company-type-badge">{{ company.type_entreprise }}</span>
+                        </div>
+
+                        <p class="company-sector">{{ company.secteur }}</p>
+                        <p>{{ company.ville is not empty ? company.ville : 'Ville non renseignee' }}</p>
+                        <p>{{ company.email }}</p>
+                        <p class="company-description">
+                            {{ company.description|default('Aucune description disponible.')|striptags|slice(0, 170) }}{% if company.description is defined and company.description|length > 170 %}...{% endif %}
+                        </p>
+
+                        <div class="company-metrics">
+                            <span>{{ company.offers_count }} offre{{ company.offers_count != 1 ? 's' : '' }}</span>
+                            <span>{{ company.moyenne_note is not null ? company.moyenne_note ~ '/5' : 'Non notee' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="company-card-actions">
+                        <a class="b2" href="?uri=entreprise&id={{ company.id }}">Consulter</a>
+                        {% if is_management_logged_in %}
+                            <a class="b2 b2-secondary" href="?uri=entreprise_edit&id={{ company.id }}">Modifier</a>
+                        {% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

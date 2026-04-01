@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - Stage4all{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="/assets/style_inscription_entreprise.css">
+    <link rel="stylesheet" href="/assets/style_entreprise_form.css">
+{% endblock %}
+
+{% block content %}
+<section class="company-form-page">
+    <div class="company-form-header">
+        <div>
+            <h1>{{ page_title }}</h1>
+            <p>Utilise le formulaire entreprise existant, complete avec les informations de gestion attendues.</p>
+        </div>
+        <a class="b2" href="?uri=entreprises">Retour aux entreprises</a>
+    </div>
+
+    <div class="Contenu_page">
+        <section class="e_block1 company-form-card">
+            {% if company_form_message %}
+                <p class="companies-message companies-message-{{ company_form_message.type }}">{{ company_form_message.text }}</p>
+            {% endif %}
+
+            <form action="{{ form_action }}" method="post" class="e_form">
+                <input name="nom_entreprise" type="text" placeholder="Nom de l'entreprise" value="{{ company.nom_entreprise|default('') }}" required>
+
+                <div class="e_select">
+                    <select name="type_entreprise" required>
+                        <option value="" disabled {% if not company %}selected{% endif %}>Choisissez la taille</option>
+                        <option value="TPE" {% if company and company.type_entreprise == 'TPE' %}selected{% endif %}>TPE</option>
+                        <option value="PME" {% if company and company.type_entreprise == 'PME' %}selected{% endif %}>PME</option>
+                        <option value="ETI" {% if company and company.type_entreprise == 'ETI' %}selected{% endif %}>ETI</option>
+                        <option value="GE" {% if company and company.type_entreprise == 'GE' %}selected{% endif %}>GE</option>
+                    </select>
+
+                    <input name="secteur" type="text" placeholder="Secteur" value="{{ company.secteur|default('') }}" required>
+                </div>
+
+                <div class="e_select">
+                    <input name="siret" type="text" placeholder="N° SIRET" value="{{ company.siret|default('') }}" required class="e_input">
+                    <input name="adresse" type="text" placeholder="Adresse du siege social" value="{{ company.adresse|default('') }}" required class="e_input">
+                </div>
+
+                <div class="e_select">
+                    <input name="ville" type="text" placeholder="Ville" value="{{ company.ville|default('') }}">
+                    <input name="code_postal" type="text" placeholder="Code postal" value="{{ company.code_postal|default('') }}">
+                </div>
+
+                <input name="site_web" type="url" placeholder="Site web" value="{{ company.site_web|default('') }}" class="e_input">
+                <textarea name="description" placeholder="Description de l'entreprise" rows="6">{{ company.description|default('') }}</textarea>
+                <input name="email" type="email" placeholder="e-mail / login" value="{{ company.email|default('') }}" required class="e_input">
+                <input name="password" type="password" placeholder="{% if company %}Nouveau mot de passe (optionnel){% else %}Mot de passe{% endif %}" {% if not company %}required{% endif %} class="e_input">
+                <input name="password_confirm" type="password" placeholder="{% if company %}Confirmer le nouveau mot de passe{% else %}Confirmation{% endif %}" {% if not company %}required{% endif %} class="e_input">
+
+                <button class="b2 e_validation_button" type="submit">{{ submit_label }}</button>
+            </form>
+        </section>
+    </div>
+</section>
+{% endblock %}

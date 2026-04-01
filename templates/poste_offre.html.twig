@@ -1,20 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Offre - Stage4all{% endblock %}
-{% block link %} <link rel="stylesheet" href="/assets/style_consulter_offre.css"> {% endblock %}
+{% block title %}Offre - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_consulter_offre.css">{% endblock %}
 
 {% block content %}
 {% set offer = offre|default([]) %}
 <article class="offer-page">
     <div class="gauche">
-        <h1>{{ offer.titre|default('Titre offre')}}</h1>
-        <p>Dernière modif le : {{ offer.updated_at|default("JAMAIS MOUHAHAHA")}}
+        <h1>{{ offer.titre|default('Titre offre') }}</h1>
+        {% if offer.entreprise_id is defined %}
+            <p><a href="?uri=entreprise&id={{ offer.entreprise_id }}">{{ offer.nom_entreprise|default('Entreprise') }}</a></p>
+        {% endif %}
+        <p>Derniere modif le : {{ offer.updated_at|default('Jamais') }}</p>
         <h3>Domaine :</h3>
-        <p>{{ offer.secteur|default("Domaine offre")}}
-        <h3>Description de l'offre : </h3>
-        <p>{{ offer.description_offre|default("Description offre") }}</p>
-        <h3>Compétences conseillées : </h3>
-        <p>{{ offer.competences|default("Compétences demandées")}}</p>
+        <p>{{ offer.secteur|default('Domaine offre') }}</p>
+        <h3>Description de l'offre :</h3>
+        <p>{{ offer.description_offre|default('Description offre') }}</p>
+        <h3>Competences conseillees :</h3>
+        <p>{{ offer.competences|default('Competences demandees') }}</p>
     </div>
     <aside class="droit">
         {% if is_student_logged_in %}
@@ -27,9 +30,9 @@
             </form>
         {% endif %}
         <div class="bas">
-            <p>Localisation : {{ offer.localisation|default("Endroit de l'offre")}} </p>
-            <p>Rémunération : {{ offer.remuneration|default("X euros")}} </p>
-            <p>Dates : Entre le {{ offer.date_debut|default("DATE DEBUT")}} et le {{ offer.date_fin|default("DATE FIN")}} </p>
+            <p>Localisation : {{ offer.localisation|default("Endroit de l'offre") }}</p>
+            <p>Remuneration : {{ offer.remuneration|default('X euros') }}</p>
+            <p>Dates : Entre le {{ offer.date_debut|default('DATE DEBUT') }} et le {{ offer.date_fin|default('DATE FIN') }}</p>
         </div>
     </aside>
 </article>

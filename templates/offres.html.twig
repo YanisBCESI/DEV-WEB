@@ -23,7 +23,11 @@
                     <div class="offre-card-body">
                         <h2>{{ offre.titre|default('Titre Offre') }}</h2>
 
-                        <p>{{ offre.nom_entreprise|default('Entreprise non precisee') }}</p>
+                        <p>
+                            <a class="offre-company-link" href="?uri=entreprise&id={{ offre.entreprise_id }}">
+                                {{ offre.nom_entreprise|default('Entreprise non precisee') }}
+                            </a>
+                        </p>
                         <p>{{ offre.type_contrat|default('Contrat non precise') }}</p>
                         <p>{{ offre.localisation|default('Localisation non precisee') }}</p>
 

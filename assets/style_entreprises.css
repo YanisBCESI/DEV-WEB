@@ -1,0 +1,156 @@
+.companies-page {
+    width: min(1200px, calc(100% - 3rem));
+    margin: 3rem auto 4rem;
+}
+
+.companies-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.companies-hero h1 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.companies-hero p {
+    margin: 0;
+    color: #4f3f59;
+}
+
+.companies-create-link {
+    text-decoration: none;
+}
+
+.companies-message {
+    margin: 0 0 1rem;
+    font-weight: 600;
+}
+
+.companies-message-success {
+    color: #1f7a1f;
+}
+
+.companies-message-error {
+    color: #b42318;
+}
+
+.b2-secondary {
+    background-color: transparent;
+    border: 3px solid #a812ed;
+    color: #7b0ab1;
+}
+
+.companies-search-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.companies-search-input {
+    min-height: 58px;
+    padding: 0 1rem;
+    border: 1px solid #d9c0eb;
+    border-radius: 1rem;
+    font: inherit;
+}
+
+.companies-reset-link {
+    color: #7b0ab1;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.company-card,
+.companies-empty {
+    padding: 1.75rem;
+    background: #fff;
+    border: 3px solid #e7bdfa;
+    border-radius: 2rem;
+    box-shadow: 0 20px 45px rgba(168, 18, 237, 0.08);
+}
+
+.company-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.company-card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.company-card h2 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.company-type-badge {
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    background: #f6e7fd;
+    color: #7b0ab1;
+    font-weight: 600;
+}
+
+.company-sector {
+    margin-top: 0.9rem;
+    font-weight: 600;
+}
+
+.company-card-body p {
+    margin-bottom: 0.75rem;
+}
+
+.company-description {
+    color: #5b4568;
+    line-height: 1.6;
+}
+
+.company-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    color: #5b4568;
+    font-weight: 600;
+}
+
+.company-card-actions {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.companies-empty {
+    max-width: 460px;
+}
+
+@media (max-width: 900px) {
+    .companies-page {
+        width: min(100% - 1.5rem, 100%);
+        margin: 2rem auto 3rem;
+    }
+
+    .companies-hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .companies-search-form {
+        grid-template-columns: 1fr;
+    }
+}

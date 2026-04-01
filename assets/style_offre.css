@@ -56,6 +56,17 @@
     line-height: 1.5;
 }
 
+.offre-company-link {
+    color: #7b0ab1;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.offre-company-link:hover,
+.offre-company-link:focus-visible {
+    text-decoration: underline;
+}
+
 .offre-description {
     margin-top: auto;
     padding-top: 1.5rem;
