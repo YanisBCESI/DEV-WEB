@@ -286,20 +286,37 @@ class OffersController extends Controller{
         }
     }
 
-
+    public function send_postuler(){
+        $data = $this->offer_model->getDataFormed();
+        $id = $data[0];
+        $etudiant = $data[1];
+        $offre = $this->offer_model->getOfferById((int)$_GET["id_offre"]);
+        $statut = "envoyee";
+        $commentaire = $_POST["Lettre_motivation"];
+        $date_candidature = date("d-m-y");
+        $this->offer_model->write_postuler($id, $etudiant, $offre["id_offre"], $statut, $commentaire, $date_candidature);
+        header("Location: /");
+    }
 
     public function postulerPage(){
-        if(isset($_GET["id_offre"])){
+        if(isset($_GET["id_offre"]) and !isset($_GET["send"])){
             $data = $this->offer_model->getDataFormed();
             $id = $data[0];
             $etudiant = $data[1];
             $offre = $this->offer_model->getOfferById((int)$_GET["id_offre"]);
             $statut = "en attente";
             $date_candidature = date("d-m-y");
-            $data = [$id, $etudiant, $statut, $offre, $date_candidature];
+            $data = [$id, $etudiant, $statut, $offre, $date_candidature, $_GET["id_offre"]];
             echo $this->templateEngine->render("postuler.html.twig", ["data" => $data]);
-        }else{
+        }
+        else if (isset($_GET["send"])){
+            $this->send_postuler();
+        }
+        else{
             $this->offersPage();
         }
     }
+
+
+
 }

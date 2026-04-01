@@ -233,10 +233,24 @@ class OffersModel extends Model {
         return $stmt->execute();
     }
     public function getDataFormed(){
-        $sql = $this->dbh->prepare("SELECT Max(id) FROM candidatures as id");
+        $sql = $this->dbh->prepare("SELECT Max(id) FROM candidatures");
         $sql->execute();
-        $id = ($sql->fetch(\PDO::FETCH_ASSOC)["id"] ?? 0) + 1;
-        $etudiant = $currentStudent;
+        $id = $sql->fetch(\PDO::FETCH_ASSOC)["Max(id)"] ?? 0;
+        $id += 1;
+        $etudiant = $_SESSION["student"]["id"];
         $data = [$id, $etudiant];
+        return $data;
+    }
+
+    public function write_postuler($id, $etudiant_id, $offre_id, $statut, $commentaire, $date_candidature){
+        $sql = $this->dbh->prepare("INSERT INTO candidatures (id, etudiant_id, offre_id, statut, comaire, date_candidature)
+        VALUES (:id, :etudiant_id, :offre_id, :statut, :comaire, :date_candidature)");
+        $sql->bindValue(":id", $id);
+        $sql->bindValue(":etudiant_id",$etudiant_id);
+        $sql->bindValue(":offre_id",$offre_id);
+        $sql->bindValue(":statut",$statut);
+        $sql->bindValue(":comaire", $commentaire);
+        $sql->bindValue(":date_candidature",$date_candidature);
+        return $sql->execute();
     }
 }

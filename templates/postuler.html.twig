@@ -13,10 +13,10 @@
             Début : {{ data[3].date_debut }}<br>
             Fin : {{ data[3].date_fin }}
         </p>
-        <form method="post" class="formulaire_postuler">
+        <form method="POST" class="formulaire_postuler" action="?uri=postuler&send=1&id_offre={{ data[5] }}">
             <label for="Lettre_motivation">Lettre de motivation : </label>
-            <textarea id="Lettre_motivation" placeholder="Ecrire votre lettre de motivation ici"></textarea>
-            <input type="submit" class="b3">
+            <textarea name="Lettre_motivation" id="Lettre_motivation" placeholder="Ecrire votre lettre de motivation ici"></textarea>
+            <input type="submit" class="b3" >
         </form>
     </div>
 {% endblock %}
