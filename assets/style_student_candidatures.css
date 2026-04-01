@@ -1,0 +1,36 @@
+.candidature-description {
+    max-width: 260px;
+    color: #5b4568;
+    font-size: 0.95rem;
+}
+
+/* Badges de statut */
+.status {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* Couleurs selon statut */
+.status-envoyee {
+    background: #eef2ff;
+    color: #3730a3;
+}
+
+.status-vue {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.status-retenue {
+    background: #ecfdf3;
+    color: #027a48;
+}
+
+.status-refusee {
+    background: #fef3f2;
+    color: #b42318;
+}

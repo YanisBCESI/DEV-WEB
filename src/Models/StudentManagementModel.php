@@ -454,4 +454,34 @@ class StudentManagementModel extends Model{
             return "error";
         }
     }
+
+    public function getCandidaturesByStudentId(int $studentId): array {
+        $sql = "
+            SELECT 
+                c.id,
+                c.statut,
+                c.comaire,
+                c.date_candidature,
+
+                o.titre AS offre_titre,
+                o.type_contrat,
+                o.description_offre,
+
+                e.nom_entreprise AS entreprise_nom
+
+            FROM candidatures c
+            INNER JOIN offres o ON c.offre_id = o.id_offre
+            INNER JOIN entreprises e ON o.entreprise_id = e.id
+
+            WHERE c.etudiant_id = :student_id
+            ORDER BY c.date_candidature DESC
+        ";
+
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute([
+            "student_id" => $studentId
+        ]);
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

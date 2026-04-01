@@ -249,4 +249,17 @@ class StudentManagementController extends Controller{
         header("Location: ?uri=admin_students&student_status=" . $status);
         exit;
     }
+
+    public function getStudentCandidature(): void{
+        if (!isset($_SESSION["student"]["id"])){
+            header("Location : ?uri=connect");
+            exit;
+        }
+        $etudiantId = $_SESSION["student"]["id"];
+        $candidatures = $this->student_management_model->getCandidaturesByStudentId($etudiantId);
+        echo $this->templateEngine->render("student_candidatures.html.twig", [
+            "student" => $_SESSION["student"], 
+            "candidatures" => $candidatures,
+        ]);
+    }
 }

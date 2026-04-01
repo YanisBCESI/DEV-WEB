@@ -42,6 +42,9 @@
                 <a class="header-icon-link" href="?uri=wishlist" aria-label="Ma wishlist">
                     <img class="header-icon" src="{{ wishlist_icon_path }}" alt="wishlist">
                 </a>
+                <a class="header-icon-link" href="?uri=candidatures" aria-label="Mes candidatures">
+                    <img class="header-icon" src="/assets/images/postul.png" alt="candidatures">
+                </a>
             {% endif %}
 
             <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=student_profile{% elseif is_management_logged_in %}?uri=management_profile{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Mon profil etudiant{% elseif is_admin_logged_in %}Compte administrateur{% elseif is_pilot_logged_in %}Compte pilote{% else %}Se connecter{% endif %}">

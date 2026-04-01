@@ -215,6 +215,10 @@ switch($uri){
         $WishlistController = new WishlistController($twig);
         $WishlistController->removeOffer();
         break;
+    case "candidatures":
+        $StudentManagementController = new StudentManagementController($twig);
+        $StudentManagementController->getStudentCandidature();
+        break;
     default:
         http_response_code(404);
         echo "Page introuvable";
