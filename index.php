@@ -54,6 +54,7 @@ switch($uri){
     case 'postuler':
         $OffersController = new OffersController($twig);
         $OffersController->postulerPage();
+        break;
     case 'file_sent':
         $FileDepotController = new FileDepotController($twig);
         $FileDepotController->sendFile();

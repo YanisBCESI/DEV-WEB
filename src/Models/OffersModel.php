@@ -3,6 +3,8 @@
 namespace App\Models;
 
 class OffersModel extends Model {
+    public $data;
+    public $dbh;
 
     public function __construct($info = null){
         if(is_null($info)){
@@ -90,8 +92,9 @@ class OffersModel extends Model {
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
     public function getDataFormed(){
-        $sql = $pdo->query("SELECT Max(id) FROM candidatures as id");
-        $id = $sql->fetch(\PDO::FETCH_ASSOC)["id"] + 1;
+        $sql = $this->dbh->prepare("SELECT Max(id) FROM candidatures as id");
+        $sql->execute();
+        $id = ($sql->fetch(\PDO::FETCH_ASSOC)["id"] ?? 0) + 1;
         $etudiant = $currentStudent;
         $data = [$id, $etudiant];
     }

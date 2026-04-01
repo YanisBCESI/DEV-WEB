@@ -1,7 +1,7 @@
 {%  extends 'base.html.twig' %}
 
 {% block title %}Postuler - Stage4all{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/assets/style_postuler.css">
+{% block styles %}<link rel="stylesheet" href="/assets/style_postuler.css">{% endblock %}
 {% block script %}{% endblock %}
 
 {% block content %}
@@ -13,10 +13,10 @@
             Début : {{ data[3].date_debut }}<br>
             Fin : {{ data[3].date_fin }}
         </p>
-        <form method="post">
-            <input type="text" name="Lettre de motivation">
+        <form method="post" class="formulaire_postuler">
+            <label for="Lettre_motivation">Lettre de motivation : </label>
+            <textarea id="Lettre_motivation" placeholder="Ecrire votre lettre de motivation ici"></textarea>
+            <input type="submit" class="b3">
         </form>
-
-
     </div>
 {% endblock %}

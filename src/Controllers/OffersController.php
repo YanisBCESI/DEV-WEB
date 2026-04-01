@@ -124,7 +124,7 @@ class OffersController extends Controller {
 
     public function postulerPage(){
         if(isset($_GET["id_offre"])){
-            $data = this->Postuler_model->getDataFormed();
+            $data = $this->Offer_model->getDataFormed();
             $id = $data[0];
             $etudiant = $data[1];
             $offre = $this->Offer_model->getOfferById((int)$_GET["id_offre"]);
