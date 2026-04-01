@@ -50,4 +50,10 @@ class OffersModel extends Model {
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
+    public function getDataFormed(){
+        $sql = $pdo->query("SELECT Max(id) FROM candidatures as id");
+        $id = $sql->fetch(\PDO::FETCH_ASSOC)["id"] + 1;
+        $etudiant = $currentStudent;
+        $data = [$id, $etudiant];
+    }
 }
