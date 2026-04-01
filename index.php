@@ -90,6 +90,10 @@ switch($uri){
         $AccountController = new AccountController($twig);
         $AccountController->studentProfilePage();
         break;
+    case 'management_profile':
+        $AccountController = new AccountController($twig);
+        $AccountController->managementProfilePage();
+        break;
     case 'student_document_upload':
         $AccountController = new AccountController($twig);
         $AccountController->uploadStudentDocument();

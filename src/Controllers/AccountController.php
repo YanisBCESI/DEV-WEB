@@ -33,6 +33,19 @@ class AccountController extends Controller{
         ]);
     }
 
+    private function requireLoggedManager(): array{
+        if (isset($_SESSION["admin"]["id"])) {
+            return $_SESSION["admin"];
+        }
+
+        if (isset($_SESSION["pilot"]["id"])) {
+            return $_SESSION["pilot"];
+        }
+
+        header("Location: ?uri=connect");
+        exit;
+    }
+
     private function requireLoggedStudent(): int{
         if (!isset($_SESSION["student"]["id"])) {
             header("Location: ?uri=connect");
@@ -104,6 +117,21 @@ class AccountController extends Controller{
             "student_documents" => $this->getStudentDocuments($studentId),
             "upload_message" => $this->getUploadMessage($_GET["upload"] ?? null),
             "upload_success" => ($_GET["upload"] ?? null) === "success",
+        ]);
+    }
+
+    public function managementProfilePage(){
+        $manager = $this->requireLoggedManager();
+        $role = $manager["role"] ?? "";
+
+        echo $this->templateEngine->render("profil_gestion.html.twig", [
+            "manager_profile" => [
+                "role" => $role,
+                "role_label" => $role === "admin" ? "Administrateur" : "Pilote",
+                "nom" => $manager["nom"] ?? "Non renseigne",
+                "prenom" => $manager["prenom"] ?? "Non renseigne",
+                "email" => $manager["email"] ?? "Non renseigne",
+            ],
         ]);
     }
 
