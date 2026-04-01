@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AccountModel;
+use App\Models\AdminModel;
 
 class AccountController extends Controller{
     protected $account_model = null;
@@ -187,6 +188,16 @@ class AccountController extends Controller{
 
         $email = trim($_POST["email"] ?? "");
         $password = $_POST["password"] ?? "";
+        $adminModel = new AdminModel();
+        $admin = $adminModel->authenticateAdmin($email, $password);
+
+        if ($admin) {
+            unset($_SESSION["student"]);
+            $_SESSION["admin"] = $admin;
+            header("Location: ?uri=admin_pilots");
+            exit;
+        }
+
         $student = $this->account_model->authenticateStudent($email, $password);
 
         if (!$student) {
@@ -194,6 +205,7 @@ class AccountController extends Controller{
             exit;
         }
 
+        unset($_SESSION["admin"]);
         $_SESSION["student"] = $student;
 
         header("Location: ?uri=offres");
@@ -202,6 +214,7 @@ class AccountController extends Controller{
 
     public function logoutStudent(){
         unset($_SESSION["student"]);
+        unset($_SESSION["admin"]);
         header("Location: /");
         exit;
     }

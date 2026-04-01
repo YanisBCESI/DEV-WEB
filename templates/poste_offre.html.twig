@@ -17,9 +17,15 @@
         <p>{{ offer.competences|default("Compétences demandées")}}</p>
     </div>
     <aside class="droit">
-        <div class="haut">
-            <button class="apply">Postuler !</button>
-        </div>
+        {% if is_student_logged_in %}
+            <form class="haut" action="?uri=postuler&id_offre={{ offer.id_offre }}" method="POST">
+                <button class="apply" type="submit">Postuler !</button>
+            </form>
+        {% else %}
+            <form class="haut" action="?uri=connect" method="POST">
+                <button class="apply" type="submit">Connectez vous pour postuler.</button>
+            </form>
+        {% endif %}
         <div class="bas">
             <p>Localisation : {{ offer.localisation|default("Endroit de l'offre")}} </p>
             <p>Rémunération : {{ offer.remuneration|default("X euros")}} </p>

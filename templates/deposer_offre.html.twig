@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Déposer une offre - Stage4all{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/style_connection.css">
+    <link rel="stylesheet" href="/assets/style_offre.css">
+{% endblock %}
+
+{% block content %}
+
+<section class="offres-page">
+    <h1>Déposer une offre</h1>
+    <p class="offres-intro">Remplissez le formulaire ci‑dessous pour publier une nouvelle offre.</p>
+
+    <form action="?uri=creer_offre" method="post">
+        <div class="offre-form">
+            <input
+                name="email_entreprise"
+                type="email"
+                placeholder="Email de l'entreprise"
+                required
+                class="form-input"
+            >
+
+            <input
+                name="titre"
+                type="text"
+                placeholder="Titre de l'offre"
+                required
+                class="form-input"
+            >
+
+            <select name="type_contrat" required class="form-input">
+                <option value="" disabled selected>Type de contrat</option>
+                <option value="stage">Stage</option>
+                <option value="alternance">Alternance</option>
+                <option value="emploi">Emploi</option>
+            </select>
+
+            <input
+                name="secteur"
+                type="text"
+                placeholder="Secteur"
+                required
+                class="form-input"
+            >
+
+            <input
+                name="localisation"
+                type="text"
+                placeholder="Localisation"
+                required
+                class="form-input"
+            >
+
+            <textarea
+                name="description"
+                placeholder="Description de l'offre"
+                required
+                class="form-input form-textarea"
+            ></textarea>
+
+            <textarea
+                name="competences"
+                placeholder="Compétences recherchées"
+                required
+                class="form-input form-textarea"
+            ></textarea>
+
+            <input
+                name="remuneration"
+                type="text"
+                placeholder="Rémunération"
+                class="form-input"
+            >
+
+            <input
+                name="date_debut"
+                type="date"
+                class="form-input"
+            >
+
+            <button type="submit" class="b2">Publier l'offre</button>
+        </div>
+    </form>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+    {# Si tu veux réutiliser la logique JS de la wishlist, tu peux la copier ici #}
+{% endblock %}

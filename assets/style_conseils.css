@@ -1,0 +1,52 @@
+.nav_page{
+    display: flex;
+    flex-direction: row;
+    width: 85%;
+    align-items: center;
+    scroll-behavior: smooth;
+}
+
+.fleche{
+    border: none;
+    width: 5vw;
+    height: 30vw;
+    position: absolute;
+    background: rgba(255,255,255,0);
+    font-size: 5vw;
+    color: rgba(0,0,0,50%);
+}
+
+.fleche_gauche{
+    left: 7.5%;
+    background: linear-gradient(90deg, #F6E7FDFF,#F6E7FD00);
+}
+
+.fleche_droite{
+    right: 7.5%;
+    background: linear-gradient(90deg, #F6E7FD00,#F6E7FDFF);
+}
+
+.Liste_conseils{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5%;
+    overflow-x: hidden;
+    padding: 0 5%;
+}
+
+.Conseil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 16vw;
+    height: 16vw;
+    padding: 2vw;
+    border: solid var(--Couleur2) 0.2vw;
+    background-color: var(--Couleur3);
+    border-radius: 10%;
+}
