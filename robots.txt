@@ -1,0 +1,20 @@
+# robots.txt pour stage4all.fr
+User-agent: *
+
+# Pages d'administration et gestion privées à bloquer
+Disallow: /admin/
+Disallow: /private/
+Disallow: /logs/
+Disallow: /*admin_*
+Disallow: /*management_*
+Disallow: /*_create
+Disallow: /*_store
+Disallow: /*_edit
+Disallow: /*_update
+Disallow: /*_delete
+
+# Pages publiques autorisées
+Allow: /
+
+# Sitemap
+Sitemap: https://www.stage4all.fr/sitemap.xml
