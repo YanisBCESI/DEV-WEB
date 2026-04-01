@@ -1,0 +1,94 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Cookies - Stage4All{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_info_pages.css">{% endblock %}
+
+{% block content %}
+<section class="info-page info-page-cookies">
+    <div class="info-hero">
+        <div class="info-hero-copy">
+            <p class="info-kicker">Transparence</p>
+            <h1>Cookies</h1>
+            <p class="info-lead">
+                Sur Stage4All, les cookies servent avant tout a rendre la navigation plus fluide,
+                memoriser certaines preferences et comprendre les parcours les plus utiles.
+            </p>
+        </div>
+        <div class="info-hero-badge">
+            <span>Navigation</span>
+            <strong>Simple</strong>
+        </div>
+    </div>
+
+    <div class="info-card-grid">
+        <article class="info-card">
+            <h2>Ce qu'un cookie fait ici</h2>
+            <p>
+                Un cookie est un petit repere technique qui aide le site a se souvenir
+                d'un contexte de visite, d'une session ou d'une preference utile.
+            </p>
+        </article>
+        <article class="info-card">
+            <h2>Pourquoi on en utilise</h2>
+            <p>
+                Ils peuvent faciliter la connexion, stabiliser certains parcours et nous aider
+                a comprendre quelles pages sont les plus consultees.
+            </p>
+        </article>
+        <article class="info-card">
+            <h2>Ce qu'on evite</h2>
+            <p>
+                L'objectif n'est pas de surcharger l'experience, mais de garder un site clair,
+                rapide et plus confortable pour les etudiants, pilotes et administrateurs.
+            </p>
+        </article>
+    </div>
+
+    <section class="info-panel">
+        <div class="info-panel-header">
+            <h2>Les grandes familles</h2>
+            <p>Vue simple des usages possibles sur la plateforme.</p>
+        </div>
+
+        <div class="info-timeline">
+            <article class="info-timeline-item">
+                <span class="info-timeline-marker">01</span>
+                <div>
+                    <h3>Cookies essentiels</h3>
+                    <p>Ils soutiennent les fonctions de base comme l'acces, la session ou la stabilite du service.</p>
+                </div>
+            </article>
+            <article class="info-timeline-item">
+                <span class="info-timeline-marker">02</span>
+                <div>
+                    <h3>Cookies de confort</h3>
+                    <p>Ils servent a memoriser certains choix de navigation pour rendre l'experience plus continue.</p>
+                </div>
+            </article>
+            <article class="info-timeline-item">
+                <span class="info-timeline-marker">03</span>
+                <div>
+                    <h3>Cookies de mesure</h3>
+                    <p>Ils peuvent aider a identifier les pages les plus utiles et les parcours qui meritent d'etre ameliores.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="info-panel info-panel-accent">
+        <div class="info-panel-header">
+            <h2>En pratique</h2>
+        </div>
+        <div class="info-columns">
+            <div>
+                <h3>Tu veux mieux comprendre ?</h3>
+                <p>Cette page existe pour rendre le sujet lisible, sans jargon inutile, avec une logique orientee utilisateur.</p>
+            </div>
+            <div>
+                <h3>Tu veux de l'aide ?</h3>
+                <p><a class="info-inline-link" href="?uri=besoin_aide">Consulte la page Besoin d'aide</a> pour retrouver les points d'entree principaux du site.</p>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}
