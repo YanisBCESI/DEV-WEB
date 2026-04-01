@@ -303,19 +303,3 @@ class OffersController extends Controller{
         exit;
     }
 }
-
-    public function postulerPage(){
-        if(isset($_GET["id_offre"])){
-            $data = $this->Offer_model->getDataFormed();
-            $id = $data[0];
-            $etudiant = $data[1];
-            $offre = $this->Offer_model->getOfferById((int)$_GET["id_offre"]);
-            $statut = "en attente";
-            $date_candidature = date("d-m-y");
-            $data = [$id, $etudiant, $statut, $offre, $date_candidature];
-            echo $this->templateEngine->render("postuler.html.twig", ["data" => $data]);
-        }else{
-            $this->offersPage();
-        }
-    }
-}
