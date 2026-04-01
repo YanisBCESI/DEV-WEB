@@ -49,6 +49,48 @@ class AdminModel extends Model{
         ];
     }
 
+    public function authenticatePilot(string $email, string $password): ?array{
+        $stmt = $this->dbh->prepare(
+            "SELECT
+                comptes.id,
+                comptes.email,
+                comptes.mot_de_passe,
+                comptes.actif,
+                pilotes.id AS pilot_id,
+                pilotes.nom,
+                pilotes.prenom
+             FROM comptes
+             INNER JOIN pilotes ON pilotes.compte_id = comptes.id
+             WHERE comptes.email = :email AND comptes.role_id = 4
+             LIMIT 1"
+        );
+        $stmt->bindValue(":email", trim($email));
+        $stmt->execute();
+
+        $pilot = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$pilot) {
+            return null;
+        }
+
+        if ((int) ($pilot["actif"] ?? 0) !== 1) {
+            return null;
+        }
+
+        if (!$this->passwordMatches($password, (string) ($pilot["mot_de_passe"] ?? ""))) {
+            return null;
+        }
+
+        return [
+            "id" => (int) $pilot["id"],
+            "pilot_id" => (int) $pilot["pilot_id"],
+            "email" => $pilot["email"],
+            "nom" => $pilot["nom"],
+            "prenom" => $pilot["prenom"],
+            "role" => "pilote",
+        ];
+    }
+
     public function getAllPilots(): array{
         $stmt = $this->dbh->query(
             "SELECT
@@ -109,6 +151,48 @@ class AdminModel extends Model{
             $this->dbh->commit();
 
             return "created";
+        } catch (\PDOException $exception) {
+            if ($this->dbh->inTransaction()) {
+                $this->dbh->rollBack();
+            }
+
+            return "error";
+        }
+    }
+
+    public function deletePilotAccount(int $pilotId): string{
+        $stmt = $this->dbh->prepare(
+            "SELECT pilotes.id, pilotes.compte_id
+             FROM pilotes
+             WHERE pilotes.id = :pilot_id
+             LIMIT 1"
+        );
+        $stmt->bindValue(":pilot_id", $pilotId, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        $pilot = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+        if (!$pilot) {
+            return "not_found";
+        }
+
+        $this->dbh->beginTransaction();
+
+        try {
+            $deleteAccountStmt = $this->dbh->prepare(
+                "DELETE FROM comptes
+                 WHERE id = :account_id AND role_id = 4"
+            );
+            $deleteAccountStmt->bindValue(":account_id", (int) $pilot["compte_id"], \PDO::PARAM_INT);
+            $deleteAccountStmt->execute();
+
+            if ($deleteAccountStmt->rowCount() === 0) {
+                throw new \PDOException("Pilot account deletion failed.");
+            }
+
+            $this->dbh->commit();
+
+            return "deleted";
         } catch (\PDOException $exception) {
             if ($this->dbh->inTransaction()) {
                 $this->dbh->rollBack();

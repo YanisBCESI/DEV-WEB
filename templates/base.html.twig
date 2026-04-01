@@ -33,8 +33,8 @@
         </nav>
 
         <div class="header-actions">
-            {% if is_admin_logged_in %}
-                <a class="b2 header-admin-link" href="?uri=admin_pilots">Comptes</a>
+            {% if is_management_logged_in %}
+                <a class="b2 header-admin-link" href="?uri=admin_students">Etudiants</a>
             {% endif %}
 
             {% if is_student_logged_in %}
@@ -43,7 +43,7 @@
                 </a>
             {% endif %}
 
-            <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=student_profile{% elseif is_admin_logged_in %}?uri=admin_pilots{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Mon profil etudiant{% elseif is_admin_logged_in %}Gestion des comptes pilotes{% else %}Se connecter{% endif %}">
+            <a class="header-icon-link" href="{% if is_student_logged_in %}?uri=student_profile{% elseif is_management_logged_in %}?uri=admin_students{% else %}?uri=connect{% endif %}" aria-label="{% if is_student_logged_in %}Mon profil etudiant{% elseif is_admin_logged_in %}Gestion des comptes{% elseif is_pilot_logged_in %}Gestion de mes etudiants{% else %}Se connecter{% endif %}">
                 <img class="header-icon" src="/assets/images/compte.png" alt="compte">
             </a>
         </div>

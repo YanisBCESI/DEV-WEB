@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - Stage4all{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="/assets/style_admin_pilots.css">
+    <link rel="stylesheet" href="/assets/style_admin_students.css">
+{% endblock %}
+
+{% block content %}
+<section class="admin-pilots-page">
+    <div class="management-tabs">
+        <a class="management-tab management-tab-active" href="?uri=admin_students">Etudiants</a>
+        {% if manager.role == 'admin' %}
+            <a class="management-tab" href="?uri=admin_pilots">Pilotes</a>
+        {% endif %}
+    </div>
+
+    <div class="admin-pilots-hero">
+        <div>
+            <h1>{{ page_title }}</h1>
+            <p>
+                {% if student %}
+                    Mets a jour les informations du compte etudiant selectionne.
+                {% else %}
+                    Renseigne les informations du nouvel etudiant a rattacher a la plateforme.
+                {% endif %}
+            </p>
+        </div>
+        <a class="b2 admin-create-shortcut" href="?uri=admin_students">Retour a la liste</a>
+    </div>
+
+    <section class="admin-panel student-form-panel">
+        <div class="admin-panel-header">
+            <h2>Informations du compte</h2>
+        </div>
+
+        {% if student_form_message %}
+            <p class="admin-form-message admin-form-message-{{ student_form_message.type }}">{{ student_form_message.text }}</p>
+        {% endif %}
+
+        <form class="admin-pilot-form" action="{{ form_action }}" method="post">
+            <div class="admin-form-grid">
+                <input class="admin-input" type="text" name="nom" placeholder="Nom" value="{{ student.nom|default('') }}" required>
+                <input class="admin-input" type="text" name="prenom" placeholder="Prenom" value="{{ student.prenom|default('') }}" required>
+                <input class="admin-input admin-input-full" type="email" name="email" placeholder="Adresse e-mail" value="{{ student.email|default('') }}" required>
+
+                <select class="admin-input" name="genre" required>
+                    <option value="">Genre</option>
+                    <option value="femme" {% if student and student.genre == 'femme' %}selected{% endif %}>Femme</option>
+                    <option value="homme" {% if student and student.genre == 'homme' %}selected{% endif %}>Homme</option>
+                    <option value="autre" {% if student and student.genre == 'autre' %}selected{% endif %}>Autre</option>
+                </select>
+
+                {% if manager.role == 'admin' %}
+                    <select class="admin-input" name="pilot_id">
+                        <option value="">Aucun pilote rattache</option>
+                        {% for pilot in pilots %}
+                            <option value="{{ pilot.id }}" {% if student and student.pilot_id == pilot.id %}selected{% endif %}>
+                                {{ pilot.prenom }} {{ pilot.nom }}{% if pilot.email is not empty %} - {{ pilot.email }}{% endif %}
+                            </option>
+                        {% endfor %}
+                    </select>
+                {% else %}
+                    <input type="hidden" name="pilot_id" value="{{ manager.pilot_id }}">
+                    <div class="admin-input admin-readonly-field">
+                        Pilote rattache : {{ manager.prenom }} {{ manager.nom }}
+                    </div>
+                {% endif %}
+
+                <input class="admin-input" type="password" name="password" placeholder="{% if student %}Nouveau mot de passe (optionnel){% else %}Mot de passe{% endif %}" {% if not student %}required{% endif %}>
+                <input class="admin-input" type="password" name="password_confirm" placeholder="{% if student %}Confirmer le nouveau mot de passe{% else %}Confirmer le mot de passe{% endif %}" {% if not student %}required{% endif %}>
+            </div>
+
+            <div class="student-form-actions">
+                <button class="b2" type="submit">{{ submit_label }}</button>
+                <a class="student-cancel-link" href="?uri=admin_students">Annuler</a>
+            </div>
+        </form>
+    </section>
+</section>
+{% endblock %}

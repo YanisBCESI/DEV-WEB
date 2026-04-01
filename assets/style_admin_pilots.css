@@ -3,6 +3,34 @@
     margin: 3rem auto 4rem;
 }
 
+.management-tabs {
+    display: inline-flex;
+    gap: 0.75rem;
+    margin-bottom: 1.4rem;
+    padding: 0.4rem;
+    border-radius: 999px;
+    background: #f6e7fd;
+}
+
+.management-tab {
+    padding: 0.75rem 1.15rem;
+    border-radius: 999px;
+    color: #5b4568;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.management-tab:hover,
+.management-tab:focus-visible {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.management-tab-active {
+    background: #a812ed;
+    color: #fff;
+}
+
 .admin-pilots-hero {
     display: flex;
     justify-content: space-between;
@@ -52,6 +80,11 @@
     font-size: 1.5rem;
 }
 
+.admin-panel-subtitle {
+    margin: 0.35rem 0 0;
+    color: #5b4568;
+}
+
 .admin-count {
     padding: 0.45rem 0.85rem;
     border-radius: 999px;
@@ -83,6 +116,33 @@
 
 .admin-pilots-table td {
     vertical-align: top;
+}
+
+.pilot-genre-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.pilot-genre-actions form {
+    margin: 0;
+}
+
+.pilot-delete-button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #b42318;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.pilot-delete-button:hover,
+.pilot-delete-button:focus-visible {
+    text-decoration: underline;
 }
 
 .admin-empty {
@@ -135,6 +195,17 @@
     .admin-pilots-page {
         width: min(100% - 1.5rem, 100%);
         margin: 2rem auto 3rem;
+    }
+
+    .management-tabs {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .management-tab {
+        flex: 1;
+        text-align: center;
     }
 
     .admin-pilots-hero,

@@ -5,6 +5,11 @@
 
 {% block content %}
 <section class="admin-pilots-page">
+    <div class="management-tabs">
+        <a class="management-tab" href="?uri=admin_students">Etudiants</a>
+        <a class="management-tab management-tab-active" href="?uri=admin_pilots">Pilotes</a>
+    </div>
+
     <div class="admin-pilots-hero">
         <div>
             <h1>Comptes pilotes</h1>
@@ -40,7 +45,14 @@
                                     <td>{{ pilot.prenom }}</td>
                                     <td>{{ pilot.email }}</td>
                                     <td>{{ pilot.telephone is not empty ? pilot.telephone : 'Non renseigne' }}</td>
-                                    <td>{{ pilot.genre }}</td>
+                                    <td>
+                                        <div class="pilot-genre-actions">
+                                            <span>{{ pilot.genre }}</span>
+                                            <form method="post" action="?uri=admin_pilot_delete&id={{ pilot.id }}" onsubmit="return confirm('Supprimer ce compte pilote ? Les etudiants rattaches seront desassignes.');">
+                                                <button class="pilot-delete-button" type="submit">Supprimer</button>
+                                            </form>
+                                        </div>
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

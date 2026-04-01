@@ -13,6 +13,11 @@ class AdminController extends Controller{
     }
 
     private function requireLoggedAdmin(): array{
+        if (isset($_SESSION["pilot"]["id"])) {
+            header("Location: ?uri=admin_students&student_status=unauthorized");
+            exit;
+        }
+
         if (!isset($_SESSION["admin"]["id"])) {
             header("Location: ?uri=connect");
             exit;
@@ -27,6 +32,10 @@ class AdminController extends Controller{
                 "type" => "success",
                 "text" => "Le compte pilote a ete cree avec succes.",
             ],
+            "deleted" => [
+                "type" => "success",
+                "text" => "Le compte pilote a ete supprime.",
+            ],
             "invalid_data" => [
                 "type" => "error",
                 "text" => "Merci de remplir correctement tous les champs obligatoires.",
@@ -39,9 +48,13 @@ class AdminController extends Controller{
                 "type" => "error",
                 "text" => "Cette adresse e-mail est deja utilisee.",
             ],
+            "not_found" => [
+                "type" => "error",
+                "text" => "Le compte pilote demande est introuvable.",
+            ],
             "error" => [
                 "type" => "error",
-                "text" => "La creation du compte pilote a echoue.",
+                "text" => "L'operation sur le compte pilote a echoue.",
             ],
             default => null,
         };
@@ -100,6 +113,27 @@ class AdminController extends Controller{
         ]);
 
         header("Location: ?uri=admin_pilots&pilot_status=" . $status . "#pilot-create-form");
+        exit;
+    }
+
+    public function deletePilotAccount(): void{
+        $this->requireLoggedAdmin();
+
+        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+            header("Location: ?uri=admin_pilots");
+            exit;
+        }
+
+        $pilotId = isset($_GET["id"]) ? (int) $_GET["id"] : 0;
+
+        if ($pilotId <= 0) {
+            header("Location: ?uri=admin_pilots&pilot_status=not_found");
+            exit;
+        }
+
+        $status = $this->admin_model->deletePilotAccount($pilotId);
+
+        header("Location: ?uri=admin_pilots&pilot_status=" . $status);
         exit;
     }
 }
