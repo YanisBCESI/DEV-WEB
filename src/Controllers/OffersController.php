@@ -166,9 +166,16 @@ class OffersController extends Controller{
             exit;
         }
 
+        $offerApplications = [];
+
+        if (isset($_SESSION["admin"]["id"]) || isset($_SESSION["pilot"]["id"])) {
+            $offerApplications = $this->offer_model->getOfferApplications($offerId);
+        }
+
         echo $this->templateEngine->render("poste_offre.html.twig", [
             "offre" => $offre,
             "offer_message" => $this->getOfferListMessage($_GET["offer_status"] ?? null),
+            "offer_applications" => $offerApplications,
         ]);
     }
 

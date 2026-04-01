@@ -84,7 +84,8 @@
 
 .offer-block,
 .offer-meta-card,
-.offer-apply-box {
+.offer-apply-box,
+.offer-application-card {
     padding: 1.5rem;
     border-radius: 1.5rem;
     background: #fcf8ff;
@@ -136,6 +137,116 @@
 .offer-apply-box {
     display: flex;
     justify-content: center;
+}
+
+.offer-application-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.offer-application-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.offer-application-kicker {
+    margin: 0 0 0.3rem;
+    color: #7b0ab1;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.offer-application-card-header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+}
+
+.offer-application-count {
+    min-width: 2.5rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(168, 18, 237, 0.12);
+    color: #7b0ab1;
+    font-weight: 700;
+    text-align: center;
+}
+
+.offer-application-table-wrapper {
+    overflow-x: auto;
+}
+
+.offer-application-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.offer-application-table th,
+.offer-application-table td {
+    padding: 0.9rem 0.35rem;
+    border-bottom: 1px solid #ead7f5;
+    text-align: left;
+    vertical-align: top;
+}
+
+.offer-application-table th {
+    color: #6d5a77;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.offer-application-table td strong,
+.offer-application-table td span {
+    display: block;
+}
+
+.offer-application-table td span {
+    margin-top: 0.25rem;
+    color: #6d5a77;
+    font-size: 0.92rem;
+}
+
+.offer-application-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.offer-application-status-envoyee {
+    background: #efe6ff;
+    color: #7b0ab1;
+}
+
+.offer-application-status-vue {
+    background: #fff2cc;
+    color: #8a5a00;
+}
+
+.offer-application-status-retenue {
+    background: #e7f8ee;
+    color: #127a3f;
+}
+
+.offer-application-status-refusee {
+    background: #fde8e7;
+    color: #b42318;
+}
+
+.offer-application-empty {
+    margin: 0;
+    color: #6d5a77;
+    line-height: 1.7;
 }
 
 .apply {

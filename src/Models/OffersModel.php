@@ -146,6 +146,31 @@ class OffersModel extends Model {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function getOfferApplications(int $offerId): array{
+        $stmt = $this->dbh->prepare(
+            "SELECT
+                candidatures.id,
+                candidatures.statut,
+                candidatures.comaire,
+                candidatures.date_candidature,
+                etudiants.id AS student_id,
+                etudiants.nom,
+                etudiants.prenom,
+                COALESCE(comptes.email, etudiants.email) AS email,
+                TRIM(CONCAT(COALESCE(pilotes.prenom, ''), ' ', COALESCE(pilotes.nom, ''))) AS pilot_name
+             FROM candidatures
+             INNER JOIN etudiants ON etudiants.id = candidatures.etudiant_id
+             LEFT JOIN comptes ON comptes.id = etudiants.compte_id
+             LEFT JOIN pilotes ON pilotes.id = etudiants.pilote_id
+             WHERE candidatures.offre_id = :offer_id
+             ORDER BY candidatures.date_candidature DESC, etudiants.prenom ASC, etudiants.nom ASC"
+        );
+        $stmt->bindValue(":offer_id", $offerId, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function createOffer(array $data): bool{
         $stmt = $this->dbh->prepare(
             "INSERT INTO offres (

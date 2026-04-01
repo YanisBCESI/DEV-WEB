@@ -57,11 +57,55 @@
                     <p><span>Derniere maj</span><strong>{{ offer.updated_at|default('Jamais') }}</strong></p>
                 </div>
 
+                {% if is_management_logged_in %}
+                    <section class="offer-application-card">
+                        <div class="offer-application-card-header">
+                            <div>
+                                <p class="offer-application-kicker">Suivi</p>
+                                <h2>Candidatures recues</h2>
+                            </div>
+                            <span class="offer-application-count">{{ offer_applications|length }}</span>
+                        </div>
+
+                        {% if offer_applications is not empty %}
+                            <div class="offer-application-table-wrapper">
+                                <table class="offer-application-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Etudiant</th>
+                                            <th>Date</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for application in offer_applications %}
+                                            <tr>
+                                                <td>
+                                                    <strong>{{ application.prenom }} {{ application.nom }}</strong>
+                                                    <span>{{ application.email }}</span>
+                                                </td>
+                                                <td>{{ application.date_candidature|date('d/m/Y') }}</td>
+                                                <td>
+                                                    <span class="offer-application-status offer-application-status-{{ application.statut }}">
+                                                        {{ application.statut|replace({'envoyee': 'Envoyee', 'vue': 'Vue', 'retenue': 'Retenue', 'refusee': 'Refusee'}) }}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <p class="offer-application-empty">Aucun etudiant n'a encore postule a cette offre.</p>
+                        {% endif %}
+                    </section>
+                {% endif %}
+
                 {% if is_student_logged_in %}
                     <form class="offer-apply-box" action="?uri=postuler&id_offre={{ offer.id_offre }}" method="POST">
                         <button class="apply" type="submit">Postuler</button>
                     </form>
-                {% else %}
+                {% elseif not is_management_logged_in %}
                     <div class="offer-apply-box">
                         <a class="apply apply-link" href="?uri=connect">Connectez vous pour postuler</a>
                     </div>
