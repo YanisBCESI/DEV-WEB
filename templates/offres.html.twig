@@ -5,8 +5,60 @@
 
 {% block content %}
 <section class="offres-page">
-    <h1>Liste des offres</h1>
-    <p class="offres-intro">Retrouve ici les offres disponibles dans un affichage clair et coherent avec Stage4All.</p>
+    <div class="offers-hero">
+        <div>
+            <h1>Liste des offres</h1>
+            <p class="offres-intro">Recherche, consulte les offres disponibles et retrouve les principales statistiques de diffusion.</p>
+        </div>
+
+        {% if is_management_logged_in %}
+            <a class="b2 offers-create-link" href="?uri=creer_offre">Creer une offre</a>
+        {% endif %}
+    </div>
+
+    {% if offer_list_message %}
+        <p class="offers-message offers-message-{{ offer_list_message.type }}">{{ offer_list_message.text }}</p>
+    {% endif %}
+
+    <div class="offers-stats-grid">
+        <article class="offers-stat-card">
+            <span class="offers-stat-label">Total offres</span>
+            <strong>{{ offer_stats.total_offers }}</strong>
+        </article>
+        <article class="offers-stat-card">
+            <span class="offers-stat-label">Offres ouvertes</span>
+            <strong>{{ offer_stats.open_offers }}</strong>
+        </article>
+        <article class="offers-stat-card">
+            <span class="offers-stat-label">Vues cumulees</span>
+            <strong>{{ offer_stats.total_views }}</strong>
+        </article>
+        <article class="offers-stat-card">
+            <span class="offers-stat-label">Places proposees</span>
+            <strong>{{ offer_stats.total_places }}</strong>
+        </article>
+    </div>
+
+    <div class="offers-type-stats">
+        <span>Stages : {{ offer_stats.type_counts.stage }}</span>
+        <span>Alternances : {{ offer_stats.type_counts.alternance }}</span>
+        <span>Emplois : {{ offer_stats.type_counts.emploi }}</span>
+    </div>
+
+    <form class="offers-filter-form" method="get" action="index.php">
+        <input type="hidden" name="uri" value="offres">
+        <input class="offers-filter-input" type="search" name="search" value="{{ search }}" placeholder="Rechercher une offre, un secteur ou une entreprise">
+        <select class="offers-filter-input" name="type_contrat">
+            <option value="">Tous les contrats</option>
+            <option value="stage" {% if selected_contract_type == 'stage' %}selected{% endif %}>Stage</option>
+            <option value="alternance" {% if selected_contract_type == 'alternance' %}selected{% endif %}>Alternance</option>
+            <option value="emploi" {% if selected_contract_type == 'emploi' %}selected{% endif %}>Emploi</option>
+        </select>
+        <button class="b2" type="submit">Filtrer</button>
+        {% if search is not empty or selected_contract_type is not empty %}
+            <a class="offers-reset-link" href="?uri=offres">Reinitialiser</a>
+        {% endif %}
+    </form>
 
     {% set liste_offres = offres|default([]) %}
     {% set wishlist_ids = wishlist_offer_ids|default([]) %}
@@ -21,6 +73,11 @@
             {% for offre in liste_offres %}
                 <article class="offre-card">
                     <div class="offre-card-body">
+                        <div class="offre-card-topline">
+                            <span class="offer-contract-badge">{{ offre.type_contrat|default('Contrat') }}</span>
+                            <span class="offer-views-badge">{{ offre.nb_vues|default(0) }} vue{{ offre.nb_vues|default(0) > 1 ? 's' : '' }}</span>
+                        </div>
+
                         <h2>{{ offre.titre|default('Titre Offre') }}</h2>
 
                         <p>
@@ -28,8 +85,8 @@
                                 {{ offre.nom_entreprise|default('Entreprise non precisee') }}
                             </a>
                         </p>
-                        <p>{{ offre.type_contrat|default('Contrat non precise') }}</p>
                         <p>{{ offre.localisation|default('Localisation non precisee') }}</p>
+                        <p>{{ offre.secteur|default('Secteur non precise') }}</p>
 
                         <p class="offre-description">
                             {{ offre.description_offre|default('Phrase du stage')|striptags|slice(0, 180) }}{% if offre.description_offre is defined and offre.description_offre|length > 180 %}...{% endif %}
@@ -37,12 +94,14 @@
                     </div>
 
                     <div class="offre-actions">
-                        <form action="?uri=offres&id_offre={{ offre.id_offre }}" method="POST">
-                            <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
-                            <button class="b2" type="submit">Consulter</button>
-                        </form>
+                        <a class="b2" href="?uri=offres&id_offre={{ offre.id_offre }}">Consulter</a>
 
-                        {% if is_student_logged_in %}
+                        {% if is_management_logged_in %}
+                            <a class="b2 b2-secondary" href="?uri=offre_edit&id={{ offre.id_offre }}">Modifier</a>
+                            <form method="post" action="?uri=offre_delete&id={{ offre.id_offre }}" onsubmit="return confirm('Supprimer cette offre ?');">
+                                <button class="b2 b2-danger" type="submit">Supprimer</button>
+                            </form>
+                        {% elseif is_student_logged_in %}
                             {% if offre.id_offre in wishlist_ids %}
                                 <form class="wishlist-toggle-form" action="?uri=wishlist_remove" method="POST" data-add-url="?uri=wishlist_add" data-remove-url="?uri=wishlist_remove" data-add-label="Ajouter a ma wishlist" data-remove-label="Retirer de ma wishlist" data-in-wishlist="1">
                                     <input type="hidden" name="offre_id" value="{{ offre.id_offre }}">
@@ -63,28 +122,26 @@
                 </article>
             {% endfor %}
         </div>
+
         <div class="pagination">
             {% if page > 1 %}
-                <a href="?uri=offres&page={{ page - 1 }}">&#10094;</a>
+                <a href="?uri=offres&page={{ page - 1 }}{% if search is not empty %}&search={{ search|url_encode }}{% endif %}{% if selected_contract_type is not empty %}&type_contrat={{ selected_contract_type|url_encode }}{% endif %}">&#10094;</a>
             {% endif %}
 
             {% for i in 1..totalPages %}
                 {% if i == page %}
                     <span class="current">{{ i }}</span>
                 {% else %}
-                    <a href="?uri=offres&page={{ i }}">{{ i }}</a>
+                    <a href="?uri=offres&page={{ i }}{% if search is not empty %}&search={{ search|url_encode }}{% endif %}{% if selected_contract_type is not empty %}&type_contrat={{ selected_contract_type|url_encode }}{% endif %}">{{ i }}</a>
                 {% endif %}
             {% endfor %}
 
             {% if page < totalPages %}
-                <a href="?uri=offres&page={{ page + 1 }}">&#10095;</a>
+                <a href="?uri=offres&page={{ page + 1 }}{% if search is not empty %}&search={{ search|url_encode }}{% endif %}{% if selected_contract_type is not empty %}&type_contrat={{ selected_contract_type|url_encode }}{% endif %}">&#10095;</a>
             {% endif %}
         </div>
     {% endif %}
 </section>
-
-<a id="creer_offre" href="?uri=creer_offre">Créer une offre</a>
-
 {% endblock %}
 
 {% block scripts %}

@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - Stage4all{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_offer_form.css">{% endblock %}
+
+{% block content %}
+<section class="offer-form-page">
+    <div class="offer-form-hero">
+        <div>
+            <p class="offer-form-kicker">Gestion des offres</p>
+            <h1>{{ page_title }}</h1>
+            <p class="offer-form-intro">Renseigne les informations essentielles de l'offre pour la publier dans un format clair, propre et directement exploitable.</p>
+        </div>
+        <a class="b2" href="?uri=offres">Retour aux offres</a>
+    </div>
+
+    <div class="offer-form-shell">
+        <div class="offer-form-sidecard">
+            <h2>Avant publication</h2>
+            <ul class="offer-form-checklist">
+                <li>Associe l'offre a la bonne entreprise.</li>
+                <li>Soigne le titre et la localisation.</li>
+                <li>Precise clairement les competences attendues.</li>
+                <li>Indique un statut et un nombre de places coherent.</li>
+            </ul>
+        </div>
+
+        <section class="offer-form-card">
+            {% if offer_form_message %}
+                <p class="offer-form-message offer-form-message-{{ offer_form_message.type }}">{{ offer_form_message.text }}</p>
+            {% endif %}
+
+            <form class="offer-form-grid" action="{{ form_action }}" method="post">
+                <div class="offer-form-field offer-form-field-full">
+                    <label for="entreprise_id">Entreprise</label>
+                    <select id="entreprise_id" name="entreprise_id" required>
+                        <option value="">Selectionner une entreprise</option>
+                        {% for company in companies %}
+                            <option value="{{ company.id }}" {% if offer and offer.entreprise_id == company.id %}selected{% endif %}>{{ company.nom_entreprise }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="offer-form-field offer-form-field-full">
+                    <label for="titre">Titre de l'offre</label>
+                    <input id="titre" name="titre" type="text" value="{{ offer.titre|default('') }}" placeholder="Ex: Stage Developpeur Full-Stack" required>
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="type_contrat">Type de contrat</label>
+                    <select id="type_contrat" name="type_contrat" required>
+                        <option value="">Choisir</option>
+                        <option value="stage" {% if offer and offer.type_contrat == 'stage' %}selected{% endif %}>Stage</option>
+                        <option value="alternance" {% if offer and offer.type_contrat == 'alternance' %}selected{% endif %}>Alternance</option>
+                        <option value="emploi" {% if offer and offer.type_contrat == 'emploi' %}selected{% endif %}>Emploi</option>
+                    </select>
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="statut">Statut</label>
+                    <select id="statut" name="statut" required>
+                        <option value="">Choisir</option>
+                        <option value="ouverte" {% if offer and offer.statut == 'ouverte' %}selected{% endif %}>Ouverte</option>
+                        <option value="fermee" {% if offer and offer.statut == 'fermee' %}selected{% endif %}>Fermee</option>
+                        <option value="archivee" {% if offer and offer.statut == 'archivee' %}selected{% endif %}>Archivee</option>
+                    </select>
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="secteur">Secteur</label>
+                    <input id="secteur" name="secteur" type="text" value="{{ offer.secteur|default('') }}" placeholder="Informatique, Data, Commerce..." required>
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="localisation">Localisation</label>
+                    <input id="localisation" name="localisation" type="text" value="{{ offer.localisation|default('') }}" placeholder="Paris, Lyon, Remote..." required>
+                </div>
+
+                <div class="offer-form-field offer-form-field-full">
+                    <label for="description_offre">Description</label>
+                    <textarea id="description_offre" name="description_offre" rows="7" placeholder="Missions, contexte, objectifs..." required>{{ offer.description_offre|default('') }}</textarea>
+                </div>
+
+                <div class="offer-form-field offer-form-field-full">
+                    <label for="competences">Competences recherchees</label>
+                    <textarea id="competences" name="competences" rows="5" placeholder="Technologies, outils, savoir-etre..." required>{{ offer.competences|default('') }}</textarea>
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="remuneration">Remuneration</label>
+                    <input id="remuneration" name="remuneration" type="text" value="{{ offer.remuneration|default('') }}" placeholder="Ex: 1100 EUR/mois">
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="nb_places">Nombre de places</label>
+                    <input id="nb_places" name="nb_places" type="number" min="1" value="{{ offer.nb_places|default(1) }}" required>
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="date_debut">Date de debut</label>
+                    <input id="date_debut" name="date_debut" type="date" value="{{ offer.date_debut|default('') }}">
+                </div>
+
+                <div class="offer-form-field">
+                    <label for="date_fin">Date de fin</label>
+                    <input id="date_fin" name="date_fin" type="date" value="{{ offer.date_fin|default('') }}">
+                </div>
+
+                <div class="offer-form-actions offer-form-field-full">
+                    <button class="b2" type="submit">{{ submit_label }}</button>
+                    <a class="offer-form-cancel" href="?uri=offres">Annuler</a>
+                </div>
+            </form>
+        </section>
+    </div>
+</section>
+{% endblock %}

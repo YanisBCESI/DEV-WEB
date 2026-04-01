@@ -6,34 +6,68 @@
 {% block content %}
 {% set offer = offre|default([]) %}
 <article class="offer-page">
-    <div class="gauche">
-        <h1>{{ offer.titre|default('Titre offre') }}</h1>
-        {% if offer.entreprise_id is defined %}
-            <p><a href="?uri=entreprise&id={{ offer.entreprise_id }}">{{ offer.nom_entreprise|default('Entreprise') }}</a></p>
+    <section class="offer-main-card">
+        {% if offer_message %}
+            <p class="offer-message offer-message-{{ offer_message.type }}">{{ offer_message.text }}</p>
         {% endif %}
-        <p>Derniere modif le : {{ offer.updated_at|default('Jamais') }}</p>
-        <h3>Domaine :</h3>
-        <p>{{ offer.secteur|default('Domaine offre') }}</p>
-        <h3>Description de l'offre :</h3>
-        <p>{{ offer.description_offre|default('Description offre') }}</p>
-        <h3>Competences conseillees :</h3>
-        <p>{{ offer.competences|default('Competences demandees') }}</p>
-    </div>
-    <aside class="droit">
-        {% if is_student_logged_in %}
-            <form class="haut" action="?uri=postuler&id_offre={{ offer.id_offre }}" method="POST">
-                <button class="apply" type="submit">Postuler !</button>
-            </form>
-        {% else %}
-            <form class="haut" action="?uri=connect" method="POST">
-                <button class="apply" type="submit">Connectez vous pour postuler.</button>
-            </form>
-        {% endif %}
-        <div class="bas">
-            <p>Localisation : {{ offer.localisation|default("Endroit de l'offre") }}</p>
-            <p>Remuneration : {{ offer.remuneration|default('X euros') }}</p>
-            <p>Dates : Entre le {{ offer.date_debut|default('DATE DEBUT') }} et le {{ offer.date_fin|default('DATE FIN') }}</p>
+
+        <div class="offer-header">
+            <div>
+                <p class="offer-kicker">{{ offer.type_contrat|default('Contrat') }} - {{ offer.statut|default('ouverte') }}</p>
+                <h1>{{ offer.titre|default('Titre offre') }}</h1>
+                {% if offer.entreprise_id is defined %}
+                    <p class="offer-company-line">
+                        <a href="?uri=entreprise&id={{ offer.entreprise_id }}">{{ offer.nom_entreprise|default('Entreprise') }}</a>
+                    </p>
+                {% endif %}
+            </div>
+
+            {% if is_management_logged_in and offer.id_offre is defined %}
+                <div class="offer-management-actions">
+                    <a class="b2 b2-secondary" href="?uri=offre_edit&id={{ offer.id_offre }}">Modifier</a>
+                    <form method="post" action="?uri=offre_delete&id={{ offer.id_offre }}" onsubmit="return confirm('Supprimer cette offre ?');">
+                        <button class="b2 b2-danger" type="submit">Supprimer</button>
+                    </form>
+                </div>
+            {% endif %}
         </div>
-    </aside>
+
+        <div class="offer-layout">
+            <div class="offer-content">
+                <section class="offer-block">
+                    <h2>Description de l'offre</h2>
+                    <p>{{ offer.description_offre|default('Description non disponible.') }}</p>
+                </section>
+
+                <section class="offer-block">
+                    <h2>Competences conseillees</h2>
+                    <p>{{ offer.competences|default('Competences non precisees.') }}</p>
+                </section>
+            </div>
+
+            <aside class="offer-sidebar">
+                <div class="offer-meta-card">
+                    <p><span>Domaine</span><strong>{{ offer.secteur|default('Non renseigne') }}</strong></p>
+                    <p><span>Localisation</span><strong>{{ offer.localisation|default('Non renseignee') }}</strong></p>
+                    <p><span>Remuneration</span><strong>{{ offer.remuneration|default('Non renseignee') }}</strong></p>
+                    <p><span>Debut</span><strong>{{ offer.date_debut|default('Non renseigne') }}</strong></p>
+                    <p><span>Fin</span><strong>{{ offer.date_fin|default('Non renseignee') }}</strong></p>
+                    <p><span>Places</span><strong>{{ offer.nb_places|default(0) }}</strong></p>
+                    <p><span>Vues</span><strong>{{ offer.nb_vues|default(0) }}</strong></p>
+                    <p><span>Derniere maj</span><strong>{{ offer.updated_at|default('Jamais') }}</strong></p>
+                </div>
+
+                {% if is_student_logged_in %}
+                    <form class="offer-apply-box" action="?uri=postuler&id_offre={{ offer.id_offre }}" method="POST">
+                        <button class="apply" type="submit">Postuler</button>
+                    </form>
+                {% else %}
+                    <div class="offer-apply-box">
+                        <a class="apply apply-link" href="?uri=connect">Connectez vous pour postuler</a>
+                    </div>
+                {% endif %}
+            </aside>
+        </div>
+    </section>
 </article>
 {% endblock %}
