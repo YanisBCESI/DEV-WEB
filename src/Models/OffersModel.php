@@ -243,14 +243,30 @@ class OffersModel extends Model {
     }
 
     public function write_postuler($id, $etudiant_id, $offre_id, $statut, $commentaire, $date_candidature){
-        $sql = $this->dbh->prepare("INSERT INTO candidatures (id, etudiant_id, offre_id, statut, comaire, date_candidature)
-        VALUES (:id, :etudiant_id, :offre_id, :statut, :comaire, :date_candidature)");
-        $sql->bindValue(":id", $id);
-        $sql->bindValue(":etudiant_id",$etudiant_id);
-        $sql->bindValue(":offre_id",$offre_id);
-        $sql->bindValue(":statut",$statut);
-        $sql->bindValue(":comaire", $commentaire);
-        $sql->bindValue(":date_candidature",$date_candidature);
-        return $sql->execute();
+
+        $sql = $this->dbh->prepare("SELECT COUNT(*) AS nb
+                                    FROM candidatures
+                                    WHERE etudiant_id = :etudiant_id
+                                    AND offre_id = :offre_id;");
+        $sql->bindValue(":etudiant_id", $etudiant_id);
+        $sql->bindValue(":offre_id", $offre_id);
+        $sql->execute();
+        $result = $sql->fetch(\PDO::FETCH_ASSOC)["nb"];
+        if ($result > 0){
+            header("Location: ?uri=postuler&send=0&id_offre=" . $offre_id);
+
+        }
+        else{
+            $sql = $this->dbh->prepare("INSERT INTO candidatures (id, etudiant_id, offre_id, statut, comaire, date_candidature)
+            VALUES (:id, :etudiant_id, :offre_id, :statut, :comaire, :date_candidature)");
+            $sql->bindValue(":id", $id);
+            $sql->bindValue(":etudiant_id",$etudiant_id);
+            $sql->bindValue(":offre_id",$offre_id);
+            $sql->bindValue(":statut",$statut);
+            $sql->bindValue(":comaire", $commentaire);
+            $sql->bindValue(":date_candidature",$date_candidature);
+            $sql->execute();
+            header("Location: /");
+        }
     }
 }

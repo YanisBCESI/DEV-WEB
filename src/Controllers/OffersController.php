@@ -295,7 +295,6 @@ class OffersController extends Controller{
         $commentaire = $_POST["Lettre_motivation"];
         $date_candidature = date("d-m-y");
         $this->offer_model->write_postuler($id, $etudiant, $offre["id_offre"], $statut, $commentaire, $date_candidature);
-        header("Location: /");
     }
 
     public function postulerPage(){
@@ -307,10 +306,15 @@ class OffersController extends Controller{
             $statut = "en attente";
             $date_candidature = date("d-m-y");
             $data = [$id, $etudiant, $statut, $offre, $date_candidature, $_GET["id_offre"]];
+
             echo $this->templateEngine->render("postuler.html.twig", ["data" => $data]);
         }
-        else if (isset($_GET["send"])){
+        else if ($_GET["send"] === "1"){
             $this->send_postuler();
+        }
+        else if ($_GET["send"] === "0"){
+            $this->offersPage();
+            echo "<script>alert('Candidature déja envoyée');</script>";
         }
         else{
             $this->offersPage();
