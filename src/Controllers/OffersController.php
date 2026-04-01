@@ -286,20 +286,20 @@ class OffersController extends Controller{
         }
     }
 
-    public function postulerPage(): void{
-        $offerId = isset($_GET["id_offre"]) ? (int) $_GET["id_offre"] : 0;
 
-        if (!isset($_SESSION["student"]["id"])) {
-            header("Location: ?uri=connect");
-            exit;
+
+    public function postulerPage(){
+        if(isset($_GET["id_offre"])){
+            $data = $this->offer_model->getDataFormed();
+            $id = $data[0];
+            $etudiant = $data[1];
+            $offre = $this->offer_model->getOfferById((int)$_GET["id_offre"]);
+            $statut = "en attente";
+            $date_candidature = date("d-m-y");
+            $data = [$id, $etudiant, $statut, $offre, $date_candidature];
+            echo $this->templateEngine->render("postuler.html.twig", ["data" => $data]);
+        }else{
+            $this->offersPage();
         }
-
-        if ($offerId <= 0) {
-            header("Location: ?uri=offres&offer_status=not_found");
-            exit;
-        }
-
-        header("Location: ?uri=offres&id_offre=" . $offerId . "&offer_status=apply_unavailable");
-        exit;
     }
 }
