@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des etudiants - Stage4all{% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="/assets/style_admin_pilots.css">
+    <link rel="stylesheet" href="/assets/style_admin_students.css">
+{% endblock %}
+
+{% block content %}
+<section class="admin-pilots-page">
+    <div class="management-tabs">
+        <a class="management-tab management-tab-active" href="?uri=admin_students">Etudiants</a>
+        {% if manager.role == 'admin' %}
+            <a class="management-tab" href="?uri=admin_pilots">Pilotes</a>
+        {% endif %}
+    </div>
+
+    <div class="admin-pilots-hero">
+        <div>
+            <h1>
+                {% if manager.role == 'admin' %}
+                    Gestion des etudiants
+                {% else %}
+                    Mes etudiants
+                {% endif %}
+            </h1>
+            <p>
+                {% if manager.role == 'admin' %}
+                    Recherche, cree, modifie et supprime les comptes etudiants depuis l'espace d'administration.
+                {% else %}
+                    Gere uniquement les etudiants rattaches a ton compte pilote.
+                {% endif %}
+            </p>
+        </div>
+
+        <a class="b2 admin-create-shortcut" href="?uri=admin_student_create">Creer un compte etudiant</a>
+    </div>
+
+    {% if student_list_message %}
+        <p class="admin-form-message admin-form-message-{{ student_list_message.type }}">{{ student_list_message.text }}</p>
+    {% endif %}
+
+    <section class="admin-panel">
+        <div class="admin-panel-header">
+            <div>
+                <h2>Liste des etudiants</h2>
+                <p class="admin-panel-subtitle">Recherche par nom, prenom ou adresse e-mail.</p>
+            </div>
+            <span class="admin-count">{{ students_count }} etudiant{{ students_count != 1 ? 's' : '' }}</span>
+        </div>
+
+        <form class="student-search-form" method="get" action="index.php">
+            <input type="hidden" name="uri" value="admin_students">
+            <input class="admin-input" type="search" name="search" value="{{ search }}" placeholder="Rechercher un etudiant">
+            <button class="b2" type="submit">Rechercher</button>
+            {% if search is not empty %}
+                <a class="student-reset-link" href="?uri=admin_students">Reinitialiser</a>
+            {% endif %}
+        </form>
+
+        {% if students is empty %}
+            <p class="admin-empty">Aucun etudiant ne correspond a la recherche ou au perimetre de gestion du compte connecte.</p>
+        {% else %}
+            <div class="admin-table-wrapper">
+                <table class="admin-pilots-table student-management-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Email</th>
+                            <th>Genre</th>
+                            <th>Pilote</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                            <tr>
+                                <td>{{ student.nom }}</td>
+                                <td>{{ student.prenom }}</td>
+                                <td>{{ student.email is not empty ? student.email : 'Non renseigne' }}</td>
+                                <td>{{ student.genre }}</td>
+                                <td>{{ student.pilot_name is not empty ? student.pilot_name : 'Non assigne' }}</td>
+                                <td>
+                                    <div class="student-actions">
+                                        <a class="student-action-link" href="?uri=admin_student_edit&id={{ student.id }}">Modifier</a>
+                                        <form method="post" action="?uri=admin_student_delete&id={{ student.id }}" onsubmit="return confirm('Supprimer ce compte etudiant ?');">
+                                            <button class="student-action-link student-action-danger" type="submit">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

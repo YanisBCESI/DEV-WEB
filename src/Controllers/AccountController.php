@@ -85,12 +85,12 @@ class AccountController extends Controller{
             return filemtime($right) <=> filemtime($left);
         });
 
-        return array_map(function (string $path): array {
+        return array_map(function (string $path) use ($studentId): array {
             $storedName = basename($path);
 
             return [
                 "stored_name" => $storedName,
-                "label" => $storedName,
+                "label" => $this->formatStudentDocumentLabel($studentId, $storedName),
             ];
         }, $files);
     }
@@ -193,8 +193,19 @@ class AccountController extends Controller{
 
         if ($admin) {
             unset($_SESSION["student"]);
+            unset($_SESSION["pilot"]);
             $_SESSION["admin"] = $admin;
-            header("Location: ?uri=admin_pilots");
+            header("Location: ?uri=admin_students");
+            exit;
+        }
+
+        $pilot = $adminModel->authenticatePilot($email, $password);
+
+        if ($pilot) {
+            unset($_SESSION["student"]);
+            unset($_SESSION["admin"]);
+            $_SESSION["pilot"] = $pilot;
+            header("Location: ?uri=admin_students");
             exit;
         }
 
@@ -206,6 +217,7 @@ class AccountController extends Controller{
         }
 
         unset($_SESSION["admin"]);
+        unset($_SESSION["pilot"]);
         $_SESSION["student"] = $student;
 
         header("Location: ?uri=offres");
@@ -215,6 +227,7 @@ class AccountController extends Controller{
     public function logoutStudent(){
         unset($_SESSION["student"]);
         unset($_SESSION["admin"]);
+        unset($_SESSION["pilot"]);
         header("Location: /");
         exit;
     }
