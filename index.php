@@ -13,6 +13,7 @@ use App\Controllers\FileDepotController;
 use App\Controllers\AccountController;
 use App\Controllers\AdminController;
 use App\Controllers\StudentManagementController;
+use App\Controllers\EnterpriseManagementController;
 use App\Controllers\LegalController;
 use App\Controllers\ConseilsController;
 use App\Controllers\WishlistController;
@@ -57,6 +58,38 @@ switch($uri){
     case 'offres':
         $OffersController = new OffersController($twig);
         $OffersController->showOffer();
+        break;
+    case 'entreprises':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->companiesPage();
+        break;
+    case 'entreprise':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->companyDetailPage();
+        break;
+    case 'entreprise_create':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->createCompanyPage();
+        break;
+    case 'entreprise_store':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->storeCompany();
+        break;
+    case 'entreprise_edit':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->editCompanyPage();
+        break;
+    case 'entreprise_update':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->updateCompany();
+        break;
+    case 'entreprise_delete':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->deleteCompany();
+        break;
+    case 'entreprise_rate':
+        $EnterpriseManagementController = new EnterpriseManagementController($twig);
+        $EnterpriseManagementController->rateCompany();
         break;
     case 'creer_offre':
         $OffersController = new OffersController($twig);
