@@ -1,9 +1,9 @@
 <?php
 
 require __DIR__ . "/vendor/autoload.php";
-#ini_set("display_errors", 1);
-#ini_set("display_startup_errors", 1);
-#error_reporting(E_ALL);
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
+error_reporting(E_ALL);
 
 session_start();
 
@@ -22,8 +22,18 @@ $twig = new \Twig\Environment($loader, [
 ]);
 
 $currentStudent = $_SESSION["student"] ?? null;
+$currentAdmin = $_SESSION["admin"] ?? null;
+$currentPilot = $_SESSION["pilot"] ?? null;
+
+// Variables globales Twig
 $twig->addGlobal("current_student", $currentStudent);
+$twig->addGlobal("current_admin",   $currentAdmin);
+$twig->addGlobal("current_pilot",   $currentPilot);
+
 $twig->addGlobal("is_student_logged_in", isset($currentStudent["id"]));
+$twig->addGlobal("is_admin_logged_in",   isset($currentAdmin["id"]));
+$twig->addGlobal("is_pilot_logged_in",   isset($currentPilot["id"]));
+
 $twig->addGlobal("wishlist_icon_path", "/assets/images/30571.png");
 
 if(isset($_GET["uri"])){
