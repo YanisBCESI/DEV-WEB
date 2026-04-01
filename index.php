@@ -127,6 +127,14 @@ switch($uri){
         $LegalController = new LegalController($twig);
         $LegalController->legalNoticePage();
         break;
+    case 'cookies':
+        $LegalController = new LegalController($twig);
+        $LegalController->cookiesPage();
+        break;
+    case 'besoin_aide':
+        $LegalController = new LegalController($twig);
+        $LegalController->helpPage();
+        break;
     case 'account_created':
         $AccountController = new AccountController($twig);
         $AccountController->AccountInfoSent();

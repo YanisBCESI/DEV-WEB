@@ -1,0 +1,97 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Besoin d'aide - Stage4All{% endblock %}
+{% block link %}<link rel="stylesheet" href="/assets/style_info_pages.css">{% endblock %}
+
+{% block content %}
+<section class="info-page info-page-help">
+    <div class="info-hero">
+        <div class="info-hero-copy">
+            <p class="info-kicker">Orientation</p>
+            <h1>Besoin d'aide ?</h1>
+            <p class="info-lead">
+                Cette page a ete pensee comme un point de repere rapide pour comprendre ou aller
+                selon ce que tu veux faire sur Stage4All.
+            </p>
+        </div>
+        <div class="info-hero-badge">
+            <span>Support</span>
+            <strong>Guide</strong>
+        </div>
+    </div>
+
+    <div class="help-route-grid">
+        <article class="help-route-card">
+            <h2>Trouver une offre</h2>
+            <p>Parcours ideal si tu veux parcourir les annonces, consulter une fiche et reperer les opportunites.</p>
+            <a class="b2" href="?uri=offres">Voir les offres</a>
+        </article>
+        <article class="help-route-card">
+            <h2>Explorer les entreprises</h2>
+            <p>Pratique pour comparer les structures, lire leur description et consulter leurs informations principales.</p>
+            <a class="b2" href="?uri=entreprises">Voir les entreprises</a>
+        </article>
+        <article class="help-route-card">
+            <h2>Recevoir des conseils</h2>
+            <p>Utile si tu veux des reperes sur la recherche, la candidature ou la preparation de ton profil.</p>
+            <a class="b2" href="?uri=conseils">Voir les conseils</a>
+        </article>
+    </div>
+
+    <section class="info-panel">
+        <div class="info-panel-header">
+            <h2>Questions frequentes</h2>
+            <p>Une lecture rapide pour debloquer les situations les plus courantes.</p>
+        </div>
+
+        <div class="help-faq-grid">
+            <article class="help-faq-card">
+                <h3>Je veux me connecter</h3>
+                <p>Utilise l'icone de compte en haut a droite ou la page de connexion pour acceder a ton espace.</p>
+            </article>
+            <article class="help-faq-card">
+                <h3>Je suis admin ou pilote</h3>
+                <p>Le bouton Creation et la page compte te donnent un acces rapide aux espaces de gestion.</p>
+            </article>
+            <article class="help-faq-card">
+                <h3>Je cherche une entreprise precise</h3>
+                <p>La page Entreprises permet deja de rechercher par nom, secteur, ville ou e-mail.</p>
+            </article>
+            <article class="help-faq-card">
+                <h3>Je veux comprendre les cookies</h3>
+                <p><a class="info-inline-link" href="?uri=cookies">La page Cookies</a> explique leur usage de maniere simple et lisible.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="info-panel info-panel-accent">
+        <div class="info-panel-header">
+            <h2>Plan express</h2>
+        </div>
+
+        <div class="help-steps">
+            <article class="help-step">
+                <span>1</span>
+                <div>
+                    <h3>Explorer</h3>
+                    <p>Commence par parcourir les offres, les entreprises ou les conseils.</p>
+                </div>
+            </article>
+            <article class="help-step">
+                <span>2</span>
+                <div>
+                    <h3>Se connecter</h3>
+                    <p>Accede a ton espace si tu veux utiliser les fonctions personnalisees du site.</p>
+                </div>
+            </article>
+            <article class="help-step">
+                <span>3</span>
+                <div>
+                    <h3>Agir</h3>
+                    <p>Selon ton role, tu pourras gerer des comptes, des entreprises, des offres ou ton profil.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+</section>
+{% endblock %}
