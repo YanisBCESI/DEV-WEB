@@ -1,0 +1,174 @@
+.offer-form-page {
+    width: min(1220px, calc(100% - 3rem));
+    margin: 3rem auto 4rem;
+}
+
+.offer-form-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.offer-form-kicker {
+    margin: 0 0 0.4rem;
+    color: #7b0ab1;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.82rem;
+}
+
+.offer-form-hero h1 {
+    margin: 0 0 0.65rem;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+}
+
+.offer-form-intro {
+    margin: 0;
+    color: #4f3f59;
+    max-width: 720px;
+    line-height: 1.7;
+}
+
+.offer-form-shell {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.offer-form-sidecard,
+.offer-form-card {
+    background: #fff;
+    border: 3px solid #e7bdfa;
+    border-radius: 2rem;
+    box-shadow: 0 20px 45px rgba(168, 18, 237, 0.08);
+}
+
+.offer-form-sidecard {
+    padding: 1.75rem;
+    background:
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.85), transparent 45%),
+        linear-gradient(160deg, #f6e7fd 0%, #fff 65%);
+}
+
+.offer-form-sidecard h2 {
+    margin: 0 0 1rem;
+}
+
+.offer-form-checklist {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: #5b4568;
+    line-height: 1.8;
+}
+
+.offer-form-card {
+    padding: 2rem;
+}
+
+.offer-form-message {
+    margin: 0 0 1rem;
+    font-weight: 600;
+}
+
+.offer-form-message-success {
+    color: #1f7a1f;
+}
+
+.offer-form-message-error {
+    color: #b42318;
+}
+
+.offer-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+
+.offer-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.offer-form-field-full {
+    grid-column: 1 / -1;
+}
+
+.offer-form-field label {
+    color: #5b4568;
+    font-weight: 600;
+}
+
+.offer-form-field input,
+.offer-form-field select,
+.offer-form-field textarea {
+    width: 100%;
+    min-height: 58px;
+    padding: 0.95rem 1rem;
+    border: 1px solid #d9c0eb;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    font: inherit;
+    background: #fff;
+}
+
+.offer-form-field textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.offer-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.4rem;
+}
+
+.offer-form-cancel {
+    color: #7b0ab1;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.offer-form-cancel:hover,
+.offer-form-cancel:focus-visible {
+    text-decoration: underline;
+}
+
+@media (max-width: 980px) {
+    .offer-form-page {
+        width: min(100% - 1.5rem, 100%);
+        margin: 2rem auto 3rem;
+    }
+
+    .offer-form-hero,
+    .offer-form-shell {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .offer-form-sidecard,
+    .offer-form-card {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (max-width: 720px) {
+    .offer-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .offer-form-field-full {
+        grid-column: auto;
+    }
+
+    .offer-form-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

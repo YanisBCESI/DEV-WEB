@@ -99,6 +99,22 @@ switch($uri){
         $OffersController = new OffersController($twig);
         $OffersController->createOfferPage();
         break;
+    case 'offre_store':
+        $OffersController = new OffersController($twig);
+        $OffersController->storeOffer();
+        break;
+    case 'offre_edit':
+        $OffersController = new OffersController($twig);
+        $OffersController->editOfferPage();
+        break;
+    case 'offre_update':
+        $OffersController = new OffersController($twig);
+        $OffersController->updateOffer();
+        break;
+    case 'offre_delete':
+        $OffersController = new OffersController($twig);
+        $OffersController->deleteOffer();
+        break;
     case 'deposer_fichier':
         $FileDepotController = new FileDepotController($twig);
         $FileDepotController->filedepotPage();
