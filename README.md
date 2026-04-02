@@ -1,5 +1,7 @@
 # Stage 4 All
 
+Adresse de téléchargement du site : https://github.com/YanisBCESI/DEV-WEB
+
 Stage 4 All est une plateforme web développée en PHP dans le cadre d'un projet de développement web.
 Le site a pour objectif de mettre en relation plusieurs profils autour des offres de stage, d'alternance et d'emploi :
 
@@ -167,3 +169,10 @@ Projet_WEB/
 ├── info.php
 └── README.md
 ```
+Afin de pouvoir utiliser le site web dans l'état actuel, procédez ainsi : 
+
+- Créez un hôte virtuel sur votre machine
+- Glissez et décompressez le .zip associé au github (Menu principal -> Code -> Télécharger le ZIP) au sein du dossier associé à votre hôte virtuel
+- Accédez à l'adresse localhost associée
+- Paramétrez la base de donnée PHPMyAdmin avec le code SQL contenu dans src/Models/stage4all.sql (Créez une BDD stage4all et peuplez la via la commande suivante ```CREATE DATABASE stage4all; USE stage4all; *COPIEZ LE CODE DU FICHIER SQL ICI*```
+- Normalement tout devrait être bon, si vous souhaitez utiliser pleinement le site, il est néanmoins conseillé de créer un administrateur au préalable dans votre base de données PHPMyAdmin
