@@ -50,3 +50,19 @@
     background-color: var(--Couleur3);
     border-radius: 10%;
 }
+
+@media (orientation: portrait) {
+    .Conseil{
+        min-width: 16vh;
+        height: 16vh;
+    }
+
+    .Liste_conseils {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* scroll fluide iOS */
+    }
+
+    .fleche{
+        display: none !important;
+    }
+}
