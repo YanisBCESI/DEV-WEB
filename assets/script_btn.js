@@ -20,3 +20,17 @@ function gérerTopBtn(btn = topBtn, navbar = navBar) {
 }
 
 gérerTopBtn(topBtn, navBar);
+
+
+const burg = document.getElementById("burger");
+const nav = document.getElementById("nav_burg");
+
+
+burg.addEventListener("click", () =>{
+  if (nav.style.display === "flex"){
+    nav.style.display = "none";
+  }
+  else {
+    nav.style.display = "flex";
+  }
+});
