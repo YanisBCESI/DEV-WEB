@@ -55,4 +55,24 @@
             <button class="fleche_droite fleche" id="fleche_droite3" onclick="scrollListe3(70)">></button>
         </div>
     </div>
+
+    {% if show_cookie_banner|default(false) %}
+        <section class="Cookie_banner" aria-label="Banniere cookies">
+            <div class="Cookie_banner_texte">
+                <h2>Cookies</h2>
+                <p>
+                    Nous utilisons des cookies pour memoriser votre choix de consentement et, si vous acceptez,
+                    enregistrer votre visite sur le site. Vous pouvez accepter ou refuser ci-dessous.
+                </p>
+                <p>
+                    <a href="?uri=cookies">Consulter la politique cookies</a>
+                </p>
+            </div>
+
+            <form class="Cookie_banner_actions" method="post" action="/">
+                <button class="b2 Cookie_button_secondary" type="submit" name="cookie_action" value="reject">Refuser</button>
+                <button class="b2 Cookie_button_primary" type="submit" name="cookie_action" value="accept">Accepter</button>
+            </form>
+        </section>
+    {% endif %}
 {% endblock %}
