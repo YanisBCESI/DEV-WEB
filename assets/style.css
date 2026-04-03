@@ -422,6 +422,18 @@ footer h2{
         width: 4vh;
     }
 
+    .top-btn {
+        position: fixed;
+        right: 3vh;
+        top: 3vh;
+        height: 8vh;
+        width: 8vh;
+        border-radius: 50%;
+        font-size: 3em;
+        padding: 0;
+
+    }
+
 }
 
 
