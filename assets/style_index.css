@@ -212,6 +212,56 @@
 }
 
 @media (orientation: portrait) {
+
+    .Conseil{
+        min-width: 20vh;
+        height: 20vh;
+    }
+
+    .Offre{
+        min-width: 20vh;
+        height: 20vh;
+    }
+
+    .Offre h2{
+        font-size: 2em;
+    }
+
+    .Offre p{
+        font-size: 1.8em;
+    }
+
+    .fleche{
+        height: 25vh;
+        width: 5vh;
+    }
+
+    main>div{
+        padding: 0 0 !important;
+    }
+
+    .nav_page{
+        height: 35vh;
+    }
+
+    .nav_page>*{
+        gap: 5vh;
+    }
+
+    .Presentation{
+        height: 40vh;
+    }
+
+    .Liste_conseils,
+    .Liste_offres {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* scroll fluide iOS */
+    }
+
+    .fleche{
+        display: none !important;
+    }
+
     .Cookie_banner{
         right: 4vw;
         left: 4vw;

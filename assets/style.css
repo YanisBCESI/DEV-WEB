@@ -328,6 +328,38 @@ footer h2{
 
 
 @media (orientation: portrait) {
+
+    .b1{
+        height:5vh;
+        width:30vw;
+        border-radius: 2.5vh;
+        font-size: 2em;
+    }
+    .b2{
+        height:5vh;
+        width:20vw;
+        border-radius: 2.5vh;
+        font-size: 2em;
+    }
+    .b3{
+        height:5vh;
+        width:20vw;
+        border-radius: 2.5vh;
+        font-size: 2em;
+    }
+    .b4{
+        height:5vh;
+        width:20vw;
+        border-radius: 2.5vh;
+        font-size: 2em;
+    }
+
+    h2{
+        font-size: 1.8em !important;
+    }
+
+
+
     .nav_PC{
         display: none;
     }
@@ -376,7 +408,18 @@ footer h2{
     }
 
     footer{
+        display: flex;
+        flex-direction: column;
+        height: 25vh;
+    }
 
+    footer h2{
+        font-size: 3em;
+    }
+
+    footer a .Logo_connexion{
+        height: 4vh;
+        width: 4vh;
     }
 
 }
